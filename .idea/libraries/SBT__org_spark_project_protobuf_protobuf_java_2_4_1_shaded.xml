@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SBT: org.spark-project.protobuf:protobuf-java:2.4.1-shaded">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.spark-project.protobuf/protobuf-java/jars/protobuf-java-2.4.1-shaded.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

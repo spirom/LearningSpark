@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SBT: org.spark-project.akka:akka-slf4j_2.10:2.2.3-shaded-protobuf">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.spark-project.akka/akka-slf4j_2.10/bundles/akka-slf4j_2.10-2.2.3-shaded-protobuf.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
