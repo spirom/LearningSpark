@@ -27,7 +27,7 @@ object Ex3_MoreOperationsOnRDDs {
     // out in the right order, but the characters within a word do
     val words = sc.parallelize(Seq("Hello", "World"), 2)
     val chars = words.flatMap(w => w.iterator)
-    println(chars.map(c => c.toString()).reduce((s1, s2) => s1 + " " + s2))
+    println(chars.map(c => c.toString).reduce((s1, s2) => s1 + " " + s2))
 
     // groupBy
     val numbers = sc.parallelize(1 to 10, 4)
@@ -44,17 +44,23 @@ object Ex3_MoreOperationsOnRDDs {
     println("results found 4 times: " + mods.get(4))
     println("results found 7 times: " + mods.get(7))
 
-    // TODO: max, min
+    // max, min
+    println("maximum element = " + letters.max())
 
-    // TODO: first
+    // first
+    println("first element = " + letters.first())
 
-    // TODO: sample
+    // sample: notice this returns an RDD
+    println("random [fractional] sample without replacement: ")
+    letters.sample(false, 0.25, 42).foreach(println)
 
-    // TODO: sortBy
+    // sortBy
+    println("first element when reversed = " + letters.sortBy(v => v, false).first())
 
-    // TODO: take, takeOrdered, takeSample
-
-
-
+    // take, takeSample: these just return arrays
+    println("first five letters:")
+    letters.take(5).foreach(println)
+    println("random five letters without replacement:")
+    letters.takeSample(false, 5).foreach(println)
   }
 }

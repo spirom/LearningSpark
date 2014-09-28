@@ -3,7 +3,7 @@ import org.apache.spark.{SparkContext, SparkConf}
 
 object Ex4_Partitions {
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("Ex2_MoreOperationsOnRDDs").setMaster("local[4]")
+    val conf = new SparkConf().setAppName("Ex4_Partitions").setMaster("local[4]")
     val sc = new SparkContext(conf)
 
     // look at the distribution of numbers > 5 across partitions
