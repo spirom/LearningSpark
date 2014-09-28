@@ -74,18 +74,15 @@ object Ex3_CombiningRDDs {
         println("Exception caught: " + iae.getMessage)
     }
 
-    // the zipped RDDs also need to have the same number of elements --
-    // this is REALLY not pretty, because the Spark system fails to
-    // propagate the exception back to the caller, so the try/catch below
-    // actually fails to catch anything!!!
+    // the zipped RDDs also need to have the same number of elements
     val unequalCount = earlyLetters.zip(numbers)
     try {
       unequalCount foreach {
         case (c, i) => println(i + ":  " + c)
       }
     } catch {
-      case e: Exception =>
-        println("Exception caught: " + e.getMessage)
+      case se: SparkException =>
+        println("Exception caught: " + se.getMessage)
     }
 
     // zipPartitions gives us more control, se we can deal with weird cases

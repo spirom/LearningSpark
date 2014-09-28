@@ -10,5 +10,14 @@ object Ex5_Partitions {
     val numbers =  sc.parallelize(1 to 10, 4)
     numbers.foreachPartition(pi => println(pi.count(_ > 5)))
 
+    // TODO: ShuffledRDD
+
+    // TODO: coalesce
+
+    // TODO: repartition
+
+    // TODO: optional partition counts such as intersection and groupBy
+
+    // TODO: preferredLocations
   }
 }
