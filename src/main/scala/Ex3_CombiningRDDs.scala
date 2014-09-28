@@ -5,9 +5,9 @@ import org.apache.spark.{SparkException, SparkContext, SparkConf}
 
 import scala.collection.mutable.ListBuffer
 
-object Ex2_CombiningRDDs {
+object Ex3_CombiningRDDs {
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("Ex2_CombiningRDDs").setMaster("local[4]")
+    val conf = new SparkConf().setAppName("Ex3_CombiningRDDs").setMaster("local[4]")
     val sc = new SparkContext(conf)
 
     // put some data in an RDD

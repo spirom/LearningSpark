@@ -1,8 +1,8 @@
 import org.apache.spark.{SparkContext, SparkConf}
 
-object Ex3_MoreOperationsOnRDDs {
+object Ex4_MoreOperationsOnRDDs {
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("Ex2_MoreOperationsOnRDDs").setMaster("local[4]")
+    val conf = new SparkConf().setAppName("Ex4_MoreOperationsOnRDDs").setMaster("local[4]")
     val sc = new SparkContext(conf)
 
     // put some data in an RDD
