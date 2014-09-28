@@ -19,6 +19,14 @@ object Ex2_CombiningRDDs {
     val lettersAgain = consonants ++ vowels
     println("There really are " + lettersAgain.count() + " letters")
 
+    // union with duplicates, removed
+    val tooManyVowels = vowels ++ vowels
+    println("There aren't really " + tooManyVowels.count() + " vowels")
+    val justVowels = tooManyVowels.distinct()
+    println("There are actually " + justVowels.count() + " vowels")
+
+    // TODO: intersection
+
     // RDD of a different type
     val numbers = sc.parallelize(1 to 2, 2)
 
@@ -32,5 +40,9 @@ object Ex2_CombiningRDDs {
     indexed foreach {
       case (c, i) => println(i + ":  " + c)
     }
+
+    // TODO: zip
+
+    // TODO: zipPartitions
   }
 }
