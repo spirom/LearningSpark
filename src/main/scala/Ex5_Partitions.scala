@@ -1,10 +1,9 @@
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkContext, SparkConf}
 
-import scala.collection.{mutable, Iterator}
-import scala.collection.immutable.HashSet.HashSet1
-import scala.collection.mutable.ListBuffer
+import org.apache.spark.SparkContext._
 
+import scala.collection.{mutable, Iterator}
 
 object Ex5_Partitions {
 
@@ -76,17 +75,48 @@ object Ex5_Partitions {
     analyze(threePart)
     println("it is a " + threePart.getClass.getCanonicalName)
 
-    // a ShuffledRDD with interestign characteristics
+    val twoPart = some.coalesce(2, true)
+    println("subset in two partitions after a shuffle")
+    analyze(twoPart)
+    println("it is a " + twoPart.getClass.getCanonicalName)
+
+    val twoPartNoShuffle = some.coalesce(2, false)
+    println("subset in two partitions without a shuffle")
+    analyze(twoPartNoShuffle)
+    println("it is a " + twoPartNoShuffle.getClass.getCanonicalName)
+
+    // a ShuffledRDD with interesting characteristics
     val groupedNumbers = numbers.groupBy(n => if (n % 2 == 0) "even" else "odd")
     println("numbers grouped into 'odd' and 'even'")
     analyze(groupedNumbers)
     println("it is a " + groupedNumbers.getClass.getCanonicalName)
 
-    // TODO: preferredLocations
+    // preferredLocations
+    numbers.partitions.foreach(p => {
+      println("Partition: " + p.index)
+      numbers.preferredLocations(p).foreach(s => println("  Location: " + s))
+    })
 
-    // TODO: mapPartitions
+    // mapPartitions to achieve in-place grouping
+    // TODO: fix this example ot make it a bit more natural
 
+    val pairs = sc.parallelize(for (x <- 1 to 6; y <- 1 to x) yield ("S" + x, y), 4)
+    analyze(pairs)
 
+    val rollup = pairs.foldByKey(0, 4)(_ + _)
+    println("just rolling it up")
+    analyze(rollup)
 
+    def rollupFunc(i: Iterator[(String, Int)]) : Iterator[(String, Int)] = {
+      val m = new mutable.HashMap[String, Int]()
+      i.foreach {
+        case (k, v) => if (m.contains(k)) m(k) = m(k) + v else m(k) = v
+      }
+      m.iterator
+    }
+
+    val inPlaceRollup = pairs.mapPartitions(rollupFunc, true)
+    println("rolling it up really carefully")
+    analyze(inPlaceRollup)
   }
 }
