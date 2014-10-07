@@ -118,5 +118,7 @@ object Ex5_Partitions {
     val inPlaceRollup = pairs.mapPartitions(rollupFunc, true)
     println("rolling it up really carefully")
     analyze(inPlaceRollup)
+
+    // TODO: Partitioner
   }
 }
