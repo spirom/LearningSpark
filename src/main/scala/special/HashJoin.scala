@@ -56,6 +56,9 @@ object HashJoin {
     // being an RDD -- and we can implement a hash join by hand, effectively
     // broadcasting the hash table to each worker
     println("hash join result")
+    // NOTE: it may be tempting to use "collectAsMap" below instead of "collect",
+    // and simplify the joiner accordingly, but that only works if the keys
+    // are unique
     val joiner = new HashJoiner(smallRDD.collect())
     val hashJoined = joiner.joinOnLeft(largeRDD)
     hashJoined.collect().foreach(println)

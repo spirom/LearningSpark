@@ -119,6 +119,5 @@ object Ex5_Partitions {
     println("rolling it up really carefully")
     analyze(inPlaceRollup)
 
-    // TODO: Partitioner
   }
 }

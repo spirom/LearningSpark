@@ -72,9 +72,17 @@ object PairRDD {
     // notice how the partitioning is retained
     analyze(reducedInPlace)
 
-    // TODO: try to solve the problem described in
-    // TODO: http://stackoverflow.com/questions/26238794/spark-join-exponentially-slow
-    // TODO: by implementing a hash join
+    // another "out of the box" approach to the reduction is to use
+    // "aggregateByKey", which guarantees that all of the partitions
+    // can be reduced separately AND IN PARALLEL, and then the partial
+    // results can be combined combined -- essentially this relaxes
+    // the strict condition imposed on "reduceByKey" that the supplied
+    // function must be associative
+    val reducedRDD2 = pairsRDD.aggregateByKey(Int.MaxValue)(Math.min(_,_), Math.min(_,_))
+    analyze(reducedRDD2)
+
+    // TODO: come up with an interesting example of aggregateByKey that
+    // TODO: actually takes advantage of its generality
 
     // TODO: go to town with PairRDD and PairRDDFunctions
   }
