@@ -1,0 +1,2 @@
+{ "firstName": "John", "lastName": "Smith", "age": 25, "address": { "$state": "NY", "postalCode": "10021-3100" } }
+{ "firstName": "Fred", "lastName": "Flintstone", "age": 40, "address": { "$state": "PA", "postalCode": "1" } }
