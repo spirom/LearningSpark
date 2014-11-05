@@ -62,6 +62,10 @@ class QueueMaker(sc: SparkContext, ssc:StreamingContext) {
   }
 }
 
+// TODO: clean this up to have a separate file and queue example
+
+// TODO: show how to to accumulate results
+
 object Streaming {
   def main (args: Array[String]) {
     val conf = new SparkConf().setAppName("Streaming").setMaster("local[4]")
