@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/project" />
           </set>
         </option>
+        <option name="useAutoImport" value="true" />
       </SbtProjectSettings>
     </option>
   </component>

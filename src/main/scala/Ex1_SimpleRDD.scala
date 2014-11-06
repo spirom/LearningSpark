@@ -26,7 +26,7 @@ object Ex1_SimpleRDD {
     println(partitions.count())
     partitions.foreach(a => {
       println("Partition contents:" +
-        a.foldLeft("")((e, s) => e + " " + s))
+        a.foldLeft("")((s, e) => s + " " + e))
     })
   }
 }

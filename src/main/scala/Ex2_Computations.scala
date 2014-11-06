@@ -19,6 +19,8 @@ object Ex2_Computations {
     val numbers = sc.parallelize(1 to 10, 4)
     val bigger = numbers.map(n => n * 100)
     val biggerStill = bigger.map(n => n + 1)
+    val s = biggerStill.reduce(_ + _)
+    println("sum = " + s)
 
     println("numbers: id=" + numbers.id)
     println("bigger: id=" + bigger.id)
