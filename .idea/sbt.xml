@@ -5,7 +5,6 @@
       <SbtProjectSettings>
         <option name="createEmptyContentRootDirectories" value="true" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="jdk" value="1.7" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />

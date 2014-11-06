@@ -35,7 +35,7 @@ object Ex2_Computations {
 
     println("has moreNumbers been checkpointed? : " + moreNumbers.isCheckpointed)
     // set moreNumbers up to be checkpointed
-    sc.setCheckpointDir("c:/temp/sparkcps")
+    sc.setCheckpointDir("/tmp/sparkcps")
     moreNumbers.checkpoint()
     // it will only happen after we force the values to be computed
     println("NOW has it been checkpointed? : " + moreNumbers.isCheckpointed)
