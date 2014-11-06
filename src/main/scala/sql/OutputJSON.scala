@@ -43,7 +43,7 @@ object OutputJSON {
   }
 
   def main (args: Array[String]) {
-    val conf = new SparkConf().setAppName("JSON").setMaster("local[4]")
+    val conf = new SparkConf().setAppName("OutputJSON").setMaster("local[4]")
     val sc = new SparkContext(conf)
     val sqlContext = new org.apache.spark.sql.SQLContext(sc)
 
