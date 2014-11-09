@@ -1,4 +1,4 @@
-# The *LearningSpark* project
+# The **LearningSpark** project
 
 This project contains snippets of Scala code for illustrating various
 Apache Spark concepts.
