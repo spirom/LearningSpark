@@ -80,9 +80,12 @@ object Ex3_CombiningRDDs {
       unequalCount foreach {
         case (c, i) => println(i + ":  " + c)
       }
-    } catch {
-      case se: SparkException =>
+    }
+    catch {
+      case se: SparkException => {
+        val t = se.getMessage
         println("Exception caught: " + se.getMessage)
+      }
     }
 
     // zipPartitions gives us more control, se we can deal with weird cases
