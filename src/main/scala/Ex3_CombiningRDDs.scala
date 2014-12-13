@@ -20,6 +20,9 @@ object Ex3_CombiningRDDs {
     val consonants = letters.subtract(vowels)
     println("There are " + consonants.count() + " consonants")
 
+    val vowelsNotLetters = vowels.subtract(letters)
+    println("There are " + vowelsNotLetters.count() + " vowels that aren't letters")
+
     // union
     val lettersAgain = consonants ++ vowels
     println("There really are " + lettersAgain.count() + " letters")
@@ -29,6 +32,10 @@ object Ex3_CombiningRDDs {
     println("There aren't really " + tooManyVowels.count() + " vowels")
     val justVowels = tooManyVowels.distinct()
     println("There are actually " + justVowels.count() + " vowels")
+
+    // subtraction with duplicates
+    val what = tooManyVowels.subtract(vowels)
+    println("There are actually " + what.count() + " whats")
 
     // intersection
     val earlyLetters = sc.parallelize('a' to 'l', 2)

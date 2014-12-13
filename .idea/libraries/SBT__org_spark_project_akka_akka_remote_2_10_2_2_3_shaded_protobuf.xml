@@ -2,6 +2,7 @@
   <library name="SBT: org.spark-project.akka:akka-remote_2.10:2.2.3-shaded-protobuf">
     <CLASSES>
       <root url="jar://$USER_HOME$/.ivy2/cache/org.spark-project.akka/akka-remote_2.10/jars/akka-remote_2.10-2.2.3-shaded-protobuf.jar!/" />
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.spark-project.akka/akka-remote_2.10/bundles/akka-remote_2.10-2.2.3-shaded-protobuf.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.ivy2/cache/org.spark-project.akka/akka-remote_2.10/docs/akka-remote_2.10-2.2.3-shaded-protobuf-javadoc.jar!/" />
