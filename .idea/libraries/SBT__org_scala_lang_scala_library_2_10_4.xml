@@ -1,10 +1,11 @@
 <component name="libraryTable">
   <library name="SBT: org.scala-lang:scala-library:2.10.4" type="Scala">
     <properties>
+      <option name="languageLevel" value="Scala_2_10" />
       <compiler-classpath>
-        <root url="file://$USER_HOME$/Library/Caches/IdeaIC13/SBT/boot/scala-2.10.3/lib/scala-library.jar" />
-        <root url="file://$USER_HOME$/Library/Caches/IdeaIC13/SBT/boot/scala-2.10.3/lib/scala-compiler.jar" />
-        <root url="file://$USER_HOME$/Library/Caches/IdeaIC13/SBT/boot/scala-2.10.3/lib/scala-reflect.jar" />
+        <root url="file://$USER_HOME$/.sbt/boot/scala-2.10.4/lib/scala-compiler.jar" />
+        <root url="file://$USER_HOME$/.sbt/boot/scala-2.10.4/lib/scala-library.jar" />
+        <root url="file://$USER_HOME$/.sbt/boot/scala-2.10.4/lib/scala-reflect.jar" />
       </compiler-classpath>
     </properties>
     <CLASSES>
