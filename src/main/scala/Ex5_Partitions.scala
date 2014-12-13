@@ -10,7 +10,7 @@ object Ex5_Partitions {
   // create an easy way to look at the partitioning of an RDD
   def analyze[T](r: RDD[T]) : Unit = {
     val partitions = r.glom()
-    println(partitions.count() + " parititons")
+    println(partitions.count() + " partitions")
 
     // use zipWithIndex() to see the index of each partition
     // we need to loop sequentially so we can see them in order: use collect()
@@ -43,13 +43,13 @@ object Ex5_Partitions {
 
     // setting the number of partitions doesn't help (it was right anyway)
     val diffSamePart = numbers.subtract(some, 4)
-    println("the complement (explicit but same number of partitions:")
+    println("the complement (explicit but same number of partitions):")
     analyze(diffSamePart)
 
     // we can change the number but it also doesn't help
     // other methods such as intersection and groupBy allow this
     val diffMorePart = numbers.subtract(some, 6)
-    println("the complement (different number of partitions:")
+    println("the complement (different number of partitions):")
     analyze(diffMorePart)
     println("it is a " + diffMorePart.getClass.getCanonicalName)
 

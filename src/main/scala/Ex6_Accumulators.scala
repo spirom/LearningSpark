@@ -7,7 +7,7 @@ object Ex6_Accumulators {
     val conf = new SparkConf().setAppName("Ex6_Accumulators").setMaster("local[4]")
     val sc = new SparkContext(conf)
 
-    // an RDD with containing names
+    // an RDD containing names
     val words = sc.parallelize(Seq("Fred", "Bob", "Francis",
       "James", "Frederick", "Frank", "Joseph"), 4)
 
@@ -66,5 +66,7 @@ object Ex6_Accumulators {
     counts.value.foreach {
       case (initial, times) => println(times + " names start with '" + initial + "'")
     }
+
+    // TODO: spark.util.StatCounter
   }
 }
