@@ -4,11 +4,25 @@ import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkContext, SparkConf}
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql.catalyst.expressions.Row
-import org.apache.spark.sql.catalyst.types.{StringType, IntegerType, StructField, StructType}
+import org.apache.spark.sql.catalyst.types.{IntegerType, StructField, StructType}
 import org.apache.spark.sql.sources.{TableScan, RelationProvider}
 
-case class CustomRelation(partitions: Int)(@transient val sqlContext: SQLContext) extends TableScan {
-  val schema = StructType(Seq(
+//
+// Demonstrate the Spark SQL external data source API, but for
+// simplicity don't connect to an external system -- just create a
+// synthetic table whose size and partitioning are determined by
+// configuration parameters.
+//
+
+//
+// Extending TableScan allows us to describe the schema and
+// provide the rows when requested
+//
+case class MyTableScan(count: Int, partitions: Int)
+                      (@transient val sqlContext: SQLContext)
+  extends TableScan
+{
+  val schema: StructType = StructType(Seq(
     StructField("val", IntegerType, nullable = false),
     StructField("squared", IntegerType, nullable = false),
     StructField("cubed", IntegerType, nullable = false)
@@ -17,16 +31,24 @@ case class CustomRelation(partitions: Int)(@transient val sqlContext: SQLContext
   private def makeRow(i: Int): Row = Row(i, i*i, i*i*i)
 
   def buildScan: RDD[Row] = {
-    val values = (1 to 100).map(i => makeRow(i))
+    val values = (1 to count).map(i => makeRow(i))
     sqlContext.sparkContext.parallelize(values, partitions)
   }
+
 }
 
+//
+// Extending RelationProvider allows us to route configuration parameters into
+// our implementation -- this is the class we specify below when registering
+// temporary tables.
+//
 class CustomRP extends RelationProvider {
 
   def createRelation(sqlContext: SQLContext, parameters: Map[String, String]) = {
-    CustomRelation(parameters("partitions").toInt)(sqlContext)
+    MyTableScan(parameters("rows").toInt,
+      parameters("partitions").toInt)(sqlContext)
   }
+
 }
 
 object CustomRelationProvider {
@@ -35,13 +57,16 @@ object CustomRelationProvider {
     val sc = new SparkContext(conf)
     val sqlContext = new SQLContext(sc)
 
+    // register it as a temporary table to be queried
+    // (could register several of these with different parameter values)
     sqlContext.sql(
       s"""
         |CREATE TEMPORARY TABLE dataTable
         |USING sql.CustomRP
-        |OPTIONS (partitions '9')
+        |OPTIONS (partitions '9', rows '50')
       """.stripMargin)
 
+    // query the table we registered, using its column names
     val data =
       sqlContext.sql("SELECT * FROM dataTable ORDER BY val")
     data.foreach(println)
