@@ -3,9 +3,15 @@ package sql
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.{SparkContext, SparkConf}
 
+// a case class for our sample table
 case class Cust(id: Integer, name: String, sales: Double, discounts: Double, state: String)
 
+// an extra case class to show how UDFs can generate structure
 case class SalesDisc(sales: Double, discounts: Double)
+
+//
+// Show various ways to query in SQL using user-defined functions UDFs.
+//
 
 object UDF {
 
@@ -16,6 +22,7 @@ object UDF {
 
     import sqlContext.createSchemaRDD
 
+    // create an RDD with some data
     val custs = Seq(
       Cust(1, "Widget Co", 120000.00, 0.00, "AZ"),
       Cust(2, "Acme Widgets", 410500.00, 500.00, "CA"),
@@ -25,14 +32,15 @@ object UDF {
     )
     val customerTable = sc.parallelize(custs, 4)
 
-    // DSL usage
+    // DSL usage -- query using a UDF but without SQL
 
     def westernState(state: String) = Seq("CA", "OR", "WA", "AL").contains(state)
 
     import sqlContext._
+    println("filter using a DSL")
     customerTable.where('state)(westernState).select('id, 'name).foreach(println)
 
-    // SQL usage
+    // for SQL usage  we need to register the table
 
     sqlContext.registerRDDAsTable(customerTable, "customerTable")
 
@@ -40,6 +48,7 @@ object UDF {
 
     sqlContext.registerFunction("westernState", westernState _)
 
+    println("UDF in a WHERE")
     val westernStates =
       sqlContext.sql("SELECT * FROM customerTable WHERE westernState(state)")
     westernStates.foreach(println)
@@ -50,6 +59,7 @@ object UDF {
 
     sqlContext.registerFunction("manyCustomers", manyCustomers _)
 
+    println("UDF in a HAVING")
     val statesManyCustomers =
       sqlContext.sql(
         s"""
@@ -70,6 +80,8 @@ object UDF {
 
     sqlContext.registerFunction("stateRegion", stateRegion _)
 
+    println("UDF in a GROUP BY")
+    // note the grouping column repeated since it doesn't have an alias
     val salesByRegion =
       sqlContext.sql(
         s"""
@@ -79,12 +91,13 @@ object UDF {
         """.stripMargin)
     salesByRegion.foreach(println)
 
-    // results
+    // we can also apply a UDF to the result columns
 
     def discountRatio(sales: Double, discounts: Double) = discounts/sales
 
     sqlContext.registerFunction("discountRatio", discountRatio _)
 
+    println("UDF in a result")
     val customerDiscounts =
       sqlContext.sql(
         s"""
@@ -93,10 +106,13 @@ object UDF {
         """.stripMargin)
     customerDiscounts.foreach(println)
 
+    // we can make the UDF create nested structure in the results
+
     def makeStruct(sales: Double, disc:Double) = SalesDisc(sales, disc)
 
     sqlContext.registerFunction("makeStruct", makeStruct _)
 
+    println("UDF creating structured result")
     val withStruct =
       sqlContext.sql("SELECT id, sd.sales FROM (SELECT id, makeStruct(sales, discounts) AS sd FROM customerTable) AS d")
     withStruct.foreach(println)
