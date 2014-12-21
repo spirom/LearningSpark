@@ -25,11 +25,18 @@ object UDF {
     )
     val customerTable = sc.parallelize(custs, 4)
 
+    // DSL usage
+
+    def westernState(state: String) = Seq("CA", "OR", "WA", "AL").contains(state)
+
+    import sqlContext._
+    customerTable.where('state)(westernState).select('id, 'name).foreach(println)
+
+    // SQL usage
+
     sqlContext.registerRDDAsTable(customerTable, "customerTable")
 
     // WHERE clause
-
-    def westernState(state: String) = Seq("CA", "OR", "WA", "AL").contains(state)
 
     sqlContext.registerFunction("westernState", westernState _)
 
@@ -44,7 +51,13 @@ object UDF {
     sqlContext.registerFunction("manyCustomers", manyCustomers _)
 
     val statesManyCustomers =
-      sqlContext.sql("SELECT state, COUNT(id) AS custCount FROM customerTable GROUP BY state HAVING manyCustomers(custCount)")
+      sqlContext.sql(
+        s"""
+          |SELECT state, COUNT(id) AS custCount
+          |FROM customerTable
+          |GROUP BY state
+          |HAVING manyCustomers(custCount)
+         """.stripMargin)
     statesManyCustomers.foreach(println)
 
     // GROUP BY clause
@@ -58,7 +71,12 @@ object UDF {
     sqlContext.registerFunction("stateRegion", stateRegion _)
 
     val salesByRegion =
-      sqlContext.sql("SELECT SUM(sales), stateRegion(state) AS totalSales FROM customerTable GROUP BY stateRegion(state)")
+      sqlContext.sql(
+        s"""
+          |SELECT SUM(sales), stateRegion(state) AS totalSales
+          |FROM customerTable
+          |GROUP BY stateRegion(state)
+        """.stripMargin)
     salesByRegion.foreach(println)
 
     // results
@@ -68,17 +86,20 @@ object UDF {
     sqlContext.registerFunction("discountRatio", discountRatio _)
 
     val customerDiscounts =
-      sqlContext.sql("SELECT id, discountRatio(sales, discounts) AS ratio FROM customerTable")
+      sqlContext.sql(
+        s"""
+          |SELECT id, discountRatio(sales, discounts) AS ratio
+          |FROM customerTable
+        """.stripMargin)
     customerDiscounts.foreach(println)
 
     def makeStruct(sales: Double, disc:Double) = SalesDisc(sales, disc)
 
     sqlContext.registerFunction("makeStruct", makeStruct _)
 
-    val burp =
+    val withStruct =
       sqlContext.sql("SELECT id, sd.sales FROM (SELECT id, makeStruct(sales, discounts) AS sd FROM customerTable) AS d")
-    burp.foreach(println)
-
+    withStruct.foreach(println)
   }
 
 }
