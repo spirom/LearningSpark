@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SBT: org.sonatype.sisu.inject:cglib:2.2.1-v20090111:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.sonatype.sisu.inject/cglib/jars/cglib-2.2.1-v20090111.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SBT: org.spark-project.spark:unused:1.0.0:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.spark-project.spark/unused/jars/unused-1.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

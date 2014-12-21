@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SBT: org.eclipse.jetty:jetty-jndi:8.1.14.v20131031:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.eclipse.jetty/jetty-jndi/jars/jetty-jndi-8.1.14.v20131031.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

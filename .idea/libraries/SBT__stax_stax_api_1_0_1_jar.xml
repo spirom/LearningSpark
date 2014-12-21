@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SBT: stax:stax-api:1.0.1:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/stax/stax-api/jars/stax-api-1.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
