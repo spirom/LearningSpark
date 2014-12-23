@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="SBT: org.scalamacros:quasiquotes_2.10:2.0.1">
-    <CLASSES>
-      <root url="jar://$USER_HOME$/.ivy2/cache/org.scalamacros/quasiquotes_2.10/jars/quasiquotes_2.10-2.0.1.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="SBT: org.eclipse.jetty.orbit:javax.mail.glassfish:1.4.1.v201005082020">
-    <CLASSES>
-      <root url="jar://$USER_HOME$/.ivy2/cache/org.eclipse.jetty.orbit/javax.mail.glassfish/orbits/javax.mail.glassfish-1.4.1.v201005082020.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
