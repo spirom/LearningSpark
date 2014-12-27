@@ -7,11 +7,7 @@ import org.apache.spark.sql.catalyst.expressions.Row
 import org.apache.spark.sql.catalyst.types.{IntegerType, StructField, StructType}
 import org.apache.spark.sql.sources._
 
-import scala.collection.mutable.{HashMap, ListBuffer}
-import scala.collection.parallel.mutable
-
-// TODO: reorganize to look like external DB?
-// TODO: don't _completely_ filter the rows, to show its not necessary
+import scala.collection.mutable.{ArrayBuffer, HashMap}
 
 //
 // Demonstrate the Spark SQL external data source API, but for
@@ -20,30 +16,88 @@ import scala.collection.parallel.mutable
 // configuration parameters.
 //
 
-class MegaFilter(filters: Array[Filter]) {
+//
+// Simulate a database with an impoverished query language. A single table with
+// a fixed number of rows, and each row has an
+// integer key, and two more fields containing the key squared and cubed,
+// respectively. The only kind of query supported is an inclusive range
+// query on the key.
+//
 
-  val attrToFilters: Map[String, Array[Filter]] = filters
-    .map(f => (MegaFilter.getFilterAttribute(f), f))
+case class RangeDBRecord(key: Int, squared: Int, cubed: Int)
+
+class RangeIterator(begin: Int, end: Int) extends Iterator[RangeDBRecord] {
+  var pos: Int = begin
+
+  def hasNext: Boolean = pos <= end
+
+  def next(): RangeDBRecord = {
+    val rec = RangeDBRecord(pos, pos*pos, pos*pos*pos)
+    pos = pos + 1
+    rec
+  }
+}
+
+class RangeDB(numRecords: Int) {
+
+  def getRecords(min: Option[Int], max: Option[Int]): RangeIterator = {
+    new RangeIterator(min.getOrElse(1), max.getOrElse(numRecords))
+  }
+}
+
+//
+// The FilterInterpreter class contains everything
+// we need to interpret the filter language, both for constructing the query to
+// the back-end data engine and for filtering the rows it gives us.
+//
+
+class FilterInterpreter(allFilters: Array[Filter]) {
+
+  //
+  // First organize the filters into a map according to the columns they apply to
+  //
+  private val allAttrToFilters: Map[String, Array[Filter]] = allFilters
+    .map(f => (getFilterAttribute(f), f))
     .groupBy(attrFilter => attrFilter._1)
     .mapValues(a => a.map(p => p._2))
 
-  def apply(attr: String, v: Int): Boolean = {
-    val filters = attrToFilters.getOrElse(attr, new Array[Filter](0))
-    MegaFilter.satisfiesAll(v, filters)
-  }
+  //
+  // pull out the parts of the filters we'll push out to the back-and data engine
+  //
+  val (min, max, otherKeyFilters) = splitKeyFilter
 
-  def apply(r: HashMap[String, Int]): Boolean = {
+  //
+  // and tidy up the remaining folters that we'll apply to records returned
+  //
+  private val attrToFilters = allAttrToFilters - "val" + ("val" -> otherKeyFilters)
+
+  //
+  // Apply the filters to a returned record
+  //
+  def apply(r: Map[String, Int]): Boolean = {
     r.forall({
       case (attr, v) => {
         val filters = attrToFilters.getOrElse(attr, new Array[Filter](0))
-        MegaFilter.satisfiesAll(v, filters)
+        satisfiesAll(v, filters)
       }
     })
   }
 
-}
+  private def splitKeyFilter: (Option[Int], Option[Int], Array[Filter]) = {
+    val keyFilters = allAttrToFilters.getOrElse("val", new Array[Filter](0))
+    var min: Option[Int] = None
+    var max: Option[Int] = None
+    val others = new ArrayBuffer[Filter](0)
+    keyFilters.foreach({
+      case GreaterThan(attr, v) => min = Some(v.asInstanceOf[Int] + 1)
+      case LessThan(attr, v) => max = Some(v.asInstanceOf[Int] - 1)
+      case GreaterThanOrEqual(attr, v) => min = Some(v.asInstanceOf[Int])
+      case LessThanOrEqual(attr, v) => max = Some(v.asInstanceOf[Int])
+      case _ => others.++=: _
+    })
+    (min, max, others.toArray)
+  }
 
-object MegaFilter {
    private def getFilterAttribute(f: Filter): String = {
     f match {
       case EqualTo(attr, v) => attr
@@ -55,7 +109,7 @@ object MegaFilter {
     }
   }
 
-  def satisfiesAll(value: Int, filters: Array[Filter]): Boolean = {
+  private def satisfiesAll(value: Int, filters: Array[Filter]): Boolean = {
     filters.forall({
       case EqualTo(attr, v) => value == v.asInstanceOf[Int]
       case GreaterThan(attr, v) => value > v.asInstanceOf[Int]
@@ -75,45 +129,44 @@ case class MyPFTableScan(count: Int, partitions: Int)
                       (@transient val sqlContext: SQLContext)
   extends PrunedFilteredScan {
 
+  // instantiate the (fake) back-end storage engine
+  val db = new RangeDB(count)
+
   val schema: StructType = StructType(Seq(
     StructField("val", IntegerType, nullable = false),
     StructField("squared", IntegerType, nullable = false),
     StructField("cubed", IntegerType, nullable = false)
   ))
 
-  // NOTE: it's not enough to merely produce the right columns:
-  // they must be produced in the order requested, which may be different
-  // from the order specified when returning the schema
-  private def makeRow(i: Int, requiredColumns: Array[String]): HashMap[String, Int] = {
+  // massage a back-end row into a map for uniformity
+  private def makeMap(rec: RangeDBRecord): Map[String, Int] = {
     val m = new HashMap[String, Int]()
-    if (requiredColumns.contains("val")) m += ("val" -> i)
-    if (requiredColumns.contains("squared")) m += ("squared" -> i*i)
-    if (requiredColumns.contains("cubed")) m += ("cubed" -> i*i*i)
-    m
+    m += ("val" -> rec.key)
+    m += ("squared" -> rec.squared)
+    m += ("cubed" -> rec.cubed)
+    m.toMap
   }
 
-  // get the columns in the right order and wrap up as a Row
-  private def wrapRow(m: HashMap[String, Int], requiredColumns: Array[String]): Row = {
+  // project down to the required columns in the right order and wrap up as a Row
+  private def projectAndWrapRow(m: Map[String, Int],
+                                requiredColumns: Array[String]): Row = {
     val l = requiredColumns.map(c => m(c))
     val r = Row.fromSeq(l)
     r
   }
 
-  // NOTE: you're not actually guaranteed to get filters -- in particular
-  // you won't get them if the filter you specified can't be turned into a
-  // conjunction fo simple filters -- you might expect to get SOME filters in
-  // such cases, but it seems you won't
+  // Get the data, filter and project it, and return as an RDD
   def buildScan(requiredColumns: Array[String], filters: Array[Filter]): RDD[Row] = {
-    // get the filters organized by the full set of attributes
-    // (could probably use requiredColumns as Spark SQL is likely to ask for
-    // all columns the query filters on, just so it can reapply the filters itself)
-    val megaFilter = new MegaFilter(filters)
-    val keys = (1 to count).filter(v => megaFilter.apply("val", v))
-    val rows = keys
-      .map(i => makeRow(i, requiredColumns))
-      .filter(r => megaFilter.apply(r))
-      .map(r => wrapRow(r, requiredColumns))
-    sqlContext.sparkContext.parallelize(rows, partitions)
+    // organzie the filters
+    val filterInterpreter = new FilterInterpreter(filters)
+    // get the data, pushing as much filtering to the back-end as possible
+    // (in this case, not much)
+    val rowIterator = db.getRecords(filterInterpreter.min, filterInterpreter.max)
+    val rows = rowIterator
+      .map(rec => makeMap(rec))
+      .filter(r => filterInterpreter.apply(r))
+      .map(r => projectAndWrapRow(r, requiredColumns))
+    sqlContext.sparkContext.parallelize(rows.toSeq, partitions)
   }
 
 }
@@ -134,7 +187,7 @@ class CustomPFRP extends RelationProvider {
 
 object RelationProviderFilterPushdown {
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("RelationProvider").setMaster("local[4]")
+    val conf = new SparkConf().setAppName("RPFilterPushdown").setMaster("local[4]")
     val sc = new SparkContext(conf)
     val sqlContext = new SQLContext(sc)
 
