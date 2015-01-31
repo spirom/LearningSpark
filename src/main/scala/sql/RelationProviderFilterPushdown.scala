@@ -157,7 +157,7 @@ case class MyPFTableScan(count: Int, partitions: Int)
 
   // Get the data, filter and project it, and return as an RDD
   def buildScan(requiredColumns: Array[String], filters: Array[Filter]): RDD[Row] = {
-    // organzie the filters
+    // organize the filters
     val filterInterpreter = new FilterInterpreter(filters)
     // get the data, pushing as much filtering to the back-end as possible
     // (in this case, not much)
