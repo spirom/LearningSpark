@@ -37,10 +37,10 @@ The examples can be found under src/main/scala. The best way to use them is to s
 | sql | CustomRelationProvider | How to use the external data source provider for simple integration with an external database engine. See the blog post [External Data Sources in Spark 1.2.0](http://www.river-of-bytes.com/2014/12/external-data-sources-in-spark-120.html).| 
 | sql | RelationProviderFilterPushdown | More advanced integration using the external data source API, enabling filter and projection pushdown. See the blog post [Filtering and Projection in Spark SQL External Data Sources](http://www.river-of-bytes.com/2014/12/filtering-and-projection-in-spark-sql.html).| 
 | sql | ExternalNonRectangular | An illustration that the Spark SQL query compiler doesn't make much use of the above pushdown possibilities in the presence of a non-rectangular Schema, like that inferred from JSON data.|
-| streaming | FileBased | |
-| streaming | QueueBased | |
-| streaming | Accumulation | |
-| streaming | Windowing | |
+| streaming | FileBased | Streaming from a sequence of files. |
+| streaming | QueueBased | Streaming from a queue. |
+| streaming | Accumulation | Accumulating streeam data in a single RDD. |
+| streaming | Windowing | Maintaining a sliding window on the most recent stream data. |
 
 
 Additional Scala code is "work in progress". 
