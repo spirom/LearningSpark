@@ -22,13 +22,11 @@ The examples can be found under src/main/scala. The best way to use them is to s
 
 | Package | File                  | What's Illustrated    |
 |---------|-----------------------|-----------------------|
-|         | Ex1_SimpleRDD         | How to execute your first, very simple, Spark Job. See also [An easy way to start learning Spark](http://www.river-of-bytes.com/2014/11/an-easy-way-to-start-learning-spark.html) |
-
-<tr><td></td><td>Ex2_Computations</td><td></td></tr>
-<tr><td></td><td>Ex3_CombinignRDDs</td><td></td></tr>
-<tr><td></td><td>Ex4_MoreOperationsOnRDDs</td><td></td></tr>
-<tr><td></td><td>Ex5_Partitions</td><td></td></tr>
-<tr><td></td><td>Ex6_Accumulators</td><td></td></tr>
+|         | Ex1_SimpleRDD         | How to execute your first, very simple, Spark Job. See also [An easy way to start learning Spark](http://www.river-of-bytes.com/2014/11/an-easy-way-to-start-learning-spark.html) .|         | Ex2_Computations      | How RDDs work in more complex computations. See also [Spark computations](http://www.river-of-bytes.com/2014/11/spark-computations.html). |
+|         | Ex3_CombiningRDDs     | Operations on multiple RDDs |
+|         | Ex4_MoreOperationsOnRDDs | More complex operations on individual RDDs |
+|         | Ex5_Partitions        | Explicit control of partitioning for performance and scalability. |
+|         | Ex6_Accumulators | How to use Spark accumulators to efficiently gather the results of distributed computations. |
 <tr><td>special</td><td>CustomPartitioner</td><td></td></tr>
 <tr><td>special</td><td>HashJoin</td><td></td></tr>
 <tr><td>special</td><td>PairRDD</td><td></td></tr>
