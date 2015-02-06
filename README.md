@@ -2,7 +2,7 @@
 
 This project contains snippets of Scala code for illustrating various
 Apache Spark concepts. It is
-intended to help you _get started_ with learning Spark by providing a super easy on-ramp that _doesn't_ involve Unix, cluster configuration, building from sources or
+intended to help you _get started_ with learning Apache Spark (as a _Scala_ programmer) by providing a super easy on-ramp that _doesn't_ involve Unix, cluster configuration, building from sources or
 installing Hadoop. Many of these activities will be necessary later in your
 learning experience, after you've used these examples to achieve basic familiarity.
 
@@ -20,9 +20,10 @@ Versions of these examples for other configurations (older versions of Scala and
 
 The examples can be found under src/main/scala. The best way to use them is to start by reading the code and its comments. Then, since each file contains an object definition with a main method, run it and consider the output. Relevant blog posts and StackOverflow answers are listed below. 
 
-<table>
-<tr><th>Package</th><th>File</th><th>What's Illustrated</th></tr>
-<tr><td></td><td>Ex1_SimpleRDD</td><td></td></tr>
+| Package | File                  | What's Illustrated    |
+|---------|-----------------------|-----------------------|
+|         | Ex1_SimpleRDD         | How to execute your first, very simple, Spark Job. See also [An easy way to start learning Spark](http://www.river-of-bytes.com/2014/11/an-easy-way-to-start-learning-spark.html) |
+
 <tr><td></td><td>Ex2_Computations</td><td></td></tr>
 <tr><td></td><td>Ex3_CombinignRDDs</td><td></td></tr>
 <tr><td></td><td>Ex4_MoreOperationsOnRDDs</td><td></td></tr>
@@ -41,6 +42,6 @@ The examples can be found under src/main/scala. The best way to use them is to s
 <tr><td>streaming</td><td>QueueBased</td><td></td></tr>
 <tr><td>streaming</td><td>Accumulation</td><td></td></tr>
 <tr><td>streaming</td><td>Windowing</td><td></td></tr>
-</table>
+
 
 Additional Scala code is "work in progress". 
