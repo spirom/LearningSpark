@@ -28,9 +28,9 @@ The examples can be found under src/main/scala. The best way to use them is to s
 |         | Ex4_MoreOperationsOnRDDs | More complex operations on individual RDDs |
 |         | Ex5_Partitions        | Explicit control of partitioning for performance and scalability. |
 |         | Ex6_Accumulators | How to use Spark accumulators to efficiently gather the results of distributed computations. |
-<tr><td>special</td><td>CustomPartitioner</td><td></td></tr>
-<tr><td>special</td><td>HashJoin</td><td></td></tr>
-<tr><td>special</td><td>PairRDD</td><td></td></tr>
+| special | CustomPartitioner | How to take control of the partitioning of an RDD. |
+| special | HashJoin         | How to use the well known Hash Join algorithm to join two RDDs where one is small enough to entire fit in the memory of each partition. See also [this question on StackOverflow](http://stackoverflow.com/questions/26238794/spark-join-exponentially-slow) |
+| special | PairRDD | How to operate on RDDs in which the underlying elements are pairs. |
 <tr><td>sql</td><td>JSON</td><td></td></tr>
 <tr><td>sql</td><td>OutputJSON</td><td></td></tr>
 <tr><td>sql</td><td>UDF</td><td></td></tr>
