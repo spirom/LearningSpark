@@ -34,7 +34,7 @@ object UDF {
 
     // DSL usage -- query using a UDF but without SQL
 
-    def westernState(state: String) = Seq("CA", "OR", "WA", "AL").contains(state)
+    def westernState(state: String) = Seq("CA", "OR", "WA", "AK").contains(state)
 
     import sqlContext._
     println("filter using a DSL")
@@ -73,7 +73,7 @@ object UDF {
     // GROUP BY clause
 
     def stateRegion(state:String) = state match {
-      case "CA" | "AL" | "OR" | "WA" => "East"
+      case "CA" | "AK" | "OR" | "WA" => "West"
       case "ME" | "NH" | "MA" | "RI" | "CT" | "VT" => "NorthEast"
       case "AZ" | "NM" | "CO" | "UT" => "SouthWest"
     }
