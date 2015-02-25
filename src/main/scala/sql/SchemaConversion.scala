@@ -4,6 +4,7 @@ import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkContext, SparkConf}
 
 import org.apache.spark.sql._
+import org.apache.spark.sql.types._
 
 import scala.collection.immutable
 

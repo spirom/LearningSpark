@@ -1,6 +1,6 @@
 package sql
 
-import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql._
 import org.apache.spark.{SparkContext, SparkConf}
 
 // a case class for our sample table
@@ -20,7 +20,7 @@ object UDF {
     val sc = new SparkContext(conf)
     val sqlContext = new SQLContext(sc)
 
-    import sqlContext.createSchemaRDD
+    import sqlContext.implicits._
 
     // create an RDD with some data
     val custs = Seq(
@@ -30,23 +30,23 @@ object UDF {
       Cust(4, "Widgets R Us", 410500.00, 0.0, "CA"),
       Cust(5, "Ye Olde Widgete", 500.00, 0.0, "MA")
     )
-    val customerTable = sc.parallelize(custs, 4)
+    val customerTable = sc.parallelize(custs, 4).toDF()
 
     // DSL usage -- query using a UDF but without SQL
 
     def westernState(state: String) = Seq("CA", "OR", "WA", "AK").contains(state)
 
-    import sqlContext._
-    println("filter using a DSL")
-    customerTable.where('state)(westernState).select('id, 'name).foreach(println)
+    // TODO: see if there's still a way to do this in 1.3.0
+    //println("filter using the DSL")
+    //customerTable.where('state)(true).select('id, 'name).foreach(println)
 
     // for SQL usage  we need to register the table
 
-    sqlContext.registerRDDAsTable(customerTable, "customerTable")
+    customerTable.registerTempTable("customerTable")
 
     // WHERE clause
 
-    sqlContext.registerFunction("westernState", westernState _)
+    sqlContext.udf.register("westernState", westernState _)
 
     println("UDF in a WHERE")
     val westernStates =
@@ -57,7 +57,7 @@ object UDF {
 
     def manyCustomers(cnt: Long) = cnt > 2
 
-    sqlContext.registerFunction("manyCustomers", manyCustomers _)
+    sqlContext.udf.register("manyCustomers", manyCustomers _)
 
     println("UDF in a HAVING")
     val statesManyCustomers =
@@ -78,7 +78,7 @@ object UDF {
       case "AZ" | "NM" | "CO" | "UT" => "SouthWest"
     }
 
-    sqlContext.registerFunction("stateRegion", stateRegion _)
+    sqlContext.udf.register("stateRegion", stateRegion _)
 
     println("UDF in a GROUP BY")
     // note the grouping column repeated since it doesn't have an alias
@@ -95,7 +95,7 @@ object UDF {
 
     def discountRatio(sales: Double, discounts: Double) = discounts/sales
 
-    sqlContext.registerFunction("discountRatio", discountRatio _)
+    sqlContext.udf.register("discountRatio", discountRatio _)
 
     println("UDF in a result")
     val customerDiscounts =
@@ -108,9 +108,10 @@ object UDF {
 
     // we can make the UDF create nested structure in the results
 
+    // TODO: this one no longer works
     def makeStruct(sales: Double, disc:Double) = SalesDisc(sales, disc)
 
-    sqlContext.registerFunction("makeStruct", makeStruct _)
+    sqlContext.udf.register("makeStruct", makeStruct _)
 
     println("UDF creating structured result")
     val withStruct =

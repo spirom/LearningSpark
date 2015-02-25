@@ -2,8 +2,8 @@ package sql
 
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.SchemaRDD
-import org.apache.spark.sql.catalyst.expressions.Row
-import org.apache.spark.sql.catalyst.types._
+import org.apache.spark.sql.Row
+import org.apache.spark.sql.types._
 import org.apache.spark.{SparkContext, SparkConf}
 
 //
@@ -31,7 +31,7 @@ object OutputJSON {
 
   // Format a single struct by iterating through the schema and the Row
   def formatStruct(schema: Seq[StructField], r: Row) : String = {
-    val paired = schema.zip(r)
+    val paired = schema.zip(r.toSeq)
     "{" + paired.foldLeft("")((s, p) => (if (s == "") "" else (s + ", ")) + formatItem(p)) + "}"
 
   }
