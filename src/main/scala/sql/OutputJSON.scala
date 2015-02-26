@@ -16,7 +16,7 @@ import org.apache.spark.{SparkContext, SparkConf}
 //
 object OutputJSON {
 
-  def formatItem(p:Pair[StructField, Any]) : String = {
+  def formatItem(p:(StructField, Any)) : String = {
     p match {
       case (sf, a) =>
         sf.dataType match {

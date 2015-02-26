@@ -19,7 +19,7 @@ object SchemaConversion {
     val schema = StructType(
       Seq(StructField("i", IntegerType, true)))
     val rows = o.map(cc => Row(cc.i))
-    sqlContext.applySchema(rows, schema)
+    sqlContext.createDataFrame(rows, schema)
   }
 
   def main (args: Array[String]) {
