@@ -1,7 +1,7 @@
 package sql
 
 import org.apache.spark.rdd.RDD
-import org.apache.spark.sql.SchemaRDD
+import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.types._
 import org.apache.spark.{SparkContext, SparkConf}
@@ -10,9 +10,9 @@ import org.apache.spark.{SparkContext, SparkConf}
 // While there's an easy way to read JSON there isn't an easy way to
 // write it out formatted.
 //
-// One approach is to translate a SchemaRDD to an RDD[String] by applying a
-// formatting function to each Row of the SchemaRDD and then writing out the
-// resulting StringRDD as text. The tricky part is
+// One approach is to translate a DataFrame to an RDD[String] by applying a
+// formatting function to each Row of the DataFrame and then writing out the
+// resulting StringRDD as text.
 //
 object OutputJSON {
 
@@ -38,7 +38,7 @@ object OutputJSON {
 
   // Simultaneously iterate through the schema and Row each time --
   // the top level of a Row is always a struct.
-  def formatSchemaRDD(st: StructType, srdd: SchemaRDD): RDD[String] = {
+  def formatDataFrame(st: StructType, srdd: DataFrame): RDD[String] = {
     srdd.map(r => formatStruct(st.fields, r))
   }
 
@@ -49,11 +49,11 @@ object OutputJSON {
 
     // easy enough to query flat JSON
     val people = sqlContext.jsonFile("src/main/resources/data/flat.json")
-    val strings =  formatSchemaRDD(people.schema, people)
+    val strings =  formatDataFrame(people.schema, people)
     strings.foreach(println)
 
     val peopleAddr = sqlContext.jsonFile("src/main/resources/data/notFlat.json")
-    val nestedStrings = formatSchemaRDD(peopleAddr.schema, peopleAddr)
+    val nestedStrings = formatDataFrame(peopleAddr.schema, peopleAddr)
     nestedStrings.foreach(println)
   }
 }

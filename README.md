@@ -40,7 +40,7 @@ The examples can be found under src/main/scala. The best way to use them is to s
 | sql | ExternalNonRectangular | An illustration that the Spark SQL query compiler doesn't make much use of the above pushdown possibilities in the presence of a non-rectangular Schema, like that inferred from JSON data.|
 | streaming | FileBased | Streaming from a sequence of files. |
 | streaming | QueueBased | Streaming from a queue. |
-| streaming | Accumulation | Accumulating streeam data in a single RDD. |
+| streaming | Accumulation | Accumulating stream data in a single RDD. |
 | streaming | Windowing | Maintaining a sliding window on the most recent stream data. |
 
 
