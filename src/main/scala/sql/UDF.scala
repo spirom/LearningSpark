@@ -1,6 +1,7 @@
 package sql
 
 import org.apache.spark.sql._
+import org.apache.spark.sql.types.{DoubleType, StructType}
 import org.apache.spark.{SparkContext, SparkConf}
 
 // a case class for our sample table
@@ -35,10 +36,10 @@ object UDF {
     // DSL usage -- query using a UDF but without SQL
 
     def westernState(state: String) = Seq("CA", "OR", "WA", "AK").contains(state)
+    def westernStateUDF = functions.udf(westernState _)
 
-    // TODO: see if there's still a way to do this in 1.3.0
-    //println("filter using the DSL")
-    //customerTable.where('state)(true).select('id, 'name).foreach(println)
+    println("filter using the DSL")
+    customerTable.where(westernStateUDF('state)).select('id, 'name).foreach(println)
 
     // for SQL usage  we need to register the table
 
@@ -108,15 +109,23 @@ object UDF {
 
     // we can make the UDF create nested structure in the results
 
-    // TODO: this one no longer works
+
     def makeStruct(sales: Double, disc:Double) = SalesDisc(sales, disc)
 
     sqlContext.udf.register("makeStruct", makeStruct _)
 
+    // TODO: these fail -- reported SPARK-6054
+
     println("UDF creating structured result")
     val withStruct =
-      sqlContext.sql("SELECT id, sd.sales FROM (SELECT id, makeStruct(sales, discounts) AS sd FROM customerTable) AS d")
+      sqlContext.sql("SELECT makeStruct(sales, discounts) AS sd FROM customerTable")
     withStruct.foreach(println)
+
+    println("UDF with nested query creating structured result")
+
+    val nestedStruct =
+      sqlContext.sql("SELECT id, sd.sales FROM (SELECT id, makeStruct(sales, discounts) AS sd FROM customerTable) AS d")
+    nestedStruct.foreach(println)
   }
 
 }
