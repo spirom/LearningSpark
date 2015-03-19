@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SBT: org.antlr:stringtemplate:3.2.1:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.antlr/stringtemplate/jars/stringtemplate-3.2.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

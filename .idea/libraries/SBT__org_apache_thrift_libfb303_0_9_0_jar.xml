@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SBT: org.apache.thrift:libfb303:0.9.0:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.thrift/libfb303/jars/libfb303-0.9.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SBT: org.datanucleus:datanucleus-rdbms:3.2.9:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.datanucleus/datanucleus-rdbms/jars/datanucleus-rdbms-3.2.9.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
