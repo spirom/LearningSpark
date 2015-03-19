@@ -28,7 +28,7 @@ class HashJoiner[K,V](small: Seq[(K,V)]) extends java.io.Serializable {
   def joinOnLeft[U](large: RDD[(K,U)]) : RDD[(K, (U,V))] = {
     large.flatMap {
       case (k, u) =>
-        m.get(k).flatMap(ll => Some(ll.map(v => (k, (u, v))))).getOrElse(mutable.LinkedList())
+        m.get(k).flatMap(ll => Some(ll.map(v => (k, (u, v))))).getOrElse(mutable.ListBuffer())
     }
   }
 }
