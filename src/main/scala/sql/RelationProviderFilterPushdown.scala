@@ -127,7 +127,7 @@ class FilterInterpreter(allFilters: Array[Filter]) {
 //
 case class MyPFTableScan(count: Int, partitions: Int)
                       (@transient val sqlContext: SQLContext)
-  extends PrunedFilteredScan {
+  extends BaseRelation with PrunedFilteredScan {
 
   // instantiate the (fake) back-end storage engine
   val db = new RangeDB(count)
