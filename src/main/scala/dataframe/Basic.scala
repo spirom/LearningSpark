@@ -2,6 +2,7 @@ package dataframe
 
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.{SparkContext, SparkConf}
+import org.apache.spark.sql.functions._
 
 // a case class for our sample table
 case class Cust(id: Integer, name: String, sales: Double, discounts: Double, state: String)
@@ -24,9 +25,31 @@ object Basic {
     )
     val customerDF = sc.parallelize(custs, 4).toDF()
 
-    println(customerDF)
+    println("*** toString() just gives you the schema")
 
-    println(customerDF("sales"))
+    println(customerDF.toString())
+
+    println("*** show() gives you neatly formatted data")
+
+    customerDF.show()
+
+    println("*** use subscripting to choose one column")
+
+    println(customerDF("sales").toString())
+
+    customerDF("sales").show()
+
+    println("*** use select() for multiple columns")
+
+    customerDF.select("sales", "state").show()
+
+    println("*** use filter() to choose rows")
+
+    customerDF.filter($"state".equalTo("CA")).show()
+
+    println("*** use groupBy() for aggregation")
+
+    customerDF.groupBy($"state").count().show()
 
     // TODO: toDF with column name args
 
