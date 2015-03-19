@@ -76,7 +76,7 @@ object SemiStructuredUtilUDF {
     transactions.registerTempTable("transactions")
 
 
-    sqlContext.registerFunction("struct", struct _)
+    sqlContext.udf.register("struct", struct _)
 
 
 
@@ -84,8 +84,8 @@ object SemiStructuredUtilUDF {
       sqlContext.sql("SELECT a, id, struct(address) FROM transactions")
     all.foreach(println)
 
-    sqlContext.registerFunction("isAtomic", isAtomic _)
-    sqlContext.registerFunction("arrayLength", arrayLength _)
+    sqlContext.udf.register("isAtomic", isAtomic _)
+    sqlContext.udf.register("arrayLength", arrayLength _)
 
     val lotsOfOrders =
       sqlContext.sql("SELECT id FROM transactions WHERE arrayLength(orders) > 2")
