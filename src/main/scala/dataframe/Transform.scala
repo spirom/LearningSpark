@@ -28,7 +28,7 @@ object Transform {
     )
     val customerDF = sc.parallelize(custs, 4).toDF()
 
-    // the original UDF
+    // the original DataFrame
     customerDF.show()
 
     // a trivial UDF
