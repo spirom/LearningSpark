@@ -9,7 +9,7 @@ import org.apache.spark.sql.functions._
 //
 object Transform {
 
-  private case class Cust(id: Integer, name: String, sales: Double, discounts: Double, state: String)
+  private case class Cust(id: Integer, name: String, sales: Double, discount: Double, state: String)
 
   def main(args: Array[String]) {
     val conf = new SparkConf().setAppName("DataFrame-Transform").setMaster("local[4]")
@@ -37,7 +37,10 @@ object Transform {
     // get the columns, having applied the UDF to the "discount" column and leaving the others as they were
     val colNames = customerDF.columns
     val cols = colNames.map(cName => customerDF.col(cName))
-    val mappedCols = cols.map(c => if (c.toString() == "discounts") myFunc(c) else c)
+    val theColumn = customerDF("discount")
+    // I'd like to find a "better" way to match the column but this works.
+    // Use as() to give the column a new name just because we can!
+    val mappedCols = cols.map(c => if (c.toString() == theColumn.toString()) myFunc(c).as("transformed") else c)
 
     // use select() to produce the new DataFrame
     val newDF = customerDF.select(mappedCols:_*)
