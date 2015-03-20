@@ -226,5 +226,6 @@
     <orderEntry type="library" name="SBT: org.slf4j:slf4j-api:1.7.10:jar" level="project" />
     <orderEntry type="library" name="SBT: org.slf4j:slf4j-log4j12:1.7.10:jar" level="project" />
     <orderEntry type="library" name="SBT: oro:oro:2.0.8:jar" level="project" />
+    <orderEntry type="library" name="SBT: com.google.guava:guava:15.0:jar" level="project" />
   </component>
 </module>

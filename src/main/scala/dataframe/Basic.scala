@@ -2,12 +2,10 @@ package dataframe
 
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.{SparkContext, SparkConf}
-import org.apache.spark.sql.functions._
-
-// a case class for our sample table
-case class Cust(id: Integer, name: String, sales: Double, discounts: Double, state: String)
 
 object Basic {
+  case class Cust(id: Integer, name: String, sales: Double, discounts: Double, state: String)
+
   def main(args: Array[String]) {
     val conf = new SparkConf().setAppName("DataFrame-Basic").setMaster("local[4]")
     val sc = new SparkContext(conf)
@@ -33,7 +31,7 @@ object Basic {
 
     customerDF.show()
 
-    println("*** use subscripting to choose one column")
+    println("*** use apply to choose one column")
 
     println(customerDF("sales").toString())
 
