@@ -5,7 +5,7 @@ import org.apache.spark.{SparkContext, SparkConf}
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql.catalyst.expressions.Row
 import org.apache.spark.sql.types._
-import org.apache.spark.sql.sources.{TableScan, RelationProvider}
+import org.apache.spark.sql.sources.{BaseRelation, TableScan, RelationProvider}
 
 //
 // Demonstrate the Spark SQL external data source API, but for
@@ -20,7 +20,7 @@ import org.apache.spark.sql.sources.{TableScan, RelationProvider}
 //
 case class MyTableScan(count: Int, partitions: Int)
                       (@transient val sqlContext: SQLContext)
-  extends TableScan
+  extends BaseRelation with TableScan
 {
   val schema: StructType = StructType(Seq(
     StructField("val", IntegerType, nullable = false),

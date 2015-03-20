@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SBT: org.datanucleus:datanucleus-api-jdo:3.2.6:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.datanucleus/datanucleus-api-jdo/jars/datanucleus-api-jdo-3.2.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
