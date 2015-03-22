@@ -1,7 +1,9 @@
 package dataframe
 
-import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql.{DataFrame, SQLContext}
 import org.apache.spark.{SparkContext, SparkConf}
+import org.apache.spark.sql.functions._
+
 
 object Basic {
   case class Cust(id: Integer, name: String, sales: Double, discounts: Double, state: String)
@@ -31,11 +33,9 @@ object Basic {
 
     customerDF.show()
 
-    println("*** use apply to choose one column")
+    println("*** use select() to choose one column")
 
-    println(customerDF("sales").toString())
-
-    customerDF("sales").show()
+    customerDF.select("id").show()
 
     println("*** use select() for multiple columns")
 
