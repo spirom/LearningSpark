@@ -34,12 +34,9 @@ object UDF {
     val customerTable = sc.parallelize(custs, 4).toDF()
 
     // DSL usage -- query using a UDF but without SQL
+    // (this example has been repalced by the one in dataframe.UDF)
 
     def westernState(state: String) = Seq("CA", "OR", "WA", "AK").contains(state)
-    def westernStateUDF = functions.udf(westernState _)
-
-    println("filter using the DSL")
-    customerTable.where(westernStateUDF('state)).select('id, 'name).foreach(println)
 
     // for SQL usage  we need to register the table
 

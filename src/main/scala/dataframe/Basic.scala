@@ -1,12 +1,11 @@
 package dataframe
 
-import org.apache.spark.sql.{DataFrame, SQLContext}
+import org.apache.spark.sql.SQLContext
 import org.apache.spark.{SparkContext, SparkConf}
 import org.apache.spark.sql.functions._
 
-
 object Basic {
-  case class Cust(id: Integer, name: String, sales: Double, discounts: Double, state: String)
+  case class Cust(id: Integer, name: String, sales: Double, discount: Double, state: String)
 
   def main(args: Array[String]) {
     val conf = new SparkConf().setAppName("DataFrame-Basic").setMaster("local[4]")
@@ -45,12 +44,26 @@ object Basic {
 
     customerDF.filter($"state".equalTo("CA")).show()
 
-    println("*** use groupBy() for aggregation")
+    // groupBy() produces a GroupedData, and you can't do much with
+    // one of those other than aggregate it -- you can't even print it
 
-    customerDF.groupBy($"state").count().show()
+    // most general form of aggregation assigns a function to
+    // each non-grouped column
 
-    // TODO: toDF with column name args
+    println("*** general form of aggregation")
+    customerDF.groupBy("state").agg("discount" -> "max").show()
 
-    // TODO: explode
+    println("*** Column based aggregation")
+    // you can use the Column object to specify aggregation
+    customerDF.groupBy("state").agg(max($"discount")).show()
+
+    println("*** Column based aggregation plus grouping columns")
+    // but this approach will skip the grouped columns if you don't name them
+    customerDF.groupBy("state").agg($"state", max($"discount")).show()
+
+    // there are some special short cuts on GroupedData to aggregate
+    // all numeric columns
+    println("*** Aggregation short cuts")
+    customerDF.groupBy("state").count().show()
 
   }}
