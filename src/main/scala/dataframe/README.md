@@ -15,6 +15,6 @@ the specifically SQL oriented aspects are covered in the **sql** directory, whic
 | File                  | What's Illustrated    |
 |-----------------------|-----------------------|
 | Basic.scala           | How to create a `DataFrame` from case classes, examine it and perform basic operations. **Start here.** |
-| Select.scala          | How to extract data from a `DataFrame`. THis is a good place to see how convenient the API can be. |
-| Transform.scala       | How to transform on `DataFrame` to another: written inr esponse to a [question on StackOverflow](http://stackoverflow.com/questions/29151348/operation-on-data-frame/29159604). |
-| UDF.scala             | How to use user-defined functions (UDFs) in queries. Not that the use of UDFs in SQL queries is covered seperately in the **sql** directory. |
+| Select.scala          | How to extract data from a `DataFrame`. This is a good place to see how convenient the API can be. |
+| Transform.scala       | How to transform one `DataFrame` to another: written in response to a [question on StackOverflow](http://stackoverflow.com/questions/29151348/operation-on-data-frame/29159604). |
+| UDF.scala             | How to use user-defined functions (UDFs) in queries. Note that the use of UDFs in SQL queries is covered seperately in the **sql** directory. |
