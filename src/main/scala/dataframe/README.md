@@ -8,7 +8,7 @@ However, the domain-specific language (DSL) for querying through a `SchemaRDD` w
 Two important additional classes to understand are `Row` and `Column`.
 
 This directory contains examples of using `DataFrame`, focusing on the aspects that are not stricly related to Spark SQL queries -- 
-the directly SQL orianted aspects are covered in the **sql** directory, which is a peer of this one. 
+the specifically SQL oriented aspects are covered in the **sql** directory, which is a peer of this one. 
 
 
 
