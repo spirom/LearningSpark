@@ -9,7 +9,7 @@ object Select {
   case class Cust(id: Integer, name: String, sales: Double, discount: Double, state: String)
 
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("DataFrame-Basic").setMaster("local[4]")
+    val conf = new SparkConf().setAppName("DataFrame-Select").setMaster("local[4]")
     val sc = new SparkContext(conf)
     val sqlContext = new SQLContext(sc)
 
