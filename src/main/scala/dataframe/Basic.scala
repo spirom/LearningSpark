@@ -28,6 +28,10 @@ object Basic {
 
     println(customerDF.toString())
 
+    println("*** It's better to use printSchema()")
+
+    customerDF.printSchema()
+
     println("*** show() gives you neatly formatted data")
 
     customerDF.show()
