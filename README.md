@@ -31,11 +31,8 @@ The examples can be found under src/main/scala. The best way to use them is to s
 | special | CustomPartitioner | How to take control of the partitioning of an RDD. |
 | special | HashJoin         | How to use the well known Hash Join algorithm to join two RDDs where one is small enough to entirely fit in the memory of each partition. See also [this question on StackOverflow](http://stackoverflow.com/questions/26238794/spark-join-exponentially-slow) |
 | special | PairRDD | How to operate on RDDs in which the underlying elements are pairs. |
-| dataframe | Basic | A range of DataFrame examples. |
-| dataframe | Select | Several aspects of DataFrame column selection. |
-| dataframe | Transfoirm | Transforming a single column in a DSL. See [this question on StackOverflow](http://stackoverflow.com/questions/29151348/operation-on-data-frame/29159604) |
-| dataframe | UDF | Using UDFs with DataFrame DSL |
-| sql | JSON | Use Spark SQL to query JSON text |
+| dataframe |  | A range of DataFrame examples -- see the local README.md in that directory for details. |
+| experiments | | Experimental examples that may or may not lead to anything interesting. |
 | sql | OutputJSON | Write the result of a query against JSON back out as JSON text. This functionality is built into Spark 1.2.0, but the example was wrtitten to answer [this question on StackOverflow](http://stackoverflow.com/questions/26737251/pyspark-save-schemardd-as-json-file) in the days of Spark 1.1.0. |
 | sql | JSONSchemaInference | Examples of how Spark SQL infers a schema for a file of JSON documents, including multiple cases of schema conflict. |
 | sql | UDF | How to use Scala "user defined functions" (UDFs) in Spark SQL. See [this question on StackOverflow](http://stackoverflow.com/questions/25031129/creating-user-defined-function-in-spark-sql). *Note*: Due to an apparent regression in Spark 1.3.0, the last couple of examples fail -- reported as [SPARK-6054](https://issues.apache.org/jira/browse/SPARK-6054)|

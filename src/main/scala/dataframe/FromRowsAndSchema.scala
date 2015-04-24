@@ -16,7 +16,7 @@ object FromRowsAndSchema {
     val sc = new SparkContext(conf)
     val sqlContext = new SQLContext(sc)
 
-    // create an RDD with some data
+    // create an RDD of Rows with some data
     val custs = Seq(
       Row(1, "Widget Co", 120000.00, 0.00, "AZ"),
       Row(2, "Acme Widgets", 410500.00, 500.00, "CA"),

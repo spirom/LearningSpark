@@ -7,7 +7,7 @@ However, the domain-specific language (DSL) for querying through a `SchemaRDD` w
 
 Two important additional classes to understand are `Row` and `Column`.
 
-This directory contains examples of using `DataFrame`, focusing on the aspects that are not stricly related to Spark SQL queries -- 
+This directory contains examples of using `DataFrame`, focusing on the aspects that are not strictly related to Spark SQL queries --
 the specifically SQL oriented aspects are covered in the **sql** directory, which is a peer of this one. 
 
 
@@ -15,6 +15,7 @@ the specifically SQL oriented aspects are covered in the **sql** directory, whic
 | File                  | What's Illustrated    |
 |-----------------------|-----------------------|
 | Basic.scala           | How to create a `DataFrame` from case classes, examine it and perform basic operations. **Start here.** |
+| SimpleCreation.scala | Create essentially the same `DataFrame` as in Basic.scala from an `RDD` of tuples, and explicit column names. |
 | FromRowsAndSchema.scala | Create essentially the same `DataFrame` as in Basic.scala from an `RDD[Row]` and a schema. |
 | Select.scala          | How to extract data from a `DataFrame`. This is a good place to see how convenient the API can be. |
 | Transform.scala       | How to transform one `DataFrame` to another: written in response to a [question on StackOverflow](http://stackoverflow.com/questions/29151348/operation-on-data-frame/29159604). |
