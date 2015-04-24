@@ -111,7 +111,7 @@ object UDF {
 
     sqlContext.udf.register("makeStruct", makeStruct _)
 
-    // TODO: these fail -- reported SPARK-6054
+    // these failed in Spark 1.3.0 -- reported SPARK-6054 -- but work again in 1.3.1
 
     println("UDF creating structured result")
     val withStruct =
@@ -119,7 +119,6 @@ object UDF {
     withStruct.foreach(println)
 
     println("UDF with nested query creating structured result")
-
     val nestedStruct =
       sqlContext.sql("SELECT id, sd.sales FROM (SELECT id, makeStruct(sales, discounts) AS sd FROM customerTable) AS d")
     nestedStruct.foreach(println)
