@@ -1,7 +1,7 @@
-package sql
+package experiments
 
 import org.apache.spark.sql.{Row, SQLContext}
-import org.apache.spark.{SparkContext, SparkConf}
+import org.apache.spark.{SparkConf, SparkContext}
 
 import scala.collection.mutable.ArrayBuffer
 
