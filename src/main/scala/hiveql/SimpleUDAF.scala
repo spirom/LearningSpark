@@ -1,18 +1,15 @@
 package hiveql
 
-import java.util
-
 import org.apache.spark.sql.hive.HiveContext
 import org.apache.spark.{SparkConf, SparkContext}
 
-// The simple form of user-defined function base class provided in Hive
-class DiscountSalesUDF extends org.apache.hadoop.hive.ql.exec.UDF {
-  def evaluate (sales: Double, discount: Double) : Double = {
-    sales - discount
-  }
-}
+//
+// Demonstrate a Hive user-defined aggregation function (UDAF). There are two ways to
+// define these: simple and generic -- this is the simple kind.
+// THe UDAF is defined in Java -- see src/main/hiveql/SumLargeSalesUDAF.java
+//
 
-object UDF {
+object SimpleUDAF {
 
   def main (args: Array[String]) {
     val conf = new SparkConf().setAppName("HiveQL").setMaster("local[4]")
@@ -36,12 +33,12 @@ object UDF {
     customerDF.printSchema()
     customerDF.registerTempTable("customers")
 
-    // register the UDF with the HiveContext, by referring to the class we defined above --
+    // register the UDAF with the HiveContext, by referring to the class we defined above --
     // skip the 'TEMPORARY' if you want it to be persisted in the Hive metastore
-    hiveContext.sql("CREATE TEMPORARY FUNCTION discounted_sales AS 'hiveql.DiscountSalesUDF'")
+    hiveContext.sql("CREATE TEMPORARY FUNCTION mysum AS 'hiveql.SumLargeSalesUDAF'")
 
     // now use it in a query
-    val data1 = hiveContext.sql("SELECT id, discounted_sales(sales, discount) AS sales FROM customers")
+    val data1 = hiveContext.sql("SELECT state, mysum(sales) AS sales FROM customers GROUP BY state")
     data1.printSchema()
     data1.foreach(println)
 
