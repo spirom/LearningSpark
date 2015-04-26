@@ -6,7 +6,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 //
 // Demonstrate a Hive user-defined aggregation function (UDAF). There are two ways to
 // define these: simple and generic -- this is the simple kind.
-// THe UDAF is defined in Java -- see src/main/hiveql/SumLargeSalesUDAF.java
+// THe UDAF is defined in Java -- see src/main/java/hiveql/SumLargeSalesUDAF.java
 //
 
 object SimpleUDAF {
