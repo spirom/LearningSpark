@@ -1,6 +1,6 @@
 package dataframe
 
-import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql.{Column, SQLContext}
 import org.apache.spark.{SparkContext, SparkConf}
 import org.apache.spark.sql.functions._
 
@@ -59,11 +59,23 @@ object Basic {
     // groupBy() produces a GroupedData, and you can't do much with
     // one of those other than aggregate it -- you can't even print it
 
-    // most general form of aggregation assigns a function to
-    // each non-grouped column
+    // basic form of aggregation assigns a function to
+    // each non-grouped column -- you map each column you want
+    // aggregated to the name of the aggregation function you want
+    // to use
+    //
+    // automatically includes grouping columns in the DataFrame
 
-    println("*** general form of aggregation")
+    println("*** basic form of aggregation")
     customerDF.groupBy("state").agg("discount" -> "max").show()
+
+    //
+    // When you use $"somestring" to refer to column names, you use the
+    // very flexible column-based version of aggregation, allowing you to make
+    // full use of the DSL defined in org.apache.spark.sql.functions --
+    // this version doesn't automatically include the grouping column
+    // in the resulting DataFrame, so you have to add it yourself.
+    //
 
     println("*** Column based aggregation")
     // you can use the Column object to specify aggregation
@@ -72,6 +84,14 @@ object Basic {
     println("*** Column based aggregation plus grouping columns")
     // but this approach will skip the grouped columns if you don't name them
     customerDF.groupBy("state").agg($"state", max($"discount")).show()
+
+    // Think of this as a user-defined aggregation function -- written in terms
+    // of more primitive aggregations
+    def stddevFunc(c: Column): Column =
+      sqrt(avg(c * c) - (avg(c) * avg(c)))
+
+    println("*** Sort-of a user-defined aggregation function")
+    customerDF.groupBy("state").agg($"state", stddevFunc($"discount")).show()
 
     // there are some special short cuts on GroupedData to aggregate
     // all numeric columns
