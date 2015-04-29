@@ -15,6 +15,7 @@ the specifically SQL oriented aspects are covered in the **sql** directory, whic
 | File                  | What's Illustrated    |
 |-----------------------|-----------------------|
 | Basic.scala           | How to create a `DataFrame` from case classes, examine it and perform basic operations. **Start here.** |
+| GroupingAndAggrgegation.scala | Several different ways to specify aggregation. |
 | SimpleCreation.scala | Create essentially the same `DataFrame` as in Basic.scala from an `RDD` of tuples, and explicit column names. |
 | FromRowsAndSchema.scala | Create essentially the same `DataFrame` as in Basic.scala from an `RDD[Row]` and a schema. |
 | Select.scala          | How to extract data from a `DataFrame`. This is a good place to see how convenient the API can be. |
