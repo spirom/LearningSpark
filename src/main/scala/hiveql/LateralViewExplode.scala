@@ -1,10 +1,9 @@
-package sql
-
-import org.apache.spark.{SparkContext, SparkConf}
+package hiveql
 
 import org.apache.spark.sql.hive.HiveContext
+import org.apache.spark.{SparkConf, SparkContext}
 
-object HiveQL {
+object LateralViewExplode {
   def main (args: Array[String]) {
     val conf = new SparkConf().setAppName("HiveQL").setMaster("local[4]")
     val sc = new SparkContext(conf)
@@ -22,9 +21,6 @@ object HiveQL {
     data2.schema.printTreeString()
     data2.foreach(println)
 
-    val data3 = hiveContext.sql("show tables")
-    data3.schema.printTreeString()
-    data3.foreach(println)
 
   }
 }

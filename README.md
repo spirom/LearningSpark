@@ -28,10 +28,11 @@ The examples can be found under src/main/scala. The best way to use them is to s
 |         | Ex4_MoreOperationsOnRDDs | More complex operations on individual RDDs |
 |         | Ex5_Partitions        | Explicit control of partitioning for performance and scalability. |
 |         | Ex6_Accumulators | How to use Spark accumulators to efficiently gather the results of distributed computations. |
+| [hiveql](src/main/scala/hiveql)  |  | Using HiveQL features in a HiveContext. See the local README.md in that directory for details. |
 | special | CustomPartitioner | How to take control of the partitioning of an RDD. |
 | special | HashJoin         | How to use the well known Hash Join algorithm to join two RDDs where one is small enough to entirely fit in the memory of each partition. See also [this question on StackOverflow](http://stackoverflow.com/questions/26238794/spark-join-exponentially-slow) |
 | special | PairRDD | How to operate on RDDs in which the underlying elements are pairs. |
-| dataframe |  | A range of DataFrame examples -- see the local README.md in that directory for details. |
+| [dataframe](src/main/scala/dataframe) |  | A range of DataFrame examples -- see the local README.md in that directory for details. |
 | experiments | | Experimental examples that may or may not lead to anything interesting. |
 | sql | OutputJSON | Write the result of a query against JSON back out as JSON text. This functionality is built into Spark 1.2.0, but the example was wrtitten to answer [this question on StackOverflow](http://stackoverflow.com/questions/26737251/pyspark-save-schemardd-as-json-file) in the days of Spark 1.1.0. |
 | sql | JSONSchemaInference | Examples of how Spark SQL infers a schema for a file of JSON documents, including multiple cases of schema conflict. |
