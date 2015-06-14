@@ -8,6 +8,9 @@ import org.apache.spark.{SparkConf, SparkContext}
 // It was written as an attempt to answer the following question:
 // http://stackoverflow.com/questions/29310405/what-is-the-right-way-to-represent-an-any-type-in-spark-sql
 //
+// Filed as https://issues.apache.org/jira/browse/SPARK-6587 -- while I don't
+// necessarily agree with the answer I have to concede that it's reasonable.
+//
 object CaseClassSchemaProblem {
 
   private abstract class MyHolder
