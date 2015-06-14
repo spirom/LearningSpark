@@ -1,4 +1,4 @@
-package experiments
+package sql
 
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.{SparkConf, SparkContext}
