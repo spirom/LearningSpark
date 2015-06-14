@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SBT: org.apache.mesos:mesos:0.21.1:shaded-protobuf:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.mesos/mesos/jars/mesos-0.21.1-shaded-protobuf.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

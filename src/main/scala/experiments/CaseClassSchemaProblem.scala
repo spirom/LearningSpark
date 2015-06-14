@@ -1,7 +1,7 @@
-package sql
+package experiments
 
 import org.apache.spark.sql.SQLContext
-import org.apache.spark.{SparkContext, SparkConf}
+import org.apache.spark.{SparkConf, SparkContext}
 
 //
 // ***NOTE***: this fails in Spark 1.3.0 with scala.MatchError
