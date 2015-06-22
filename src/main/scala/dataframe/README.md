@@ -18,6 +18,7 @@ the specifically SQL oriented aspects are covered in the **sql** directory, whic
 | GroupingAndAggrgegation.scala | Several different ways to specify aggregation. |
 | SimpleCreation.scala | Create essentially the same `DataFrame` as in Basic.scala from an `RDD` of tuples, and explicit column names. |
 | FromRowsAndSchema.scala | Create essentially the same `DataFrame` as in Basic.scala from an `RDD[Row]` and a schema. |
+| Range.scala           | Using range() methods on SQLContext to create simple DataFrames with trangew(0 values |
 | Select.scala          | How to extract data from a `DataFrame`. This is a good place to see how convenient the API can be. |
 | Transform.scala       | How to transform one `DataFrame` to another: written in response to a [question on StackOverflow](http://stackoverflow.com/questions/29151348/operation-on-data-frame/29159604). |
 | UDF.scala             | How to use user-defined functions (UDFs) in queries. Note that the use of UDFs in SQL queries is covered seperately in the **sql** directory. |
