@@ -56,5 +56,13 @@ object Select {
     println("*** use * to select() all columns and add more")
 
     customerDF.select(customerDF("*"), $"id".as("newID")).show()
+
+    println("*** use lit() to add a literal column")
+
+    customerDF.select($"id", $"name", lit(42).as("FortyTwo")).show()
+
+    println("*** use array() to combine multiple results into a single array column")
+
+    customerDF.select($"id", array($"name", $"state", lit("hello")).as("Stuff")).show()
   }
 }

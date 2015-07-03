@@ -1,9 +1,15 @@
 package dataframe
 
 import org.apache.spark.sql.SQLContext
+
+import scala.collection.mutable.ArrayBuffer
+
 // needed for registering UDFs
 import org.apache.spark.sql.functions.udf
 import org.apache.spark.{SparkContext, SparkConf}
+import org.apache.spark.sql.functions.lit
+import org.apache.spark.sql.functions.array
+
 
 object UDF {
   private case class Cust(id: Integer, name: String, sales: Double, discount: Double, state: String)
@@ -57,5 +63,27 @@ object UDF {
 
     println("*** UDF used for sorting")
     customerDF.orderBy(stateRegion($"state")).orderBy(mySales($"sales", $"discount")).show()
+
+    // literals in UDF calls
+    // see: http://stackoverflow.com/questions/29406913/how-to-use-constant-value-in-udf-of-spark-sqldataframe
+    //
+    // In order to pass a literal to a UDF you need to create a literal column
+    // using org.apache.spark.sql.functions.lit() and you can create an array
+    // of literals using org.apache.spark.sql.functions.array().
+    //
+
+    val salesFilter = udf {(s: Double, min: Double) => s > min}
+
+    println("*** UDF with scalar constant parameter")
+    customerDF.filter(salesFilter($"sales", lit(2000.0))).show()
+
+    val stateFilter =
+      udf {(state:String, regionStates: ArrayBuffer[String]) =>
+        regionStates.contains(state)
+      }
+
+    println("*** UDF with vector constant parameter")
+    customerDF.filter(stateFilter($"state",
+      array(lit("CA"), lit("MA"), lit("NY"), lit("NJ")))).show()
   }
 }
