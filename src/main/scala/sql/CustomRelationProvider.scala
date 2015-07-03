@@ -59,6 +59,7 @@ object CustomRelationProvider {
 
     // register it as a temporary table to be queried
     // (could register several of these with different parameter values)
+    // Note: as of Spark 1.4.0 option names can contain periods or underscores
     sqlContext.sql(
       s"""
         |CREATE TEMPORARY TABLE dataTable
