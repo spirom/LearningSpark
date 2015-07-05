@@ -56,4 +56,5 @@ object Basic {
 
     customerDF.filter($"state".equalTo("CA")).show()
 
-  }}
+  }
+}
