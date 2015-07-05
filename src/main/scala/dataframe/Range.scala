@@ -13,13 +13,9 @@ import org.apache.spark.{SparkContext, SparkConf}
  */
 object Range {
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("DataFrame-Basic").setMaster("local[4]")
+    val conf = new SparkConf().setAppName("DataFrame-Range").setMaster("local[4]")
     val sc = new SparkContext(conf)
     val sqlContext = new SQLContext(sc)
-
-    //
-    // SQLContext methods
-    //
 
     println("*** dense range with default partitioning")
     val df1 = sqlContext.range(10, 14)

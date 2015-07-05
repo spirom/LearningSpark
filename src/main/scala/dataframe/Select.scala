@@ -64,5 +64,9 @@ object Select {
     println("*** use array() to combine multiple results into a single array column")
 
     customerDF.select($"id", array($"name", $"state", lit("hello")).as("Stuff")).show()
+
+    println("*** use rand() to add random numbers between 0.0 and 1.0 inclusive ")
+
+    customerDF.select($"id", rand().as("r")).show()
   }
 }

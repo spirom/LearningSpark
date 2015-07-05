@@ -5,7 +5,7 @@ import org.apache.spark.{SparkContext, SparkConf}
 
 object SimpleCreation {
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("DataFrame-FromRowsAndSchema").setMaster("local[4]")
+    val conf = new SparkConf().setAppName("DataFrame-SimpleCreation").setMaster("local[4]")
     val sc = new SparkContext(conf)
     val sqlContext = new SQLContext(sc)
 
