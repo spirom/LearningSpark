@@ -34,12 +34,7 @@ The examples can be found under src/main/scala. The best way to use them is to s
 | special | PairRDD | How to operate on RDDs in which the underlying elements are pairs. |
 | [dataframe](src/main/scala/dataframe) |  | A range of DataFrame examples -- see the local README.md in that directory for details. |
 | experiments | | Experimental examples that may or may not lead to anything interesting. |
-| sql | OutputJSON | Write the result of a query against JSON back out as JSON text. This functionality is built into Spark 1.2.0, but the example was wrtitten to answer [this question on StackOverflow](http://stackoverflow.com/questions/26737251/pyspark-save-schemardd-as-json-file) in the days of Spark 1.1.0. |
-| sql | JSONSchemaInference | Examples of how Spark SQL infers a schema for a file of JSON documents, including multiple cases of schema conflict. |
-| sql | UDF | How to use Scala "user defined functions" (UDFs) in Spark SQL. See [this question on StackOverflow](http://stackoverflow.com/questions/25031129/creating-user-defined-function-in-spark-sql). *Note*: Due to an apparent regression in Spark 1.3.0, the last couple of examples fail -- reported as [SPARK-6054](https://issues.apache.org/jira/browse/SPARK-6054)|
-| sql | CustomRelationProvider | How to use the external data source provider for simple integration with an external database engine. See the blog post [External Data Sources in Spark 1.2.0](http://www.river-of-bytes.com/2014/12/external-data-sources-in-spark-120.html).| 
-| sql | RelationProviderFilterPushdown | More advanced integration using the external data source API, enabling filter and projection pushdown. See the blog post [Filtering and Projection in Spark SQL External Data Sources](http://www.river-of-bytes.com/2014/12/filtering-and-projection-in-spark-sql.html).| 
-| sql | ExternalNonRectangular | An illustration that the Spark SQL query compiler doesn't make much use of the above pushdown possibilities in the presence of a non-rectangular Schema, like that inferred from JSON data.|
+| [sql](src/main/scala/sql) | | A range of SQL examples -- see the local README.md in that directory for details.  |
 | streaming | FileBased | Streaming from a sequence of files. |
 | streaming | QueueBased | Streaming from a queue. |
 | streaming | Accumulation | Accumulating stream data in a single RDD. |
