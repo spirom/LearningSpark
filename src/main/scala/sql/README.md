@@ -2,18 +2,24 @@
 
 ## DataFrame
 
+See the separate [dataframe](../dataframe) for information on the
+DataFrame API and especially it's query language.
+
 ## Basics
 
 | File                  | What's Illustrated    |
 |-----------------------|-----------------------|
+| Basic | Simple SQL queries. |
 | DateTime | Dealing with dates and timestamps. |
 
 ## Advanced
 
 | File                  | What's Illustrated    |
 |-----------------------|-----------------------|
+| ComplexTypes | Dealing with arrays and nested records in SQL queries |
 | UDF | How to use Scala "user defined functions" (UDFs) in Spark SQL. See [this question on StackOverflow](http://stackoverflow.com/questions/25031129/creating-user-defined-function-in-spark-sql). *Note*: Due to an apparent regression in Spark 1.3.0, the last couple of examples fail -- reported as [SPARK-6054](https://issues.apache.org/jira/browse/SPARK-6054)|
 
+## Schema and Rows
 
 ## JSON
 
