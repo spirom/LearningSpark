@@ -5,6 +5,10 @@ import java.sql.Date
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.{SparkConf, SparkContext}
 
+//
+// Explore SPark SQL's ability to deal with complex types by creating the
+// original DataFrame from multiple case classes and sequences of objects.
+//
 object ComplexTypes {
 
   case class Cust(id: Integer, name: String, trans: Seq[Transaction],
@@ -34,8 +38,6 @@ object ComplexTypes {
       Cust(3, "Widgetry",
         Seq(Transaction(4, Date.valueOf("2014-01-01"), 150.0)),
         Address("CA"), Address("CA"))
-      // Cust(4, "Widgets R Us", 410500.00, 0.0, "CA"),
-      // Cust(5, "Ye Olde Widgete", 500.00, 0.0, "MA")
     )
     // make it an RDD and convert to a DataFrame
     val customerDF = sc.parallelize(custs, 4).toDF()
@@ -58,7 +60,11 @@ object ComplexTypes {
 
     println("*** Projecting from deep structure doesn't blow up when it's missing")
     val projectedCust =
-      sqlContext.sql("SELECT id, name, shipping.state, trans[1].date AS secondTrans FROM customer")
+      sqlContext.sql(
+        """
+         | SELECT id, name, shipping.state, trans[1].date AS secondTrans
+         | FROM customer
+        """.stripMargin)
     projectedCust.show()
     projectedCust.printSchema()
 
@@ -75,12 +81,21 @@ object ComplexTypes {
 
     println("*** Group by a nested field")
     val groupByNested =
-      sqlContext.sql("SELECT shipping.state, count(*) AS customers FROM customer GROUP BY shipping.state")
+      sqlContext.sql(
+        """SELECT shipping.state, count(*) AS customers
+         | FROM customer
+         | GROUP BY shipping.state
+        """.stripMargin)
     groupByNested.show()
 
     println("*** Order by a nested field")
     val orderByNested =
-      sqlContext.sql("SELECT id, shipping.state FROM customer ORDER BY shipping.state")
+      sqlContext.sql(
+        """
+         | SELECT id, shipping.state
+         | FROM customer
+         | ORDER BY shipping.state
+        """.stripMargin)
     orderByNested.show()
 
 

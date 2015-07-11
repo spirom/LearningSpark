@@ -3,6 +3,11 @@ package sql
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.{SparkContext, SparkConf}
 
+//
+// Define data in terms of a case class, convert it to a DataFrame,
+// register it as a temporary table, and query it. Print the original DataFrame
+// and the ones resulting from the queries, and see their schema.
+//
 object Basic {
   case class Cust(id: Integer, name: String, sales: Double, discount: Double, state: String)
 
@@ -48,9 +53,17 @@ object Basic {
     println("*** The result has a schema too")
     allCust.printSchema()
 
+    //
+    // more complex query: note how it's spread across multiple lines
+    //
     println("*** Very simple query with a filter")
     val californiaCust =
-      sqlContext.sql("SELECT id, name, sales FROM customer WHERE state = 'CA'")
+      sqlContext.sql(
+        s"""
+          | SELECT id, name, sales
+          | FROM customer
+          | WHERE state = 'CA'
+         """.stripMargin)
     californiaCust.show()
     californiaCust.printSchema()
 
@@ -67,9 +80,5 @@ object Basic {
     sqlContext.setConf("spark.sql.caseSensitive", "true")
 
 
-    // TODO: CASE .. WHEN ... THEN
-
-    // TODO: When Spark 1.5.0 is released:
-    // TODO: current_date, current_timestamp
   }
 }
