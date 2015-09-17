@@ -12,7 +12,7 @@ import org.apache.spark.{SparkContext, SparkConf}
 //
 object DateTime {
   def main (args: Array[String]) {
-    val conf = new SparkConf().setAppName("DateTime").setMaster("local[4]")
+    val conf = new SparkConf().setAppName("SQL-DateTime").setMaster("local[4]")
     val sc = new SparkContext(conf)
     val sqlContext = new org.apache.spark.sql.SQLContext(sc)
 

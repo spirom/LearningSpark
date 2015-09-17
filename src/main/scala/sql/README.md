@@ -10,6 +10,7 @@ DataFrame API and especially it's query language.
 | File                  | What's Illustrated    |
 |-----------------------|-----------------------|
 | Basic | Simple SQL queries. |
+| Types | Overview of querying various data types. Note that dates and timestamps are treated separately below. |
 | DateTime | Dealing with dates and timestamps. |
 
 ## Advanced
