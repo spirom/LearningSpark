@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SBT: org.apache.parquet:parquet-format:2.3.0-incubating:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.parquet/parquet-format/jars/parquet-format-2.3.0-incubating.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

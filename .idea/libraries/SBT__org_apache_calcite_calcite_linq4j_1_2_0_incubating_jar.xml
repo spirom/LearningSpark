@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SBT: org.apache.calcite:calcite-linq4j:1.2.0-incubating:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.calcite/calcite-linq4j/jars/calcite-linq4j-1.2.0-incubating.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

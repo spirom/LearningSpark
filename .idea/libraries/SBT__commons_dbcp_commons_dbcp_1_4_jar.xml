@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SBT: commons-dbcp:commons-dbcp:1.4:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/commons-dbcp/commons-dbcp/jars/commons-dbcp-1.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SBT: org.apache.calcite:calcite-avatica:1.2.0-incubating:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.calcite/calcite-avatica/jars/calcite-avatica-1.2.0-incubating.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
