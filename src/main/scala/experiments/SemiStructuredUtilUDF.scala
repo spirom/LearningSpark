@@ -71,7 +71,7 @@ object SemiStructuredUtilUDF {
     val sc = new SparkContext(conf)
     val sqlContext = new SQLContext(sc)
 
-    val transactions = sqlContext.jsonFile("src/main/resources/data/mixed.json")
+    val transactions = sqlContext.read.json("src/main/resources/data/mixed.json")
     transactions.printSchema()
     transactions.registerTempTable("transactions")
 

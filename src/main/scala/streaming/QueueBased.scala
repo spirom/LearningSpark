@@ -11,6 +11,8 @@ import scala.collection.mutable
 //
 class QueueMaker(sc: SparkContext, ssc:StreamingContext) {
 
+  // The SynchronizedQueue class is deprecated in Scala but is still used
+  // in the relevant example in the Spark source tree.
   private val rddQueue = new mutable.SynchronizedQueue[RDD[Int]]()
 
   val inputStream = ssc.queueStream(rddQueue)

@@ -8,7 +8,7 @@ object MixedJSONQuery {
     val sc = new SparkContext(conf)
     val sqlContext = new org.apache.spark.sql.SQLContext(sc)
 
-    val transactions = sqlContext.jsonFile("src/main/resources/data/mixed.json")
+    val transactions = sqlContext.read.json("src/main/resources/data/mixed.json")
     transactions.printSchema()
     transactions.registerTempTable("transactions")
 

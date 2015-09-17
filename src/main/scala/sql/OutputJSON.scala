@@ -7,6 +7,16 @@ import org.apache.spark.sql.types._
 import org.apache.spark.{SparkContext, SparkConf}
 
 //
+// NOTE: This is example is now, strictly speaking, out of date, as the
+// ability to write JSON was added in Spark 1.2.0, but the example was written
+// to answer the following question on StackOverflow in the days of Spark 1.1.0.
+//
+// http://stackoverflow.com/questions/26737251/pyspark-save-schemardd-as-json-file
+//
+// The techniques may still be of some interest.
+//
+// ======================================================================
+//
 // While there's an easy way to read JSON there isn't an easy way to
 // write it out formatted.
 //
@@ -48,11 +58,11 @@ object OutputJSON {
     val sqlContext = new org.apache.spark.sql.SQLContext(sc)
 
     // easy enough to query flat JSON
-    val people = sqlContext.jsonFile("src/main/resources/data/flat.json")
+    val people = sqlContext.read.json("src/main/resources/data/flat.json")
     val strings =  formatDataFrame(people.schema, people)
     strings.foreach(println)
 
-    val peopleAddr = sqlContext.jsonFile("src/main/resources/data/notFlat.json")
+    val peopleAddr = sqlContext.read.json("src/main/resources/data/notFlat.json")
     val nestedStrings = formatDataFrame(peopleAddr.schema, peopleAddr)
     nestedStrings.foreach(println)
   }

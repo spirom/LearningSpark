@@ -31,14 +31,17 @@ object JSONTypes {
     "{\"date\":\"1969-12-31\", \"ts\": \"1969-12-31 17:00:01.0\"}"
     ), 4)
 
-    val json1 = sqlContext.jsonRDD(text)
+    val json1 = sqlContext.read.json(text)
 
     json1.printSchema()
 
-    val json2 = sqlContext.jsonRDD(text, schema)
+    // TODO: lost the ability to do this?
+    /*
+    val json2 = sqlContext.read.json(text, schema)
 
     json2.printSchema()
     json2.show()
+    */
 
     val textConflict = sc.parallelize(Seq(
       "{\"key\":42}",
@@ -46,7 +49,7 @@ object JSONTypes {
       "{\"key\":false}"
     ), 4)
 
-    val jsonConflict = sqlContext.jsonRDD(textConflict)
+    val jsonConflict = sqlContext.read.json(textConflict)
 
     jsonConflict.printSchema()
 

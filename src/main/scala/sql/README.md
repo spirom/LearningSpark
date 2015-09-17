@@ -27,7 +27,7 @@ DataFrame API and especially it's query language.
 | File                  | What's Illustrated    |
 |-----------------------|-----------------------|
 | JSON | Basic JSON data. |
-| OutputJSON | Write the result of a query against JSON back out as JSON text. This functionality is built into Spark 1.2.0, but the example was wrtitten to answer [this question on StackOverflow](http://stackoverflow.com/questions/26737251/pyspark-save-schemardd-as-json-file) in the days of Spark 1.1.0. |
+| OutputJSON | Write the result of a query against JSON back out as JSON text. This functionality is built into Spark 1.2.0, but the example was written to answer [this question on StackOverflow](http://stackoverflow.com/questions/26737251/pyspark-save-schemardd-as-json-file) in the days of Spark 1.1.0. |
 | JSONSchemaInference | Examples of how Spark SQL infers a schema for a file of JSON documents, including multiple cases of schema conflict. |
 
 ## External Data Sources

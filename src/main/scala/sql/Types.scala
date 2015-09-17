@@ -29,7 +29,7 @@ object Types {
         StructField("c", IntegerType, true),
         StructField("d", LongType, true),
         StructField("e", DecimalType(10, 5), true),
-        StructField("f", DecimalType.Unlimited, true),
+        StructField("f", DecimalType(20, 10), true),
         StructField("g", FloatType, true),
         StructField("h", DoubleType, true)
       )
