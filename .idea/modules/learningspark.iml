@@ -187,6 +187,5 @@
     <orderEntry type="library" name="SBT: org.tachyonproject:tachyon-client:0.7.1:jar" level="project" />
     <orderEntry type="library" name="SBT: org.tachyonproject:tachyon-underfs-hdfs:0.7.1:jar" level="project" />
     <orderEntry type="library" name="SBT: org.tachyonproject:tachyon-underfs-local:0.7.1:jar" level="project" />
-    <orderEntry type="library" name="scala-sdk-2.11.2" level="project" />
   </component>
 </module>
