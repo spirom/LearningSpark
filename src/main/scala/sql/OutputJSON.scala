@@ -33,6 +33,7 @@ object OutputJSON {
           // leaving out some of the atomic types
           case StringType => "\"" + sf.name + "\":\"" + a + "\""
           case IntegerType => "\"" + sf.name + "\":" + a
+          case LongType => "\"" + sf.name + "\":" + a
           // This next line deals with nested JSON structures (not needed if flat)
           case StructType(s) => "\"" + sf.name + "\":" + formatStruct(s, a.asInstanceOf[Row])
         }

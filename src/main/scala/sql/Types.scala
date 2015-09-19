@@ -5,7 +5,7 @@ import org.apache.spark.sql.{Row, SQLContext}
 import org.apache.spark.{SparkConf, SparkContext}
 
 //
-//
+// NOTE: the type conversions here are a lot less lenient in Spark 1.5.0 than before
 //
 object Types {
   case class Cust(id: Integer, name: String, sales: Double, discount: Double, state: String)
@@ -18,7 +18,8 @@ object Types {
     import sqlContext.implicits._
 
     val numericRows = Seq(
-      Row(1, 2, 3, 4, 1.0, 2.0, 3.0, 4.0)
+      Row(1.toByte, 2.toShort, 3, 4.toLong,
+        BigDecimal(1), BigDecimal(2), 3.0f, 4.0)
     )
     val numericRowsRDD = sc.parallelize(numericRows, 4)
 
@@ -28,6 +29,8 @@ object Types {
         StructField("b", ShortType, true),
         StructField("c", IntegerType, true),
         StructField("d", LongType, true),
+        //StructField("e", DoubleType, true),
+        //StructField("f", DoubleType, true),
         StructField("e", DecimalType(10, 5), true),
         StructField("f", DecimalType(20, 10), true),
         StructField("g", FloatType, true),

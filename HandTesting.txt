@@ -1,0 +1,42 @@
+
+Ex1_SimpleRDD                                    2015-09-19 PASS
+Ex2_Computations				 2015-09-19 PASS
+Ex3_CombiningRDDs                                2015-09-19 PASS
+Ex4_MoreOperationsOnRDDs                         2015-09-19 PASS
+Ex5_Partitions                                   2015-09-19 PASS
+Ex6_Accumulators                                 2015-09-19 PASS
+Ex9_Scraps                                       2015-09-19 PASS
+dataframe.Basic                                  2015-09-19 PASS
+dataframe.FromRowsAndSchema                      2015-09-19 PASS
+dataframe.GroupingAndAggregation                 2015-09-19 PASS
+dataframe.Range                                  2015-09-19 PASS
+dataframe.Select                                 2015-09-19 PASS
+dataframe.SimpleCreation                         2015-09-19 PASS
+dataframe.Transform                              2015-09-19 PASS
+dataframe.UDF                                    2015-09-19 FAILED (last example has regressed in Spark 1.5.0)
+hiveql.LateralViewExplode                        2015-09-19 FAILED (out of memory error)
+hiveql.SimpleUDAF                                2015-09-19 FAILED (out of memory error)
+hiveql.SimpleUDF                                 2015-09-19 FAILED (out of memory error)
+special.CustomPartitioner                        2015-09-19 PASS
+special.HashJoin                                 2015-09-19 PASS
+special.PairRDD                                  2015-09-19 PASS
+special.Range                                    2015-09-19 PASS
+sql.Basic                                        2015-09-19 PASS
+sql.CaseClassSchemaProblem                       2015-09-19 PASS (i.e.: fails as expected)
+sql.ComplexTypes                                 2015-09-19 PASS
+sql.CustomRelationProvider                       2015-09-19 PASS
+sql.DateTime                                     2015-09-19 PASS
+sql.ExternalNonRectangular                       2015-09-19 PASS
+sql.JSON                                         2015-09-19 PASS
+sql.JSONSchemaInference                          2015-09-19 PASS
+sql.JSONTypes                                    2015-09-19 PASS
+sql.MixedJSONQuery                               2015-09-19 PASS
+sql.OutputJSON                                   2015-09-19 PASS (needed to add support for LongType for SPark 1.5.0)
+sql.RelationProviderFilterPushdown               2015-09-19 PASS
+sql.SchemaConversion                             2015-09-19 PASS
+sql.Types                                        2015-09-19 PASS (needed to deal with greater stringency in Spark 1.5.0)
+sql.UDF                                          2015-09-19 PASS
+streaming.Accumulation                           2015-09-19 PASS
+streaming.FileBasedStreaming                     2015-09-19 PASS
+streaming.QueueBasedStreaming                    2015-09-19 PASS
+streaming.Windowing                              2015-09-19 PASS

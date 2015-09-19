@@ -15,7 +15,7 @@ import scala.util.Random
 class FileMaker {
 
   private val root =
-    new File("c:" + File.separator + "temp" + File.separator + "streamFiles")
+    new File(File.separator + "tmp" + File.separator + "streamFiles")
   makeExist(root)
 
   private val prep =

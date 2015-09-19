@@ -11,6 +11,8 @@ import org.apache.spark.{SparkConf, SparkContext}
 // Filed as https://issues.apache.org/jira/browse/SPARK-6587 -- while I don't
 // necessarily agree with the answer I have to concede that it's reasonable.
 //
+// Arguably, the error message has improved a bit in Spark 1.5.0.
+//
 object CaseClassSchemaProblem {
 
   private abstract class MyHolder

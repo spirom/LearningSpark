@@ -77,6 +77,8 @@ object UDF {
     println("*** UDF with scalar constant parameter")
     customerDF.filter(salesFilter($"sales", lit(2000.0))).show()
 
+    // TODO: the following has regressed in Spark 1.5.0
+
     val stateFilter =
       udf {(state:String, regionStates: ArrayBuffer[String]) =>
         regionStates.contains(state)

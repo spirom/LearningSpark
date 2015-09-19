@@ -1,3 +1,5 @@
+package special
+
 import org.apache.spark.{SparkContext, SparkConf}
 
 /**
