@@ -29,8 +29,6 @@ object Types {
         StructField("b", ShortType, true),
         StructField("c", IntegerType, true),
         StructField("d", LongType, true),
-        //StructField("e", DoubleType, true),
-        //StructField("f", DoubleType, true),
         StructField("e", DecimalType(10, 5), true),
         StructField("f", DecimalType(20, 10), true),
         StructField("g", FloatType, true),
