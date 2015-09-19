@@ -29,7 +29,7 @@ sql.DateTime                                     2015-09-19 PASS
 sql.ExternalNonRectangular                       2015-09-19 PASS
 sql.JSON                                         2015-09-19 PASS
 sql.JSONSchemaInference                          2015-09-19 PASS
-sql.JSONTypes                                    2015-09-19 PASS
+sql.JSONTypes                                    2015-09-19 PASS (commented out some lost functionality for now)
 sql.MixedJSONQuery                               2015-09-19 PASS
 sql.OutputJSON                                   2015-09-19 PASS (needed to add support for LongType for SPark 1.5.0)
 sql.RelationProviderFilterPushdown               2015-09-19 PASS
