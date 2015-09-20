@@ -2,8 +2,6 @@ package dataframe
 
 import org.apache.spark.sql.SQLContext
 
-import scala.collection.mutable.ArrayBuffer
-
 // needed for registering UDFs
 import org.apache.spark.sql.functions.udf
 import org.apache.spark.{SparkContext, SparkConf}
