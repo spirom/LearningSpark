@@ -13,7 +13,7 @@ dataframe.Range                                  2015-09-19 PASS
 dataframe.Select                                 2015-09-19 PASS
 dataframe.SimpleCreation                         2015-09-19 PASS
 dataframe.Transform                              2015-09-19 PASS
-dataframe.UDF                                    2015-09-19 FAILED (last example has regressed in Spark 1.5.0)
+dataframe.UDF                                    2015-09-20 PASS
 hiveql.LateralViewExplode                        2015-09-19 FAILED (out of memory error)
 hiveql.SimpleUDAF                                2015-09-19 FAILED (out of memory error)
 hiveql.SimpleUDF                                 2015-09-19 FAILED (out of memory error)
@@ -31,7 +31,7 @@ sql.JSON                                         2015-09-19 PASS
 sql.JSONSchemaInference                          2015-09-19 PASS
 sql.JSONTypes                                    2015-09-19 PASS (commented out some lost functionality for now)
 sql.MixedJSONQuery                               2015-09-19 PASS
-sql.OutputJSON                                   2015-09-19 PASS (needed to add support for LongType for SPark 1.5.0)
+sql.OutputJSON                                   2015-09-19 PASS (needed to add support for LongType for Spark 1.5.0)
 sql.RelationProviderFilterPushdown               2015-09-19 PASS
 sql.SchemaConversion                             2015-09-19 PASS
 sql.Types                                        2015-09-19 PASS (needed to deal with greater stringency in Spark 1.5.0)

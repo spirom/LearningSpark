@@ -69,7 +69,8 @@ object UDF {
     //
     // In order to pass a literal to a UDF you need to create a literal column
     // using org.apache.spark.sql.functions.lit() and you can create an array
-    // of literals using org.apache.spark.sql.functions.array().
+    // of literals using org.apache.spark.sql.functions.array(). The latter
+    // results in the UDF being passed a scala.collection.mutable.WrappedArray.
     //
 
     val salesFilter = udf {(s: Double, min: Double) => s > min}
@@ -77,14 +78,12 @@ object UDF {
     println("*** UDF with scalar constant parameter")
     customerDF.filter(salesFilter($"sales", lit(2000.0))).show()
 
-    // TODO: the following has regressed in Spark 1.5.0
-
     val stateFilter =
-      udf {(state:String, regionStates: ArrayBuffer[String]) =>
+      udf {(state:String, regionStates: Seq[String]) =>
         regionStates.contains(state)
       }
 
-    println("*** UDF with vector constant parameter")
+    println("*** UDF with array constant parameter")
     customerDF.filter(stateFilter($"state",
       array(lit("CA"), lit("MA"), lit("NY"), lit("NJ")))).show()
   }
