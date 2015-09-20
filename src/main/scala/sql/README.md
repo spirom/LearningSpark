@@ -19,6 +19,7 @@ DataFrame API and especially it's query language.
 |-----------------------|-----------------------|
 | ComplexTypes | Dealing with arrays and nested records in SQL queries |
 | UDF | How to use Scala "user defined functions" (UDFs) in Spark SQL. See [this question on StackOverflow](http://stackoverflow.com/questions/25031129/creating-user-defined-function-in-spark-sql). *Note*: Due to an apparent regression in Spark 1.3.0, the last couple of examples fail -- reported as [SPARK-6054](https://issues.apache.org/jira/browse/SPARK-6054)|
+| UDT.scala             | User defined types from a DataFrame perspective -- depends on understanding UDF.scala |
 
 ## Schema and Rows
 
