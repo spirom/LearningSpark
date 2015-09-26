@@ -1,12 +1,15 @@
 package dataframe
 
-import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql.{Row, SQLContext}
+
+import scala.collection.mutable
 
 // needed for registering UDFs
 import org.apache.spark.sql.functions.udf
 import org.apache.spark.{SparkContext, SparkConf}
 import org.apache.spark.sql.functions.lit
 import org.apache.spark.sql.functions.array
+import org.apache.spark.sql.functions.struct
 
 
 object UDF {
@@ -62,13 +65,12 @@ object UDF {
     println("*** UDF used for sorting")
     customerDF.orderBy(stateRegion($"state")).orderBy(mySales($"sales", $"discount")).show()
 
+    //
     // literals in UDF calls
     // see: http://stackoverflow.com/questions/29406913/how-to-use-constant-value-in-udf-of-spark-sqldataframe
     //
     // In order to pass a literal to a UDF you need to create a literal column
-    // using org.apache.spark.sql.functions.lit() and you can create an array
-    // of literals using org.apache.spark.sql.functions.array(). The latter
-    // results in the UDF being passed a scala.collection.mutable.WrappedArray.
+    // using org.apache.spark.sql.functions.lit().
     //
 
     val salesFilter = udf {(s: Double, min: Double) => s > min}
@@ -76,13 +78,38 @@ object UDF {
     println("*** UDF with scalar constant parameter")
     customerDF.filter(salesFilter($"sales", lit(2000.0))).show()
 
+    //
+    // You can create an array of literals using
+    // org.apache.spark.sql.functions.array(). This results in the UDF being
+    // passed a scala.collection.mutable.WrappedArray.
+    //
+
     val stateFilter =
-      udf {(state:String, regionStates: Seq[String]) =>
+      udf {(state:String, regionStates: mutable.WrappedArray[String]) =>
         regionStates.contains(state)
       }
 
     println("*** UDF with array constant parameter")
     customerDF.filter(stateFilter($"state",
       array(lit("CA"), lit("MA"), lit("NY"), lit("NJ")))).show()
+
+    //
+    // You can create a struct of literals using
+    // org.apache.spark.sql.functions.struct(). This results in the UDF being
+    // passed something you an access as a org.apache.spark.sql.Row.
+    //
+    // This example UDF is based on knowing the length and type of the struct
+    // but of course it could instead use thestruct.schema to figure it
+    // out at runtime.
+    //
+
+    val multipleFilter = udf { (state: String, discount: Double,
+                                thestruct: Row) =>
+      state == thestruct.getString(0) && discount > thestruct.getDouble(1) }
+
+    println("*** UDF with array constant parameter")
+    customerDF.filter(
+      multipleFilter($"state", $"discount", struct(lit("CA"), lit(100.0)))
+    ).show()
   }
 }
