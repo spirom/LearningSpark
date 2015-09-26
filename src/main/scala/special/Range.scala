@@ -29,5 +29,8 @@ object Range {
     rdd3.collect().foreach(println)
     println("# Partitions = " + rdd3.partitions.length)
 
+    // Single parameter version available in SQLContext since Spark 1.4.1 is
+    // not available here.
+
   }
 }
