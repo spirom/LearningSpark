@@ -40,3 +40,4 @@ the specifically SQL oriented aspects are covered in the **sql** directory, whic
 | Transform.scala       | How to transform one `DataFrame` to another: written in response to a [question on StackOverflow](http://stackoverflow.com/questions/29151348/operation-on-data-frame/29159604). |
 | UDF.scala             | How to use user-defined functions (UDFs) in queries. Note that the use of UDFs in SQL queries is covered seperately in the **sql** directory. |
 | UDT.scala             | User defined types from a DataFrame perspective -- depends on understanding UDF.scala |
+| UDAF.scala            | A simple User Defined Aggregation Function as introduced in Spark 1.5.0 |
