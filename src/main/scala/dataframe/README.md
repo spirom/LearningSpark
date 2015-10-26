@@ -37,6 +37,7 @@ the specifically SQL oriented aspects are covered in the **sql** directory, whic
 
 | File                  | What's Illustrated    |
 |-----------------------|-----------------------|
+| ComplexSchema.scala   | Creating a DataFrame with various forms of complex schema -- start with FromRowsAndSchema.scala for a simpler example |
 | Transform.scala       | How to transform one `DataFrame` to another: written in response to a [question on StackOverflow](http://stackoverflow.com/questions/29151348/operation-on-data-frame/29159604). |
 | UDF.scala             | How to use user-defined functions (UDFs) in queries. Note that the use of UDFs in SQL queries is covered seperately in the **sql** directory. |
 | UDT.scala             | User defined types from a DataFrame perspective -- depends on understanding UDF.scala |
