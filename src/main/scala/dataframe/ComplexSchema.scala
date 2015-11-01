@@ -63,6 +63,9 @@ object ComplexSchema {
     println("Select deep into the column with nested Row")
     df1.select("s1.x").show()
 
+    println("The column function getField() seems to be the 'right' way")
+    df1.select($"s1".getField("x")).show()
+
     //
     // Example 2: ArrayType
     //
@@ -104,6 +107,56 @@ object ComplexSchema {
 
     println("Apply a membership test to each array in a column")
     df2.select($"id", array_contains($"a", 2).as("has2")).show()
+
+    // interestingly, indexing using the [] syntax seems not to be supported
+    // (surprising only because that syntax _does_ work in Spark SQL)
+    //df2.select("id", "a[2]").show()
+
+    println("Use column function getItem() to index into array when selecting")
+    df2.select($"id", $"a".getItem(2)).show()
+
+    //
+    // Example 3: MapType
+    //
+
+    val rows3 = Seq(
+      Row(1, 8.00, Map("u" -> 1,"v" -> 2)),
+      Row(2, 9.00, Map("x" -> 3, "y" -> 4, "z" -> 5))
+    )
+    val rows3Rdd = sc.parallelize(rows3, 4)
+
+    val schema3 = StructType(
+      Seq(
+        StructField("id", IntegerType, true),
+        StructField("d", DoubleType, true),
+        StructField("m", MapType(StringType, IntegerType))
+      )
+    )
+
+    val df3 = sqlContext.createDataFrame(rows3Rdd, schema3)
+
+    println("Schema with map")
+    df3.printSchema()
+
+    println("DataFrame with map")
+    df3.show()
+
+    println("Count elements of each map in the column")
+    df3.select($"id", size($"m").as("count")).show()
+
+    // notice you get one column from the keys and one from the values
+    println("Explode the map elements out into additional rows")
+    df3.select($"id", explode($"m")).show()
+
+    // MapType is actually a more flexible version of StructType, since you
+    // can select down into fields within a column, and the rows where
+    // an element is missing just return a null
+    println("Select deep into the column with a Map")
+    df3.select($"id", $"m.u").show()
+
+    println("The column function getItem() seems to be the 'right' way")
+    df3.select($"id", $"m".getItem("u")).show()
+
   }
 
 }
