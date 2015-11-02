@@ -24,6 +24,7 @@ the specifically SQL oriented aspects are covered in the **sql** directory, whic
 |-----------------------|-----------------------|
 | GroupingAndAggrgegation.scala | Several different ways to specify aggregation. |
 | Select.scala          | How to extract data from a `DataFrame`. This is a good place to see how convenient the API can be. |
+| DateTime.scala        | Functions for querying against DateType and DatetimeType. |
 
 ## Utilities
 

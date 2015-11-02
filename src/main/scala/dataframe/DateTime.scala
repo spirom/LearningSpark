@@ -8,7 +8,7 @@ import org.apache.spark.{SparkContext, SparkConf}
 import org.apache.spark.sql.functions._
 
 //
-// Interesting way to query against columns of DateType and TimestampType in
+// Functions for querying against columns of DateType and TimestampType in
 // a DataFrame.
 //
 object DateTime {
@@ -30,7 +30,7 @@ object DateTime {
       Seq(
         Row(
           1,
-          Date.valueOf("2000-01-11"),
+          Date.valueOf("1999-01-11"),
           Timestamp.valueOf("2011-10-02 09:48:05.123456")
         ),
         Row(
@@ -52,6 +52,22 @@ object DateTime {
     println("Pull a DateType apart when querying")
     tdf.select($"dt", year($"dt"), quarter($"dt"), month($"dt"),
                 weekofyear($"dt"), dayofyear($"dt"), dayofmonth($"dt")).show()
+
+    println("Date arithmetic")
+    tdf.select($"dt", datediff(current_date(), $"dt"),
+                      date_sub($"dt", 20),
+                      date_add($"dt", 10),
+                      add_months($"dt", 6)).show()
+
+    println("Date truncation")
+    tdf.select($"dt", trunc($"dt", "YYYY"), trunc($"dt", "YY"),
+                      trunc($"dt", "MM")).show()
+
+    println("Date formatting")
+    tdf.select($"dt", date_format($"dt", "MMM dd, YYYY")).show()
+
+    println("Pull a Timestamp type apart when querying")
+    tdf.select($"ts", year($"ts"), hour($"ts"), minute($"ts"), second($"ts")).show()
   }
 
 }
