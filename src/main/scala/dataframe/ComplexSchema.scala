@@ -49,6 +49,8 @@ object ComplexSchema {
       )
     )
 
+    println("Position of subfield 'd' is " + schema1.fieldIndex("d"))
+
     val df1 = sqlContext.createDataFrame(rows1Rdd, schema1)
 
     println("Schema with nested struct")
@@ -77,6 +79,11 @@ object ComplexSchema {
     )
     val rows2Rdd = sc.parallelize(rows2, 4)
 
+    //
+    // This time, instead of just using the StructType constructor, see
+    // that you can use two different overloads of the add() method to add
+    // the fields 'd' and 'a'
+    //
     val schema2 = StructType(
       Seq(
         StructField("id", IntegerType, true),
@@ -85,11 +92,11 @@ object ComplexSchema {
             StructField("x", StringType, true),
             StructField("y", StringType, true)
           )
-        ), true),
-        StructField("d", DoubleType, true),
-        StructField("a", ArrayType(IntegerType))
+        ), true)
       )
     )
+      .add(StructField("d", DoubleType, true))
+      .add("a", ArrayType(IntegerType))
 
     val df2 = sqlContext.createDataFrame(rows2Rdd, schema2)
 
