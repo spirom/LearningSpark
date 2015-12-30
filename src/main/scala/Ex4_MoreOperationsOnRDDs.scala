@@ -59,7 +59,7 @@ object Ex4_MoreOperationsOnRDDs {
     samp.foreach(println)
 
     // sortBy
-    // TODO: this deverves a clearer example of how spiffy it is
+    // TODO: this deserves a clearer example of how spiffy it is
     println("first element when reversed = " + letters.sortBy(v => v, false).first())
 
     // take, takeSample: these just return arrays
