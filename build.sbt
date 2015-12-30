@@ -14,5 +14,5 @@ libraryDependencies += "org.apache.spark" %% "spark-sql" % "1.5.0"
 
 libraryDependencies += "org.apache.spark" %% "spark-hive" % "1.5.0"
 
-
+libraryDependencies += "org.apache.spark" %% "spark-graphx" % "1.5.0"
 

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SBT: com.github.fommil.netlib:core:1.1.2:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.github.fommil.netlib/core/jars/core-1.1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

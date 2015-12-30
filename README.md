@@ -39,6 +39,7 @@ The examples can be found under src/main/scala. The best way to use them is to s
 | streaming | QueueBased | Streaming from a queue. |
 | streaming | Accumulation | Accumulating stream data in a single RDD. |
 | streaming | Windowing | Maintaining a sliding window on the most recent stream data. |
+| [graphx](src/main/scala/graphx) | A range of GraphX examples -- see the local README.md in that directory for details. |
 
 
 Additional Scala code is "work in progress". 
