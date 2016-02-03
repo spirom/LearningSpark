@@ -67,7 +67,7 @@ class FilterInterpreter(allFilters: Array[Filter]) {
   val (min, max, otherKeyFilters) = splitKeyFilter
 
   //
-  // and tidy up the remaining folters that we'll apply to records returned
+  // and tidy up the remaining filters that we'll apply to records returned
   //
   private val attrToFilters = allAttrToFilters - "val" + ("val" -> otherKeyFilters)
 

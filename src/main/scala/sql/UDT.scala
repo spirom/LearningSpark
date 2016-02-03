@@ -1,5 +1,6 @@
 package sql
 
+import org.apache.spark.sql.catalyst.util.{GenericArrayData, ArrayData}
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.{Row, SQLContext}
 import org.apache.spark.{SparkContext, SparkConf}
