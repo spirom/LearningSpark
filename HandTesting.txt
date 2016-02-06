@@ -23,9 +23,9 @@ dataframe.UDT                                    2016-02-03 PASS
 
 
 graphx.SecondDegreeNeighbors                     2016-02-03 PASS
-hiveql.LateralViewExplode                        2016-02-03
-hiveql.SimpleUDAF                                2016-02-03
-hiveql.SimpleUDF                                 2016-02-03
+hiveql.LateralViewExplode                        2016-02-03 PASS
+hiveql.SimpleUDAF                                2016-02-03 PASS
+hiveql.SimpleUDF                                 2016-02-03 PASS
 special.CustomPartitioner                        2016-02-03 PASS
 special.HashJoin                                 2016-02-03 PASS
 special.PairRDD                                  2016-02-03 PASS
@@ -38,12 +38,12 @@ sql.DateTime                                     2016-02-03 PASS
 sql.ExternalNonRectangular                       2016-02-03 PASS
 sql.JSON                                         2016-02-03 PASS
 sql.JSONSchemaInference                          2016-02-03 PASS
-sql.JSONTypes                                    2016-02-03 PASS (commented out some lost functionality for now)
+sql.JSONTypes                                    2016-02-03 PASS
 sql.MixedJSONQuery                               2016-02-03 PASS
-sql.OutputJSON                                   2016-02-03 PASS (needed to add support for LongType for Spark 1.5.0)
+sql.OutputJSON                                   2016-02-03 PASS
 sql.RelationProviderFilterPushdown               2016-02-03 PASS
 sql.SchemaConversion                             2016-02-03 PASS
-sql.Types                                        2016-02-03 PASS (needed to deal with greater stringency in Spark 1.5.0)
+sql.Types                                        2016-02-03 PASS
 sql.UDAF                                         2016-02-03 PASS
 sql.UDF                                          2016-02-03 PASS
 sql.UDT                                          2016-02-03 PASS
