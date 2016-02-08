@@ -8,8 +8,27 @@ import org.apache.spark.sql.types._
 
 import scala.beans.{BeanInfo, BeanProperty}
 
+//
+// This example demonstrates how to define a basic user defined type (UDT) and
+// how to use it in a query. The attributes of the underlying class are not
+// directly accessible in the query, but you can access them by defining
+// a user defined function (UDF) to be applied to instances of the UDT.
+//
+// NOTE: there is a more comprehensive example that involves layering of one
+// UDT on top of the other in sql/UDT.scala.
+//
+
+//
+// Underlying case class defining 3D points. The annotation conencts it with
+// the UDT definition below.
+//
+
 @SQLUserDefinedType(udt = classOf[MyPoint3DUDT])
 private case class MyPoint3D(x: Double, y: Double, z: Double)
+
+//
+// The UDT definition for 3D points: basically how to serialize and deserialize.
+//
 
 private class MyPoint3DUDT extends UserDefinedType[MyPoint3D] {
   override def sqlType: DataType = ArrayType(DoubleType, containsNull = false)
@@ -35,11 +54,6 @@ private class MyPoint3DUDT extends UserDefinedType[MyPoint3D] {
   override def asNullable: MyPoint3DUDT = this
 }
 
-@BeanInfo
-private case class MyLabeledPoint(
-                                   @BeanProperty label: String,
-                                   @BeanProperty point: MyPoint3D)
-
 object UDT {
 
   def main(args: Array[String]) {
@@ -49,26 +63,40 @@ object UDT {
 
     import sqlContext.implicits._
 
+    //
+    // First define some points, store them in a table and filter them
+    // based on magnitude -- i.e.: distance form the origin
+    //
+
+    val p1 = new MyPoint3D(1.0, 2.0, 3.0)
+    val p2 = new MyPoint3D(1.0, 0.0, 2.0)
+    val p3 = new MyPoint3D(10.0, 20.0, 30.0)
+    val p4 = new MyPoint3D(11.0, 22.0, 33.0)
+
     val points = Seq(
-      new MyLabeledPoint("A", new MyPoint3D(1.0, 2.0, 3.0)),
-      new MyLabeledPoint("B", new MyPoint3D(1.0, 0.0, 2.0))
-    ).toDF()
+      ("P1", p1),
+      ("P2", p2),
+      ("P3", p3),
+      ("P4", p4)
+    ).toDF("label", "point")
 
+    println("*** All the points as a dataframe")
     points.printSchema()
-
     points.show()
 
+    // Define a UDF to get access to attributes of a point in a query
     val myMagnitude =
       udf { p: MyPoint3D =>
-        math.sqrt(math.abs(p.x) * math.abs(p.y) + math.abs(p.z))
+        math.sqrt(math.pow(p.x, 2) + math.pow(p.y, 2) + math.pow(p.z, 2))
       }
 
-    val labeledMagnitudes =
-      points.select($"label", myMagnitude($"point").as("magnitude"))
+    val nearPoints =
+      points.filter(myMagnitude($"point").lt(10))
+            .select($"label", myMagnitude($"point").as("magnitude"))
 
-    labeledMagnitudes.printSchema()
-
-    labeledMagnitudes.show()
+    println("*** The points close to the origin, selected from the table")
+    nearPoints.printSchema()
+    nearPoints.show()
   }
 
 }
