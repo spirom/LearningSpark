@@ -35,10 +35,7 @@ The examples can be found under src/main/scala. The best way to use them is to s
 | [dataframe](src/main/scala/dataframe) |  | A range of DataFrame examples -- see the local README.md in that directory for details. |
 | experiments | | Experimental examples that may or may not lead to anything interesting. |
 | [sql](src/main/scala/sql) | | A range of SQL examples -- see the local README.md in that directory for details.  |
-| streaming | FileBased | Streaming from a sequence of files. |
-| streaming | QueueBased | Streaming from a queue. |
-| streaming | Accumulation | Accumulating stream data in a single RDD. |
-| streaming | Windowing | Maintaining a sliding window on the most recent stream data. |
+| [streaming](src/main/scala/streaming) | | Streaming examples -- see the local README.md in that directory for details.  |
 | [graphx](src/main/scala/graphx) | | A range of GraphX examples -- see the local README.md in that directory for details. |
 
 
