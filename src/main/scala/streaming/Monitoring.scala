@@ -39,7 +39,12 @@ object Monitoring {
 
     // create the stream
     val stream = ssc.receiverStream(new CustomReceiver)
-    // register a listener to coutn the records passing through the above stream
+
+    // Register a listener to count the records passing through this
+    // stream. Notice it's registered on the
+    // streaming context, not the stream, so it monitors all the streams, and
+    // hence all the receivers. But it only pays attention to the stream
+    // we told it to pay attention to.
     val listener = new SimpleListener(stream.id)
     ssc.addStreamingListener(listener)
 
