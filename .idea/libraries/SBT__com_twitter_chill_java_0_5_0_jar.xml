@@ -4,6 +4,8 @@
       <root url="jar://$USER_HOME$/.ivy2/cache/com.twitter/chill-java/jars/chill-java-0.5.0.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.twitter/chill-java/srcs/chill-java-0.5.0-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

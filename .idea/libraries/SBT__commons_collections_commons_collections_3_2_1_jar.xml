@@ -4,6 +4,8 @@
       <root url="jar://$USER_HOME$/.ivy2/cache/commons-collections/commons-collections/jars/commons-collections-3.2.1.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/commons-collections/commons-collections/srcs/commons-collections-3.2.1-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>
