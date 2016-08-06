@@ -22,6 +22,7 @@ DataFrame API and especially it's query language.
 | UDT.scala             | User defined types from a SQL perspective -- depends on understanding UDF.scala |
 | UDAF.scala            | A simple User Defined Aggregation Function as introduced in Spark 1.5.0 |
 | UDAF2.scala           | A User Defined Aggregation Function with two parameters |
+| UDAF_Multi.scala      | A User Defined Aggregation Function that accumulates and returns multiple values |
 
 ## Schema and Rows
 
