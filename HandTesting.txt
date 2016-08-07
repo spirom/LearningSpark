@@ -1,53 +1,54 @@
-Ex1_SimpleRDD                                    2016-02-03 PASS
-Ex2_Computations                                 2016-02-03 PASS (With expected exceptions)
-Ex3_CombiningRDDs                                2016-02-03 PASS (With expected exceptions)
-Ex4_MoreOperationsOnRDDs                         2016-02-03 PASS
-Ex5_Partitions                                   2016-02-03 PASS
-Ex6_Accumulators                                 2016-02-03 PASS
-Ex9_Scraps                                       2016-02-03 PASS
-dataframe.Basic                                  2016-02-03 PASS
-dataframe.ComplexSchema                          2016-02-03 PASS
-dataframe.DateTime                               2016-02-03 PASS
-dataframe.DropColumns                            2016-02-03 PASS
-dataframe.DropDuplicates                         2016-02-03 PASS
-dataframe.FromRowsAndSchema                      2016-02-03 PASS
-dataframe.GroupingAndAggregation                 2016-02-03 PASS
-dataframe.Range                                  2016-02-03 PASS
-dataframe.Select                                 2016-02-03 PASS
-dataframe.SimpleCreation                         2016-02-03 PASS
-dataframe.Transform                              2016-02-03 PASS
-dataframe.UDAF                                   2016-02-03 PASS
-dataframe.UDF                                    2015-09-20 PASS
-dataframe.UDT                                    2016-02-03 PASS
-
-
-
-graphx.SecondDegreeNeighbors                     2016-02-03 PASS
-hiveql.LateralViewExplode                        2016-02-03 PASS
-hiveql.SimpleUDAF                                2016-02-03 PASS
-hiveql.SimpleUDF                                 2016-02-03 PASS
-special.CustomPartitioner                        2016-02-03 PASS
-special.HashJoin                                 2016-02-03 PASS
-special.PairRDD                                  2016-02-03 PASS
-special.Range                                    2016-02-03 PASS
-sql.Basic                                        2016-02-03 PASS
-sql.CaseClassSchemaProblem                       2016-02-03 PASS (i.e.: fails as expected)
-sql.ComplexTypes                                 2016-02-03 PASS
-sql.CustomRelationProvider                       2016-02-03 PASS
-sql.DateTime                                     2016-02-03 PASS
-sql.ExternalNonRectangular                       2016-02-03 PASS
-sql.JSON                                         2016-02-03 PASS
-sql.JSONSchemaInference                          2016-02-03 PASS
-sql.JSONTypes                                    2016-02-03 PASS
-sql.MixedJSONQuery                               2016-02-03 PASS
-sql.OutputJSON                                   2016-02-03 PASS
-sql.RelationProviderFilterPushdown               2016-02-03 PASS
-sql.SchemaConversion                             2016-02-03 PASS
-sql.Types                                        2016-02-03 PASS
-sql.UDAF                                         2016-02-03 PASS
-sql.UDF                                          2016-02-03 PASS
-sql.UDT                                          2016-02-03 PASS
-streaming.Accumulation                           2016-02-03 PASS
-streaming.FileBasedStreaming                     2016-02-03 PASS
-streaming.QueueBasedStreaming                    2016-02-03 PASS
-streaming.Windowing                              2016-02-03 PASS
+Ex1_SimpleRDD                                    2016-08-07 PASS
+Ex2_Computations                                 2016-08-07 PASS (With expected exceptions)
+Ex3_CombiningRDDs                                2016-08-07 PASS (With expected exceptions)
+Ex4_MoreOperationsOnRDDs                         2016-08-07 PASS
+Ex5_Partitions                                   2016-08-07 PASS
+Ex6_Accumulators                                 2016-08-07 PASS
+Ex9_Scraps                                       2016-08-07 PASS
+dataframe.Basic                                  2016-08-07 PASS
+dataframe.ComplexSchema                          2016-08-07 PASS
+dataframe.DateTime                               2016-08-07 PASS
+dataframe.DropColumns                            2016-08-07 PASS
+dataframe.DropDuplicates                         2016-08-07 PASS
+dataframe.FromRowsAndSchema                      2016-08-07 PASS
+dataframe.GroupingAndAggregation                 2016-08-07 PASS
+dataframe.Range                                  2016-08-07 PASS
+dataframe.Select                                 2016-08-07 PASS
+dataframe.SimpleCreation                         2016-08-07 PASS 
+dataframe.Transform                              2016-08-07 PASS
+dataframe.UDAF                                   2016-08-07 PASS
+dataframe.UDF                                    2015-08-07 PASS
+dataframe.UDT                                    (Not supported in Spark 2.0.0)
+graphx.SecondDegreeNeighbors                     2016-08-07 PASS (some disturbing warnings)
+hiveql.SimpleUDF                                 2016-08-07 PASS*
+hiveql.SimpleUDAF                                2016-08-07 PASS*
+hiveql.LateralViewExplode                        2016-08-07 PASS*
+pairs.chooseWithinGroups                         2016-08-07 PASS
+special.CustomPartitioner                        2016-08-07 PASS
+special.HashJoin                                 2016-08-07 PASS
+special.PairRDD                                  2016-08-07 PASS
+special.Range                                    2016-08-07 PASS
+sql.Basic                                        2016-08-07 PASS
+sql.CaseClassSchemaProblem                       2016-08-07 PASS (i.e.: fails as expected)
+sql.ComplexTypes                                 2016-08-07 PASS
+sql.CustomRelationProvider                       2016-08-07 PASS
+sql.DateTime                                     2016-08-07 PASS
+sql.ExternalNonRectangular                       2016-08-07 PASS
+sql.JSON                                         2016-08-07 PASS
+sql.JSONSchemaInference                          2016-08-07 PASS
+sql.JSONTypes                                    2016-08-07 PASS
+sql.MixedJSONQuery                               2016-08-07 PASS
+sql.OutputJSON                                   2016-08-07 PASS
+sql.RelationProviderFilterPushdown               2016-08-07 PASS
+sql.SchemaConversion                             2016-08-07 PASS
+sql.Types                                        2016-08-07 PASS
+sql.UDAF                                         2016-08-07 PASS
+sql.UDF                                          2016-08-07 PASS
+sql.UDT                                          (Not supported in Spark 2.0.0)
+streaming.Accumulation                           2016-08-07 PASS
+streaming.CustomStreaming                        2016-08-07 PASS
+streaming.FileBasedStreaming                     2016-08-07 PASS
+streaming.FullMonitoring                         2016-08-07 PASS
+streaming.Monitoring                             2016-08-07 PASS
+streaming.QueueBasedStreaming                    2016-08-07 PASS
+streaming.Windowing                              2016-08-07 PASS (Scary warnings)
