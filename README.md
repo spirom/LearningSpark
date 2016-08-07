@@ -1,5 +1,7 @@
 # The _LearningSpark_ Project
 
+# NOTE: THis code now uses Spark 2.0.0 and beyond -- if you are still using an earlier version of Spark you may want to work off the before_spark2.0.0 branch.
+
 This project contains snippets of Scala code for illustrating various
 Apache Spark concepts. It is
 intended to help you _get started_ with learning Apache Spark (as a _Scala_ programmer) by providing a super easy on-ramp that _doesn't_ involve Unix, cluster configuration, building from sources or
@@ -12,7 +14,7 @@ It is intended to accompany a number of posts on the blog
 ## Dependencies
 
 The project was created with IntelliJ Idea 14 Community Edition,
-JDK 1.7, Scala 2.11.2 and Spark 1.3.0 on Windows 8.
+JDK 1.7, Scala 2.11.2 and Spark 2.0.0 on Ubuntu Linux.
 
 Versions of these examples for other configurations (older versions of Scala and Spark) can be found in various branches.
 
