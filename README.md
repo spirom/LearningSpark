@@ -1,6 +1,6 @@
 # The _LearningSpark_ Project
 
-# NOTE: THis code now uses Spark 2.0.0 and beyond -- if you are still using an earlier version of Spark you may want to work off the before_spark2.0.0 branch.
+# NOTE: This code now uses Spark 2.0.0 and beyond -- if you are still using an earlier version of Spark you may want to work off the before_spark2.0.0 branch.
 
 This project contains snippets of Scala code for illustrating various
 Apache Spark concepts. It is
