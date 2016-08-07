@@ -1,6 +1,6 @@
 package streaming
 
-import org.apache.spark.{SparkContext, SparkConf, Logging}
+import org.apache.spark.{SparkContext, SparkConf}
 import org.apache.spark.storage.StorageLevel
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.streaming.receiver.Receiver
@@ -19,7 +19,6 @@ import scala.language.postfixOps
 class CustomReceiver
   extends Receiver[String](StorageLevel.MEMORY_ONLY)
   with Serializable
-  with Logging
 {
 
   //

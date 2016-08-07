@@ -6,8 +6,6 @@ import org.apache.spark.sql.{Row, SQLContext}
 import org.apache.spark.{SparkContext, SparkConf}
 import org.apache.spark.sql.types._
 
-import scala.beans.{BeanInfo, BeanProperty}
-
 //
 // This example demonstrates how to define a basic user defined type (UDT) and
 // how to use it in a query. The attributes of the underlying class are not
@@ -22,6 +20,10 @@ import scala.beans.{BeanInfo, BeanProperty}
 // Underlying case class defining 3D points. The annotation conencts it with
 // the UDT definition below.
 //
+
+/** *** SPECIAL NOTE ***
+  * This feature has been removed in Spark 2.0.0 -- please see
+  * https://issues.apache.org/jira/browse/SPARK-14155
 
 @SQLUserDefinedType(udt = classOf[MyPoint3DUDT])
 private case class MyPoint3D(x: Double, y: Double, z: Double)
@@ -100,3 +102,5 @@ object UDT {
   }
 
 }
+
+**/

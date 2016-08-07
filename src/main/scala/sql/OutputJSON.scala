@@ -6,6 +6,7 @@ import org.apache.spark.sql.Row
 import org.apache.spark.sql.types._
 import org.apache.spark.{SparkContext, SparkConf}
 
+
 //
 // NOTE: This is example is now, strictly speaking, out of date, as the
 // ability to write JSON was added in Spark 1.2.0, but the example was written
@@ -50,7 +51,7 @@ object OutputJSON {
   // Simultaneously iterate through the schema and Row each time --
   // the top level of a Row is always a struct.
   def formatDataFrame(st: StructType, srdd: DataFrame): RDD[String] = {
-    srdd.map(r => formatStruct(st.fields, r))
+    srdd.rdd.map(formatStruct(st.fields, _))
   }
 
   def main (args: Array[String]) {

@@ -46,6 +46,8 @@ object CoPartitioning {
 
     val partitioner = new HashPartitioner(10)
 
+    /** Partitioning has changed enough that this may need to be redone from scratch for 2.0.0
+
     val custs2 = sqlContext.sql("SELECT * from custs1").map(r => (r.getInt(0), r)).partitionBy(partitioner)
 
     val orders2 = sqlContext.sql("SELECT * from orders1").map(r => (r.getInt(1), r)).partitionBy(partitioner)
@@ -65,6 +67,8 @@ object CoPartitioning {
     res2.explain()
 
     res2.show()
+
+      **/
 
   }
 }

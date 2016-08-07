@@ -14,7 +14,7 @@ import org.apache.spark.sql.types._
 // a user defined function (UDF) to be applied to instances of the UDT.
 //
 // Then a second UDT is layered on top of the first one, and stored and
-// queried int he same way.
+// queried in the same way.
 //
 // NOTE about representation: the UDTs need to choose a underlying
 // representation from the Spark SQL type system. Two different approaches
@@ -24,9 +24,13 @@ import org.apache.spark.sql.types._
 //
 
 //
-// Underlying case class defining 3D points. The annotation conencts it with
+// Underlying case class defining 3D points. The annotation connects it with
 // the UDT definition below.
 //
+
+/** *** SPECIAL NOTE ***
+  * This feature has been removed in Spark 2.0.0 -- please see
+  * https://issues.apache.org/jira/browse/SPARK-14155
 
 @SQLUserDefinedType(udt = classOf[MyPoint3DUDT])
 private case class MyPoint3D(x: Double, y: Double, z: Double) {
@@ -210,3 +214,5 @@ object UDT {
   }
 
 }
+
+*/

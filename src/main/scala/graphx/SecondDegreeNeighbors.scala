@@ -46,13 +46,9 @@ object SecondDegreeNeighbors {
     // vertex from the set of its neighbors, hence the extra map tacked on the end.
     //
 
-    // TODO: figure out what to replace the deprecated mapReduceTriplets call with
-
     val ngVertices: VertexRDD[Set[VertexId]] =
-      successorSetGraph.mapReduceTriplets[Set[VertexId]] (
-        triplet => {
-            Iterator((triplet.dstId, triplet.srcAttr.toSet))
-        },
+      successorSetGraph.aggregateMessages[Set[VertexId]] (
+        triplet => triplet.sendToDst(triplet.srcAttr.toSet),
         (s1, s2) => s1 ++ s2
     ).mapValues[Set[VertexId]](
         (id: VertexId, neighbors: Set[VertexId]) => neighbors - id
