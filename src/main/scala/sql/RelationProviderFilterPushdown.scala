@@ -210,7 +210,7 @@ object RelationProviderFilterPushdown {
           |WHERE val <= 40 AND squared >= 900
           |ORDER BY val
         """.stripMargin)
-    data.foreach(println)
+    data.foreach(r => println(r))
   }
 
 }

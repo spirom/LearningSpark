@@ -13,16 +13,16 @@ object JSONSchemaInference {
     ex1.schema.printTreeString()
     ex1.registerTempTable("table1")
     println("simple query")
-    sqlContext.sql("select b from table1").foreach(println)
+    sqlContext.sql("select b from table1").foreach(r => println(r))
 
     // two records, overlapping fields
     val ex2 = sqlContext.read.json("src/main/resources/data/inference2.json")
     ex2.schema.printTreeString()
     ex2.registerTempTable("table2")
     println("it's OK to reference a sometimes missing field")
-    sqlContext.sql("select b from table2").foreach(println)
+    sqlContext.sql("select b from table2").foreach(r => println(r))
     println("it's OK to reach into a sometimes-missing record")
-    sqlContext.sql("select g.h from table2").foreach(println)
+    sqlContext.sql("select g.h from table2").foreach(r => println(r))
 
     // two records, scalar and structural conflicts
     val ex3 = sqlContext.read.json("src/main/resources/data/inference3.json")
@@ -30,6 +30,6 @@ object JSONSchemaInference {
     ex3.registerTempTable("table3")
     println("it's ok to query conflicting types but not reach inside them")
     // don't try to query g.h or g[1]
-    sqlContext.sql("select g from table3").foreach(println)
+    sqlContext.sql("select g from table3").foreach(r => println(r))
   }
 }
