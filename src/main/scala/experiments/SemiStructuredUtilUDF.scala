@@ -82,7 +82,7 @@ object SemiStructuredUtilUDF {
 
     val all =
       sqlContext.sql("SELECT a, id, struct(address) FROM transactions")
-    all.foreach(println)
+    all.foreach(r => println(r))
 
     sqlContext.udf.register("isAtomic", isAtomic _)
     sqlContext.udf.register("arrayLength", arrayLength _)

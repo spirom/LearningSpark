@@ -24,7 +24,7 @@ object JSONTypes {
     )), 4)
     val tdf = sqlContext.createDataFrame(rows, schema)
 
-    tdf.toJSON.foreach(println)
+    tdf.toJSON.foreach(r => println(r))
 
 
     val text = sc.parallelize(Seq(

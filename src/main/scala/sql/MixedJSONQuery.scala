@@ -14,21 +14,21 @@ object MixedJSONQuery {
 
 
     val all = sqlContext.sql("SELECT id FROM transactions")
-    all.foreach(println)
+    all.foreach(r => println(r))
 
     val more = sqlContext.sql("SELECT id, since FROM transactions")
-    more.foreach(println)
+    more.foreach(r => println)
 
     val deeper = sqlContext.sql("SELECT id, address.zip FROM transactions")
-    deeper.foreach(println)
+    deeper.foreach(r => println(r))
 
     println("selecting an array valued column")
     val array1 = sqlContext.sql("SELECT id, orders FROM transactions")
-    array1.foreach(println)
+    array1.foreach(r => println(r))
 
     println("selecting a specific array element")
     val array2 = sqlContext.sql("SELECT id, orders[0] FROM transactions")
-    array2.foreach(println)
+    array2.foreach(r => println(r))
 
 
   }

@@ -33,7 +33,7 @@ object SchemaConversion {
 
     val results = sqlContext.sql("SELECT COUNT(i) FROM mytable WHERE i > 50")
 
-    results.foreach(println)
+    results.foreach(r => println(r))
 
 
 

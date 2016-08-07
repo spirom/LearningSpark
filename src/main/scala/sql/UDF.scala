@@ -49,7 +49,7 @@ object UDF {
     println("UDF in a WHERE")
     val westernStates =
       sqlContext.sql("SELECT * FROM customerTable WHERE westernState(state)")
-    westernStates.foreach(println)
+    westernStates.foreach(r => println(r))
 
     // HAVING clause
 
@@ -66,7 +66,7 @@ object UDF {
           |GROUP BY state
           |HAVING manyCustomers(custCount)
          """.stripMargin)
-    statesManyCustomers.foreach(println)
+    statesManyCustomers.foreach(r => println(println(r)))
 
     // GROUP BY clause
 
@@ -87,7 +87,7 @@ object UDF {
           |FROM customerTable
           |GROUP BY stateRegion(state)
         """.stripMargin)
-    salesByRegion.foreach(println)
+    salesByRegion.foreach(r => println(r))
 
     // we can also apply a UDF to the result columns
 
@@ -102,7 +102,7 @@ object UDF {
           |SELECT id, discountRatio(sales, discounts) AS ratio
           |FROM customerTable
         """.stripMargin)
-    customerDiscounts.foreach(println)
+    customerDiscounts.foreach(r => println(r))
 
     // we can make the UDF create nested structure in the results
 
@@ -116,12 +116,12 @@ object UDF {
     println("UDF creating structured result")
     val withStruct =
       sqlContext.sql("SELECT makeStruct(sales, discounts) AS sd FROM customerTable")
-    withStruct.foreach(println)
+    withStruct.foreach(r => println(r))
 
     println("UDF with nested query creating structured result")
     val nestedStruct =
       sqlContext.sql("SELECT id, sd.sales FROM (SELECT id, makeStruct(sales, discounts) AS sd FROM customerTable) AS d")
-    nestedStruct.foreach(println)
+    nestedStruct.foreach(r => println(r))
   }
 
 }

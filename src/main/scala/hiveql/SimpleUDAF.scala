@@ -40,7 +40,7 @@ object SimpleUDAF {
     // now use it in a query
     val data1 = hiveContext.sql("SELECT state, mysum(sales) AS sales FROM customers GROUP BY state")
     data1.printSchema()
-    data1.foreach(println)
+    data1.foreach(r => println(r))
 
   }
 }

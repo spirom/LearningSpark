@@ -45,7 +45,7 @@ object SimpleUDF {
     // now use it in a query
     val data1 = hiveContext.sql("SELECT id, discounted_sales(sales, discount) AS sales FROM customers")
     data1.printSchema()
-    data1.foreach(println)
+    data1.foreach(r => println(r))
 
   }
 }

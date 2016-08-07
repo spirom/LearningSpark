@@ -184,7 +184,7 @@ object ExternalNonRectangular {
           |WHERE val <= 40 AND data.squared >= 900
           |ORDER BY val
         """.stripMargin)
-    data.foreach(println)
+    data.foreach(r => println(r))
   }
 
 }

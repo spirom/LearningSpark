@@ -69,7 +69,7 @@ object CustomRelationProvider {
     // query the table we registered, using its column names
     val data =
       sqlContext.sql("SELECT * FROM dataTable ORDER BY val")
-    data.foreach(println)
+    data.foreach(r => println(r))
   }
 
 }

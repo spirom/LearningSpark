@@ -17,12 +17,11 @@ object LateralViewExplode {
 
     val data1 = hiveContext.sql("SELECT id, u.oid FROM transactions LATERAL VIEW explode(orders) t AS u")
     data1.schema.printTreeString()
-    data1.foreach(println)
+    data1.foreach(r => println(r))
 
     val data2 = hiveContext.sql("SELECT id, u.oid, u.SKU FROM transactions LATERAL VIEW explode(orders) t AS u")
     data2.schema.printTreeString()
-    data2.foreach(println)
-
+    data2.foreach(r => println(r))
 
   }
 }

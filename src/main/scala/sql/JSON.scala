@@ -14,15 +14,15 @@ object JSON {
     people.printSchema()
     people.registerTempTable("people")
     val young = sqlContext.sql("SELECT firstName, lastName FROM people WHERE age < 30")
-    young.foreach(println)
+    young.foreach(r => println(r))
 
     // nested JSON results in fields that have compound names, like address.state
     val peopleAddr = sqlContext.read.json("src/main/resources/data/notFlat.json")
     peopleAddr.printSchema()
-    peopleAddr.foreach(println)
+    peopleAddr.foreach(r => println(r))
     peopleAddr.registerTempTable("peopleAddr")
     val inPA = sqlContext.sql("SELECT firstName, lastName FROM peopleAddr WHERE address.state = 'PA'")
-    inPA.foreach(println)
+    inPA.foreach(r => println(r))
 
     // interesting characters in field names lead to problems with querying, as Spark SQL
     // has no quoting mechanism for identifiers
@@ -37,6 +37,6 @@ object JSON {
     peopleAddrFixed.printSchema()
     peopleAddrFixed.registerTempTable("peopleAddrFixed")
     val inPAFixed = sqlContext.sql("SELECT firstName, lastName FROM peopleAddrFixed WHERE address.state = 'PA'")
-    inPAFixed.foreach(println)
+    inPAFixed.foreach(r => println(r))
   }
 }
