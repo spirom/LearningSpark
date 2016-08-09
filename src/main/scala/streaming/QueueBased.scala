@@ -11,9 +11,7 @@ import scala.collection.mutable
 //
 class QueueMaker(sc: SparkContext, ssc:StreamingContext) {
 
-  // The SynchronizedQueue class is deprecated in Scala but is still used
-  // in the relevant example in the Spark source tree.
-  private val rddQueue = new mutable.SynchronizedQueue[RDD[Int]]()
+  private val rddQueue = new mutable.Queue[RDD[Int]]()
 
   val inputStream = ssc.queueStream(rddQueue)
 
@@ -33,6 +31,11 @@ class QueueMaker(sc: SparkContext, ssc:StreamingContext) {
     }
   }
 }
+
+// Queue based streaming emits the data of a single queue entry for each batch,
+// even if many entries have been enqueued in advance. Notice in this example
+// that the queue has been pre-populated with 10 entries, and they are emitted
+// one per second.
 
 object QueueBasedStreaming {
   def main (args: Array[String]) {
@@ -54,11 +57,34 @@ object QueueBasedStreaming {
     // start streaming
     ssc.start()
 
+    new Thread("Streaming Termination Monitor") {
+      override def run() {
+        try {
+          ssc.awaitTermination()
+        } catch {
+          case e: Exception => {
+            println("*** streaming exception caught in monitor thread")
+            e.printStackTrace()
+          }
+        }
+        println("*** streaming terminated")
+      }
+    }.start()
+
+    println("*** started termination monitor")
+
+    println("*** producing data")
     // start producing data
     qm.populateQueue()
 
-    while (true) {
-      Thread.sleep(100)
-    }
+    Thread.sleep(15000)
+
+    println("*** stopping streaming")
+    ssc.stop()
+
+    // wait a bit longer for the call to awaitTermination() to return
+    Thread.sleep(5000)
+
+    println("*** done")
   }
 }

@@ -85,5 +85,6 @@ object Monitoring {
     // wait a bit longer for the call to awaitTermination() to return
     Thread.sleep(5000)
 
+    println("*** done")
   }
 }

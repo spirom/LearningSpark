@@ -57,6 +57,14 @@ class FileMaker {
   }
 }
 
+//
+// File based streaming requires files to be atomically created in
+// the source directory -- in practice this entails creating them somewhere
+// else and renaming them in place. Every batch emitted by the StreamingContext
+// produces all the data from all files that have appeared since the last
+// batch -- potentially many files are combined into a single RDD each time.
+//
+
 object FileBasedStreaming {
   def main (args: Array[String]) {
     val conf = new SparkConf().setAppName("FileBasedStreaming").setMaster("local[4]")
@@ -77,11 +85,38 @@ object FileBasedStreaming {
     // start streaming
     ssc.start()
 
+    new Thread("Streaming Termination Monitor") {
+      override def run() {
+        try {
+          ssc.awaitTermination()
+        } catch {
+          case e: Exception => {
+            println("*** streaming exception caught in monitor thread")
+            e.printStackTrace()
+          }
+        }
+        println("*** streaming terminated")
+      }
+    }.start()
+
+    println("*** started termination monitor")
+
+    // A curious fact about files based streaming is that any files written
+    // before the first RDD is produced are ignored. So wait longer than
+    // that before producing files.
+    Thread.sleep(2000)
+    println("*** producing data")
     // start producing files
     fm.makeFiles()
 
-    while (true) {
-      Thread.sleep(100)
-    }
+    Thread.sleep(10000)
+
+    println("*** stopping streaming")
+    ssc.stop()
+
+    // wait a bit longer for the call to awaitTermination() to return
+    Thread.sleep(5000)
+
+    println("*** done")
   }
 }
