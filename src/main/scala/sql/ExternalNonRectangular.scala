@@ -1,9 +1,8 @@
 package sql
 
-import org.apache.spark.{SparkContext, SparkConf}
+import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.rdd.RDD
-import org.apache.spark.sql.SQLContext
-import org.apache.spark.sql.Row
+import org.apache.spark.sql.{Row, SQLContext, SparkSession}
 import org.apache.spark.sql.types.{IntegerType, StructField, StructType}
 import org.apache.spark.sql.sources._
 
@@ -161,13 +160,15 @@ class CustomPFRP2 extends RelationProvider {
 
 object ExternalNonRectangular {
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("RPFilterPushdown").setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val sqlContext = new SQLContext(sc)
+    val spark =
+      SparkSession.builder()
+        .appName("SQL-ExternalNonRectangular")
+        .master("local[4]")
+        .getOrCreate()
 
     // register it as a temporary table to be queried
     // (could register several of these with different parameter values)
-    sqlContext.sql(
+    spark.sql(
       s"""
         |CREATE TEMPORARY TABLE dataTable
         |USING sql.CustomPFRP2
@@ -177,7 +178,7 @@ object ExternalNonRectangular {
     // query the table we registered, using its column names
     // NOTE: requests the columns val, cubed, squared in that order!
     val data =
-      sqlContext.sql(
+      spark.sql(
         s"""
           |SELECT val, data.cubed
           |FROM dataTable

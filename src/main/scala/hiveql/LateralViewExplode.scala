@@ -1,5 +1,6 @@
 package hiveql
 
+import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.hive.HiveContext
 import org.apache.spark.{SparkConf, SparkContext}
 
@@ -7,19 +8,22 @@ import org.apache.spark.{SparkConf, SparkContext}
 
 object LateralViewExplode {
   def main (args: Array[String]) {
-    val conf = new SparkConf().setAppName("HiveQL").setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val hiveContext = new HiveContext(sc)
+    val spark =
+      SparkSession.builder()
+        .appName("HiveQL-LateralViewExplode")
+        .master("local[4]")
+        .enableHiveSupport()
+        .getOrCreate()
 
-    val transactions = hiveContext.read.json("src/main/resources/data/mixed.json")
+    val transactions = spark.read.json("src/main/resources/data/mixed.json")
     transactions.printSchema()
-    transactions.registerTempTable("transactions")
+    transactions.createOrReplaceTempView("transactions")
 
-    val data1 = hiveContext.sql("SELECT id, u.oid FROM transactions LATERAL VIEW explode(orders) t AS u")
+    val data1 = spark.sql("SELECT id, u.oid FROM transactions LATERAL VIEW explode(orders) t AS u")
     data1.schema.printTreeString()
     data1.foreach(r => println(r))
 
-    val data2 = hiveContext.sql("SELECT id, u.oid, u.SKU FROM transactions LATERAL VIEW explode(orders) t AS u")
+    val data2 = spark.sql("SELECT id, u.oid, u.SKU FROM transactions LATERAL VIEW explode(orders) t AS u")
     data2.schema.printTreeString()
     data2.foreach(r => println(r))
 

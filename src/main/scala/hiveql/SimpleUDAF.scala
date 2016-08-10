@@ -1,5 +1,6 @@
 package hiveql
 
+import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.hive.HiveContext
 import org.apache.spark.{SparkConf, SparkContext}
 
@@ -12,11 +13,14 @@ import org.apache.spark.{SparkConf, SparkContext}
 object SimpleUDAF {
 
   def main (args: Array[String]) {
-    val conf = new SparkConf().setAppName("HiveQL").setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val hiveContext = new HiveContext(sc)
+    val spark =
+      SparkSession.builder()
+        .appName("HiveQL-SimpleUDAF")
+        .master("local[4]")
+        .enableHiveSupport()
+        .getOrCreate()
 
-    import hiveContext.implicits._
+    import spark.implicits._
 
     // create an RDD of tuples with some data
     val custs = Seq(
@@ -26,19 +30,19 @@ object SimpleUDAF {
       (4, "Widgets R Us", 410500.00, 0.0, "CA"),
       (5, "Ye Olde Widgete", 500.00, 0.0, "MA")
     )
-    val customerRows = sc.parallelize(custs, 4)
+    val customerRows = spark.sparkContext.parallelize(custs, 4)
     val customerDF = customerRows.toDF("id", "name", "sales", "discount", "state")
 
     // register as a temporary table
     customerDF.printSchema()
-    customerDF.registerTempTable("customers")
+    customerDF.createOrReplaceTempView("customers")
 
     // register the UDAF with the HiveContext, by referring to the class we defined above --
     // skip the 'TEMPORARY' if you want it to be persisted in the Hive metastore
-    hiveContext.sql("CREATE TEMPORARY FUNCTION mysum AS 'hiveql.SumLargeSalesUDAF'")
+    spark.sql("CREATE TEMPORARY FUNCTION mysum AS 'hiveql.SumLargeSalesUDAF'")
 
     // now use it in a query
-    val data1 = hiveContext.sql("SELECT state, mysum(sales) AS sales FROM customers GROUP BY state")
+    val data1 = spark.sql("SELECT state, mysum(sales) AS sales FROM customers GROUP BY state")
     data1.printSchema()
     data1.foreach(r => println(r))
 

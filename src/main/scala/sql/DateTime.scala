@@ -1,10 +1,10 @@
 package sql
 
-import java.sql.{Timestamp, Date}
+import java.sql.{Date, Timestamp}
 
-import org.apache.spark.sql.Row
+import org.apache.spark.sql.{Row, SparkSession}
 import org.apache.spark.sql.types._
-import org.apache.spark.{SparkContext, SparkConf}
+import org.apache.spark.{SparkConf, SparkContext}
 
 //
 // One way to create a DataFrame containing dates and timestamps, and
@@ -12,10 +12,11 @@ import org.apache.spark.{SparkContext, SparkConf}
 //
 object DateTime {
   def main (args: Array[String]) {
-    val conf = new SparkConf().setAppName("SQL-DateTime").setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val sqlContext = new org.apache.spark.sql.SQLContext(sc)
-
+    val spark =
+      SparkSession.builder()
+        .appName("SQL-DateTime")
+        .master("local[4]")
+        .getOrCreate()
 
     val schema = StructType(
       Seq(
@@ -24,7 +25,7 @@ object DateTime {
         StructField("ts", TimestampType, true)
       )
     )
-    val rows = sc.parallelize(
+    val rows = spark.sparkContext.parallelize(
       Seq(
         Row(
           1,
@@ -42,17 +43,17 @@ object DateTime {
           Timestamp.valueOf("2011-10-02 15:00:00.123456")
         )
       ), 4)
-    val tdf = sqlContext.createDataFrame(rows, schema)
+    val tdf = spark.createDataFrame(rows, schema)
 
     tdf.printSchema()
 
-    tdf.registerTempTable("dates_times")
+    tdf.createOrReplaceTempView("dates_times")
 
     println("*** Here's the whole table")
-    sqlContext.sql("SELECT * FROM dates_times").show()
+    spark.sql("SELECT * FROM dates_times").show()
 
     println("*** Query for a date range")
-    sqlContext.sql(
+    spark.sql(
       s"""
          |  SELECT * FROM dates_times
          |  WHERE dt > cast('2002-01-01' as date)
@@ -60,7 +61,7 @@ object DateTime {
        """.stripMargin).show()
 
     println("*** Query to skip a timestamp range")
-    sqlContext.sql(
+    spark.sql(
       s"""
          |  SELECT * FROM dates_times
          |  WHERE ts < cast('2011-10-02 12:00:00' as timestamp)

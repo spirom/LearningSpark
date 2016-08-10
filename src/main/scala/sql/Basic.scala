@@ -1,7 +1,7 @@
 package sql
 
-import org.apache.spark.sql.SQLContext
-import org.apache.spark.{SparkContext, SparkConf}
+import org.apache.spark.sql.{SQLContext, SparkSession}
+import org.apache.spark.{SparkConf, SparkContext}
 
 //
 // Define data in terms of a case class, convert it to a DataFrame,
@@ -12,11 +12,13 @@ object Basic {
   case class Cust(id: Integer, name: String, sales: Double, discount: Double, state: String)
 
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("SQL-Basic").setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val sqlContext = new SQLContext(sc)
+    val spark =
+      SparkSession.builder()
+        .appName("SQL-Basic")
+        .master("local[4]")
+        .getOrCreate()
 
-    import sqlContext.implicits._
+    import spark.implicits._
 
     // create a sequence of case class objects
     // (we defined the case class above)
@@ -28,7 +30,7 @@ object Basic {
       Cust(5, "Ye Olde Widgete", 500.00, 0.0, "MA")
     )
     // make it an RDD and convert to a DataFrame
-    val customerDF = sc.parallelize(custs, 4).toDF()
+    val customerDF = spark.sparkContext.parallelize(custs, 4).toDF()
 
     println("*** See the DataFrame contents")
     customerDF.show()
@@ -45,10 +47,10 @@ object Basic {
     //
     // Register with a table name for SQL queries
     //
-    customerDF.registerTempTable("customer")
+    customerDF.createOrReplaceTempView("customer")
 
     println("*** Very simple query")
-    val allCust = sqlContext.sql("SELECT id, name FROM customer")
+    val allCust = spark.sql("SELECT id, name FROM customer")
     allCust.show()
     println("*** The result has a schema too")
     allCust.printSchema()
@@ -58,7 +60,7 @@ object Basic {
     //
     println("*** Very simple query with a filter")
     val californiaCust =
-      sqlContext.sql(
+      spark.sql(
         s"""
           | SELECT id, name, sales
           | FROM customer
@@ -69,15 +71,15 @@ object Basic {
 
     println("*** Queries are case sensitive by default, but this can be disabled")
 
-    sqlContext.setConf("spark.sql.caseSensitive", "false")
+    spark.conf.set("spark.sql.caseSensitive", "false")
     //
     // the capitalization of "CUSTOMER" here would normally make the query fail
     // with "Table not found"
     //
     val caseInsensitive =
-      sqlContext.sql("SELECT * FROM CUSTOMER")
+      spark.sql("SELECT * FROM CUSTOMER")
     caseInsensitive.show()
-    sqlContext.setConf("spark.sql.caseSensitive", "true")
+    spark.conf.set("spark.sql.caseSensitive", "true")
 
 
   }

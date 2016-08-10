@@ -73,7 +73,7 @@ object SemiStructuredUtilUDF {
 
     val transactions = sqlContext.read.json("src/main/resources/data/mixed.json")
     transactions.printSchema()
-    transactions.registerTempTable("transactions")
+    transactions.createOrReplaceTempView("transactions")
 
 
     sqlContext.udf.register("struct", struct _)

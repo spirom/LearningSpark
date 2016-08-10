@@ -73,11 +73,13 @@ object UDAF_Multi {
    }
 
    def main (args: Array[String]) {
-     val conf = new SparkConf().setAppName("HiveQL").setMaster("local[4]")
-     val sc = new SparkContext(conf)
-     val sqlContext = new SQLContext(sc)
+     val spark =
+       SparkSession.builder()
+         .appName("SQL-UDAF_Multi")
+         .master("local[4]")
+         .getOrCreate()
 
-     import sqlContext.implicits._
+     import spark.implicits._
 
      // create an RDD of tuples with some data
      // NOTE the use of Some/None to create a nullable column
@@ -89,7 +91,7 @@ object UDAF_Multi {
        (5, "Ye Olde Widgete", Some(500.00), 0.0, "MA"),
        (6, "Charlestown Widget", None, 0.0, "MA")
      )
-     val customerRows = sc.parallelize(custs, 4)
+     val customerRows = spark.sparkContext.parallelize(custs, 4)
      val customerDF = customerRows.toDF("id", "name", "sales", "discount", "state")
 
      val mystats = new ScalaAggregateFunction()
@@ -98,13 +100,13 @@ object UDAF_Multi {
 
      // register as a temporary table
 
-     customerDF.registerTempTable("customers")
+     customerDF.createOrReplaceTempView("customers")
 
-     sqlContext.udf.register("stats", mystats)
+     spark.udf.register("stats", mystats)
 
      // now use it in a query
      val sqlResult =
-       sqlContext.sql(
+       spark.sql(
          s"""
            | SELECT state, stats(sales) AS s
            | FROM customers
@@ -117,7 +119,7 @@ object UDAF_Multi {
      // getting separate columns
      // now use it in a query
      val sqlResult2 =
-       sqlContext.sql(
+       spark.sql(
          s"""
             | SELECT state, s.rows, s.count, s.sum FROM (
             |   SELECT state, stats(sales) AS s

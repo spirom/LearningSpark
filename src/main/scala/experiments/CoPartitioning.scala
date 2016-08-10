@@ -34,9 +34,9 @@ object CoPartitioning {
     )
 
     val cc = sc.parallelize(custs, 4)
-    cc.toDF().registerTempTable("custs1")
+    cc.toDF().createOrReplaceTempView("custs1")
 
-    sc.parallelize(orders, 2).toDF().registerTempTable("orders1")
+    sc.parallelize(orders, 2).toDF().createOrReplaceTempView("orders1")
 
     val res1 = sqlContext.sql("SELECT * FROM custs1 INNER JOIN orders1 ON custs1.id = orders1.custid")
 
@@ -52,11 +52,11 @@ object CoPartitioning {
 
     val orders2 = sqlContext.sql("SELECT * from orders1").map(r => (r.getInt(1), r)).partitionBy(partitioner)
 
-    custs2.map({case (k,r) => Customer(r.getInt(0), r.getString(1), r.getString(2))}).toDF().registerTempTable("custs2")
+    custs2.map({case (k,r) => Customer(r.getInt(0), r.getString(1), r.getString(2))}).toDF().createOrReplaceTempView("custs2")
 
     println(custs2.partitions.size)
 
-    orders2.map({case (k,r) => Order(r.getInt(0), r.getInt(1), r.getString(2), r.getInt(3))}).toDF().registerTempTable("orders2")
+    orders2.map({case (k,r) => Order(r.getInt(0), r.getInt(1), r.getString(2), r.getInt(3))}).toDF().createOrReplaceTempView("orders2")
 
     println(orders2.partitions.size)
 

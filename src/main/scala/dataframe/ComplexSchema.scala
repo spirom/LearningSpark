@@ -1,10 +1,9 @@
 package dataframe
 
-import org.apache.spark.sql.Row
-import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql.{Row, SQLContext, SparkSession}
 import org.apache.spark.sql.types._
 import org.apache.spark.sql.functions._
-import org.apache.spark.{SparkContext, SparkConf}
+import org.apache.spark.{SparkConf, SparkContext}
 
 //
 // Here we create a DataFrame from an RDD[Row] and a synthetic schema.
@@ -13,11 +12,13 @@ import org.apache.spark.{SparkContext, SparkConf}
 //
 object ComplexSchema {
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("DataFrame-ComplexSchema").setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val sqlContext = new SQLContext(sc)
+    val spark =
+      SparkSession.builder()
+        .appName("DataFrame-ComplexSchema")
+        .master("local[4]")
+        .getOrCreate()
 
-    import sqlContext.implicits._
+    import spark.implicits._
 
     //
     // Example 1: nested StructType for nested rows
@@ -28,7 +29,7 @@ object ComplexSchema {
       Row(2, Row("c", "d"), 9.00, Row(3,4))
 
     )
-    val rows1Rdd = sc.parallelize(rows1, 4)
+    val rows1Rdd = spark.sparkContext.parallelize(rows1, 4)
 
     val schema1 = StructType(
       Seq(
@@ -51,7 +52,7 @@ object ComplexSchema {
 
     println("Position of subfield 'd' is " + schema1.fieldIndex("d"))
 
-    val df1 = sqlContext.createDataFrame(rows1Rdd, schema1)
+    val df1 = spark.createDataFrame(rows1Rdd, schema1)
 
     println("Schema with nested struct")
     df1.printSchema()
@@ -77,7 +78,7 @@ object ComplexSchema {
       Row(2, Row("c", "d"), 9.00, Array(3,4,5))
 
     )
-    val rows2Rdd = sc.parallelize(rows2, 4)
+    val rows2Rdd = spark.sparkContext.parallelize(rows2, 4)
 
     //
     // This time, instead of just using the StructType constructor, see
@@ -98,7 +99,7 @@ object ComplexSchema {
       .add(StructField("d", DoubleType, true))
       .add("a", ArrayType(IntegerType))
 
-    val df2 = sqlContext.createDataFrame(rows2Rdd, schema2)
+    val df2 = spark.createDataFrame(rows2Rdd, schema2)
 
     println("Schema with array")
     df2.printSchema()
@@ -130,7 +131,7 @@ object ComplexSchema {
       Row(1, 8.00, Map("u" -> 1,"v" -> 2)),
       Row(2, 9.00, Map("x" -> 3, "y" -> 4, "z" -> 5))
     )
-    val rows3Rdd = sc.parallelize(rows3, 4)
+    val rows3Rdd = spark.sparkContext.parallelize(rows3, 4)
 
     val schema3 = StructType(
       Seq(
@@ -140,7 +141,7 @@ object ComplexSchema {
       )
     )
 
-    val df3 = sqlContext.createDataFrame(rows3Rdd, schema3)
+    val df3 = spark.createDataFrame(rows3Rdd, schema3)
 
     println("Schema with map")
     df3.printSchema()

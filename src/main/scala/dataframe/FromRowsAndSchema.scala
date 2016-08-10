@@ -1,9 +1,8 @@
 package dataframe
 
-import org.apache.spark.sql.Row
-import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql.{Row, SQLContext, SparkSession}
 import org.apache.spark.sql.types._
-import org.apache.spark.{SparkContext, SparkConf}
+import org.apache.spark.{SparkConf, SparkContext}
 
 //
 // Here we create a DataFrame from an RDD[Row] and a synthetic schema.
@@ -12,9 +11,11 @@ import org.apache.spark.{SparkContext, SparkConf}
 //
 object FromRowsAndSchema {
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("DataFrame-FromRowsAndSchema").setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val sqlContext = new SQLContext(sc)
+    val spark =
+      SparkSession.builder()
+        .appName("DataFrame-DropDuplicates")
+        .master("local[4]")
+        .getOrCreate()
 
     // create an RDD of Rows with some data
     val custs = Seq(
@@ -24,7 +25,7 @@ object FromRowsAndSchema {
       Row(4, "Widgets R Us", 410500.00, 0.0, "CA"),
       Row(5, "Ye Olde Widgete", 500.00, 0.0, "MA")
     )
-    val customerRows = sc.parallelize(custs, 4)
+    val customerRows = spark.sparkContext.parallelize(custs, 4)
 
     val customerSchema = StructType(
       Seq(
@@ -37,7 +38,7 @@ object FromRowsAndSchema {
     )
 
     // put the RDD[Row] and schema together to make a DataFrame
-    val customerDF = sqlContext.createDataFrame(customerRows, customerSchema)
+    val customerDF = spark.createDataFrame(customerRows, customerSchema)
 
     customerDF.printSchema()
 

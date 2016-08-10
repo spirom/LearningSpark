@@ -57,11 +57,13 @@ object UDAF {
    }
 
    def main (args: Array[String]) {
-     val conf = new SparkConf().setAppName("HiveQL").setMaster("local[4]")
-     val sc = new SparkContext(conf)
-     val sqlContext = new SQLContext(sc)
+     val spark =
+       SparkSession.builder()
+         .appName("SQL-UDAF")
+         .master("local[4]")
+         .getOrCreate()
 
-     import sqlContext.implicits._
+     import spark.implicits._
 
      // create an RDD of tuples with some data
      val custs = Seq(
@@ -71,7 +73,7 @@ object UDAF {
        (4, "Widgets R Us", 410500.00, 0.0, "CA"),
        (5, "Ye Olde Widgete", 500.00, 0.0, "MA")
      )
-     val customerRows = sc.parallelize(custs, 4)
+     val customerRows = spark.sparkContext.parallelize(custs, 4)
      val customerDF = customerRows.toDF("id", "name", "sales", "discount", "state")
 
      val mysum = new ScalaAggregateFunction()
@@ -80,13 +82,13 @@ object UDAF {
 
      // register as a temporary table
 
-     customerDF.registerTempTable("customers")
+     customerDF.createOrReplaceTempView("customers")
 
-     sqlContext.udf.register("mysum", mysum)
+     spark.udf.register("mysum", mysum)
 
      // now use it in a query
      val sqlResult =
-       sqlContext.sql(
+       spark.sql(
          s"""
            | SELECT state, mysum(sales) AS bigsales
            | FROM customers

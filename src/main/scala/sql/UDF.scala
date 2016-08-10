@@ -17,11 +17,13 @@ case class SalesDisc(sales: Double, discounts: Double)
 object UDF {
 
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("UDF").setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val sqlContext = new SQLContext(sc)
+    val spark =
+      SparkSession.builder()
+        .appName("SQL-UDF")
+        .master("local[4]")
+        .getOrCreate()
 
-    import sqlContext.implicits._
+    import spark.implicits._
 
     // create an RDD with some data
     val custs = Seq(
@@ -31,7 +33,7 @@ object UDF {
       Cust(4, "Widgets R Us", 410500.00, 0.0, "CA"),
       Cust(5, "Ye Olde Widgete", 500.00, 0.0, "MA")
     )
-    val customerTable = sc.parallelize(custs, 4).toDF()
+    val customerTable = spark.sparkContext.parallelize(custs, 4).toDF()
 
     // DSL usage -- query using a UDF but without SQL
     // (this example has been repalced by the one in dataframe.UDF)
@@ -40,26 +42,26 @@ object UDF {
 
     // for SQL usage  we need to register the table
 
-    customerTable.registerTempTable("customerTable")
+    customerTable.createOrReplaceTempView("customerTable")
 
     // WHERE clause
 
-    sqlContext.udf.register("westernState", westernState _)
+    spark.udf.register("westernState", westernState _)
 
     println("UDF in a WHERE")
     val westernStates =
-      sqlContext.sql("SELECT * FROM customerTable WHERE westernState(state)")
+      spark.sql("SELECT * FROM customerTable WHERE westernState(state)")
     westernStates.foreach(r => println(r))
 
     // HAVING clause
 
     def manyCustomers(cnt: Long) = cnt > 2
 
-    sqlContext.udf.register("manyCustomers", manyCustomers _)
+    spark.udf.register("manyCustomers", manyCustomers _)
 
     println("UDF in a HAVING")
     val statesManyCustomers =
-      sqlContext.sql(
+      spark.sql(
         s"""
           |SELECT state, COUNT(id) AS custCount
           |FROM customerTable
@@ -76,12 +78,12 @@ object UDF {
       case "AZ" | "NM" | "CO" | "UT" => "SouthWest"
     }
 
-    sqlContext.udf.register("stateRegion", stateRegion _)
+    spark.udf.register("stateRegion", stateRegion _)
 
     println("UDF in a GROUP BY")
     // note the grouping column repeated since it doesn't have an alias
     val salesByRegion =
-      sqlContext.sql(
+      spark.sql(
         s"""
           |SELECT SUM(sales), stateRegion(state) AS totalSales
           |FROM customerTable
@@ -93,11 +95,11 @@ object UDF {
 
     def discountRatio(sales: Double, discounts: Double) = discounts/sales
 
-    sqlContext.udf.register("discountRatio", discountRatio _)
+    spark.udf.register("discountRatio", discountRatio _)
 
     println("UDF in a result")
     val customerDiscounts =
-      sqlContext.sql(
+      spark.sql(
         s"""
           |SELECT id, discountRatio(sales, discounts) AS ratio
           |FROM customerTable
@@ -109,18 +111,18 @@ object UDF {
 
     def makeStruct(sales: Double, disc:Double) = SalesDisc(sales, disc)
 
-    sqlContext.udf.register("makeStruct", makeStruct _)
+    spark.udf.register("makeStruct", makeStruct _)
 
     // these failed in Spark 1.3.0 -- reported SPARK-6054 -- but work again in 1.3.1
 
     println("UDF creating structured result")
     val withStruct =
-      sqlContext.sql("SELECT makeStruct(sales, discounts) AS sd FROM customerTable")
+      spark.sql("SELECT makeStruct(sales, discounts) AS sd FROM customerTable")
     withStruct.foreach(r => println(r))
 
     println("UDF with nested query creating structured result")
     val nestedStruct =
-      sqlContext.sql("SELECT id, sd.sales FROM (SELECT id, makeStruct(sales, discounts) AS sd FROM customerTable) AS d")
+      spark.sql("SELECT id, sd.sales FROM (SELECT id, makeStruct(sales, discounts) AS sd FROM customerTable) AS d")
     nestedStruct.foreach(r => println(r))
   }
 

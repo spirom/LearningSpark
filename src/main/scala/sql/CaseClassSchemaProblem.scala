@@ -1,6 +1,6 @@
 package sql
 
-import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql.{SQLContext, SparkSession}
 import org.apache.spark.{SparkConf, SparkContext}
 
 //
@@ -12,6 +12,8 @@ import org.apache.spark.{SparkConf, SparkContext}
 // necessarily agree with the answer I have to concede that it's reasonable.
 //
 // Arguably, the error message has improved a bit in Spark 1.5.0.
+//
+// TODO: it may be interesting to see where DataSet takes this ...
 //
 object CaseClassSchemaProblem {
 
@@ -26,22 +28,24 @@ object CaseClassSchemaProblem {
   private case class Thing(key: Integer, foo: MyHolder)
 
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("CaseClasses").setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val sqlContext = new SQLContext(sc)
+    val spark =
+      SparkSession.builder()
+        .appName("SQL-CaseClassSchemaProblem")
+        .master("local[4]")
+        .getOrCreate()
 
-    import sqlContext.implicits._
+    import spark.implicits._
 
     val things = Seq(
       Thing(1, IntHolder(42)),
       Thing(2, StringHolder("hello")),
       Thing(3, BooleanHolder(false))
     )
-    val thingsDF = sc.parallelize(things, 4).toDF()
+    val thingsDF = spark.sparkContext.parallelize(things, 4).toDF()
 
-    thingsDF.registerTempTable("things")
+    thingsDF.createOrReplaceTempView("things")
 
-    val all = sqlContext.sql("SELECT * from things")
+    val all = spark.sql("SELECT * from things")
 
     all.printSchema()
 

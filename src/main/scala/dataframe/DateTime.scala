@@ -1,10 +1,10 @@
 package dataframe
 
-import java.sql.{Timestamp, Date}
+import java.sql.{Date, Timestamp}
 
-import org.apache.spark.sql.{Row, SQLContext}
+import org.apache.spark.sql.{Row, SQLContext, SparkSession}
 import org.apache.spark.sql.types._
-import org.apache.spark.{SparkContext, SparkConf}
+import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.functions._
 
 //
@@ -13,11 +13,13 @@ import org.apache.spark.sql.functions._
 //
 object DateTime {
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("DataFrame-DateTime").setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val sqlContext = new SQLContext(sc)
+    val spark =
+      SparkSession.builder()
+        .appName("DataFrame-DateTime")
+        .master("local[4]")
+        .getOrCreate()
 
-    import sqlContext.implicits._
+    import spark.implicits._
 
     val schema = StructType(
       Seq(
@@ -26,7 +28,7 @@ object DateTime {
         StructField("ts", TimestampType, true)
       )
     )
-    val rows = sc.parallelize(
+    val rows = spark.sparkContext.parallelize(
       Seq(
         Row(
           1,
@@ -44,7 +46,7 @@ object DateTime {
           Timestamp.valueOf("2011-10-02 15:00:00.123456")
         )
       ), 4)
-    val tdf = sqlContext.createDataFrame(rows, schema)
+    val tdf = spark.createDataFrame(rows, schema)
 
     println("DataFrame with both DateType and TimestampType")
     tdf.show()

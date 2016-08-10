@@ -1,16 +1,18 @@
 package sql
 
-import java.sql.{Timestamp, Date}
+import java.sql.{Date, Timestamp}
 
-import org.apache.spark.sql.Row
+import org.apache.spark.sql.{Row, SparkSession}
 import org.apache.spark.sql.types._
-import org.apache.spark.{SparkContext, SparkConf}
+import org.apache.spark.{SparkConf, SparkContext}
 
 object JSONTypes {
   def main (args: Array[String]) {
-    val conf = new SparkConf().setAppName("JSONTypes").setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val sqlContext = new org.apache.spark.sql.SQLContext(sc)
+    val spark =
+      SparkSession.builder()
+        .appName("SQL-JSONTypes")
+        .master("local[4]")
+        .getOrCreate()
 
     val schema = StructType(
       Seq(
@@ -18,44 +20,45 @@ object JSONTypes {
         StructField("ts", TimestampType, true)
       )
     )
-    val rows = sc.parallelize(Seq(Row(
+    val rows = spark.sparkContext.parallelize(Seq(Row(
       new Date(3601000),
       new Timestamp(3601000)
     )), 4)
-    val tdf = sqlContext.createDataFrame(rows, schema)
+    val tdf = spark.createDataFrame(rows, schema)
 
     tdf.toJSON.foreach(r => println(r))
 
 
-    val text = sc.parallelize(Seq(
+    val text = spark.sparkContext.parallelize(Seq(
     "{\"date\":\"1969-12-31\", \"ts\": \"1969-12-31 17:00:01.0\"}"
     ), 4)
 
-    val json1 = sqlContext.read.json(text)
+    val json1 = spark.read.json(text)
 
     json1.printSchema()
 
     // TODO: lost the ability to do this?
+
     /*
-    val json2 = sqlContext.read.json(text, schema)
+    val json2 = spark.read.json(text, schema)
 
     json2.printSchema()
     json2.show()
     */
 
-    val textConflict = sc.parallelize(Seq(
+    val textConflict = spark.sparkContext.parallelize(Seq(
       "{\"key\":42}",
       "{\"key\":\"hello\"}",
       "{\"key\":false}"
     ), 4)
 
-    val jsonConflict = sqlContext.read.json(textConflict)
+    val jsonConflict = spark.read.json(textConflict)
 
     jsonConflict.printSchema()
 
-    jsonConflict.registerTempTable("conflict")
+    jsonConflict.createOrReplaceTempView("conflict")
 
-    sqlContext.sql("SELECT * FROM conflict").show()
+    spark.sql("SELECT * FROM conflict").show()
 
 
   }

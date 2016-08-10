@@ -1,15 +1,17 @@
 package dataframe
 
-import org.apache.spark.sql.SQLContext
-import org.apache.spark.{SparkContext, SparkConf}
+import org.apache.spark.sql.{SQLContext, SparkSession}
+import org.apache.spark.{SparkConf, SparkContext}
 
 object DropDuplicates {
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("DataFrame-DropDuplicates").setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val sqlContext = new SQLContext(sc)
+    val spark =
+      SparkSession.builder()
+        .appName("DataFrame-DropDuplicates")
+        .master("local[4]")
+        .getOrCreate()
 
-    import sqlContext.implicits._
+    import spark.implicits._
 
     // create an RDD of tuples with some data
     val custs = Seq(
@@ -21,7 +23,7 @@ object DropDuplicates {
       (5, "Ye Olde Widgete", 500.00, 0.0, "MA"),
       (6, "Widget Co", 12000.00, 10.00, "AZ")
     )
-    val customerRows = sc.parallelize(custs, 4)
+    val customerRows = spark.sparkContext.parallelize(custs, 4)
 
     // convert RDD of tuples to DataFrame by supplying column names
     val customerDF = customerRows.toDF("id", "name", "sales", "discount", "state")

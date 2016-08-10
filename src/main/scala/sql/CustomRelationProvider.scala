@@ -1,10 +1,10 @@
 package sql
 
 import org.apache.spark.rdd.RDD
-import org.apache.spark.{SparkContext, SparkConf}
-import org.apache.spark.sql.{Row, SQLContext}
+import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.sql.{Row, SQLContext, SparkSession}
 import org.apache.spark.sql.types._
-import org.apache.spark.sql.sources.{BaseRelation, TableScan, RelationProvider}
+import org.apache.spark.sql.sources.{BaseRelation, RelationProvider, TableScan}
 
 //
 // Demonstrate the Spark SQL external data source API, but for
@@ -52,14 +52,16 @@ class CustomRP extends RelationProvider {
 
 object CustomRelationProvider {
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("RelationProvider").setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val sqlContext = new SQLContext(sc)
+    val spark =
+      SparkSession.builder()
+        .appName("SQL-CustomRelationProvider")
+        .master("local[4]")
+        .getOrCreate()
 
     // register it as a temporary table to be queried
     // (could register several of these with different parameter values)
     // Note: as of Spark 1.4.0 option names can contain periods or underscores
-    sqlContext.sql(
+    spark.sql(
       s"""
         |CREATE TEMPORARY TABLE dataTable
         |USING sql.CustomRP
@@ -68,7 +70,7 @@ object CustomRelationProvider {
 
     // query the table we registered, using its column names
     val data =
-      sqlContext.sql("SELECT * FROM dataTable ORDER BY val")
+      spark.sql("SELECT * FROM dataTable ORDER BY val")
     data.foreach(r => println(r))
   }
 

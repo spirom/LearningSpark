@@ -1,6 +1,6 @@
 package dataframe
 
-import org.apache.spark.sql.{Row, SQLContext}
+import org.apache.spark.sql.{Row, SQLContext, SparkSession}
 
 import scala.collection.mutable
 
@@ -16,11 +16,13 @@ object UDF {
   private case class Cust(id: Integer, name: String, sales: Double, discount: Double, state: String)
 
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("DataFrame-UDF").setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val sqlContext = new SQLContext(sc)
+    val spark =
+      SparkSession.builder()
+        .appName("DataFrame-UDF")
+        .master("local[4]")
+        .getOrCreate()
 
-    import sqlContext.implicits._
+    import spark.implicits._
 
     // create an RDD with some data
     val custs = Seq(
@@ -30,7 +32,7 @@ object UDF {
       Cust(4, "Widgets R Us", 410500.00, 0.0, "CA"),
       Cust(5, "Ye Olde Widgete", 500.00, 0.0, "MA")
     )
-    val customerDF = sc.parallelize(custs, 4).toDF()
+    val customerDF = spark.sparkContext.parallelize(custs, 4).toDF()
 
     // use UDF to construct Column from other Columns
 

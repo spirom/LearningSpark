@@ -1,7 +1,7 @@
 package dataframe
 
-import org.apache.spark.sql.SQLContext
-import org.apache.spark.{SparkContext, SparkConf}
+import org.apache.spark.sql.{SQLContext, SparkSession}
+import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.functions._
 
 object Select {
@@ -9,11 +9,13 @@ object Select {
   case class Cust(id: Integer, name: String, sales: Double, discount: Double, state: String)
 
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("DataFrame-Select").setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val sqlContext = new SQLContext(sc)
+    val spark =
+      SparkSession.builder()
+        .appName("DataFrame-Select")
+        .master("local[4]")
+        .getOrCreate()
 
-    import sqlContext.implicits._
+    import spark.implicits._
 
     // create an RDD with some data
     val custs = Seq(
@@ -23,7 +25,7 @@ object Select {
       Cust(4, "Widgets R Us", 410500.00, 0.0, "CA"),
       Cust(5, "Ye Olde Widgete", 500.00, 0.0, "MA")
     )
-    val customerDF = sc.parallelize(custs, 4).toDF()
+    val customerDF = spark.sparkContext.parallelize(custs, 4).toDF()
 
     println("*** use * to select() all columns")
 

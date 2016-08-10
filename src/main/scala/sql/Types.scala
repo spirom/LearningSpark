@@ -1,7 +1,7 @@
 package sql
 
 import org.apache.spark.sql.types._
-import org.apache.spark.sql.{Row, SQLContext}
+import org.apache.spark.sql.{Row, SQLContext, SparkSession}
 import org.apache.spark.{SparkConf, SparkContext}
 
 //
@@ -11,17 +11,19 @@ object Types {
   case class Cust(id: Integer, name: String, sales: Double, discount: Double, state: String)
 
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("SQL-Types").setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val sqlContext = new SQLContext(sc)
+    val spark =
+      SparkSession.builder()
+        .appName("SQL-Types")
+        .master("local[4]")
+        .getOrCreate()
 
-    import sqlContext.implicits._
+    import spark.implicits._
 
     val numericRows = Seq(
       Row(1.toByte, 2.toShort, 3, 4.toLong,
         BigDecimal(1), BigDecimal(2), 3.0f, 4.0)
     )
-    val numericRowsRDD = sc.parallelize(numericRows, 4)
+    val numericRowsRDD = spark.sparkContext.parallelize(numericRows, 4)
 
     val numericSchema = StructType(
       Seq(
@@ -36,15 +38,15 @@ object Types {
       )
     )
 
-    val numericDF = sqlContext.createDataFrame(numericRowsRDD, numericSchema)
+    val numericDF = spark.createDataFrame(numericRowsRDD, numericSchema)
 
     numericDF.printSchema()
 
     numericDF.show()
 
-    numericDF.registerTempTable("numeric")
+    numericDF.createOrReplaceTempView("numeric")
 
-    sqlContext.sql("SELECT * from numeric").show()
+    spark.sql("SELECT * from numeric").show()
 
     val miscSchema = StructType(
       Seq(

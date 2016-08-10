@@ -2,7 +2,7 @@ package sql
 
 import java.sql.Date
 
-import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql.{SQLContext, SparkSession}
 import org.apache.spark.{SparkConf, SparkContext}
 
 //
@@ -19,11 +19,13 @@ object ComplexTypes {
   case class Address(state:String)
 
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("SQL-ComplexTypes").setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val sqlContext = new SQLContext(sc)
+    val spark =
+      SparkSession.builder()
+        .appName("SQL-ComplexTypes")
+        .master("local[4]")
+        .getOrCreate()
 
-    import sqlContext.implicits._
+    import spark.implicits._
 
     // create a sequence of case class objects
     // (we defined the case class above)
@@ -40,16 +42,16 @@ object ComplexTypes {
         Address("CA"), Address("CA"))
     )
     // make it an RDD and convert to a DataFrame
-    val customerDF = sc.parallelize(custs, 4).toDF()
+    val customerDF = spark.sparkContext.parallelize(custs, 4).toDF()
 
 
     println("*** inferred schema takes nesting and arrays into account")
     customerDF.printSchema()
 
-    customerDF.registerTempTable("customer")
+    customerDF.createOrReplaceTempView("customer")
 
     println("*** Query results reflect complex structure")
-    val allCust = sqlContext.sql("SELECT * FROM customer")
+    val allCust = spark.sql("SELECT * FROM customer")
     allCust.show()
 
     //
@@ -60,7 +62,7 @@ object ComplexTypes {
 
     println("*** Projecting from deep structure doesn't blow up when it's missing")
     val projectedCust =
-      sqlContext.sql(
+      spark.sql(
         """
          | SELECT id, name, shipping.state, trans[1].date AS secondTrans
          | FROM customer
@@ -75,13 +77,13 @@ object ComplexTypes {
 
     println("*** Reach into each element of an array of structures by omitting the subscript")
     val arrayOfStruct =
-      sqlContext.sql("SELECT id, trans.date AS transDates FROM customer")
+      spark.sql("SELECT id, trans.date AS transDates FROM customer")
     arrayOfStruct.show()
     arrayOfStruct.printSchema()
 
     println("*** Group by a nested field")
     val groupByNested =
-      sqlContext.sql(
+      spark.sql(
         """SELECT shipping.state, count(*) AS customers
          | FROM customer
          | GROUP BY shipping.state
@@ -90,7 +92,7 @@ object ComplexTypes {
 
     println("*** Order by a nested field")
     val orderByNested =
-      sqlContext.sql(
+      spark.sql(
         """
          | SELECT id, shipping.state
          | FROM customer

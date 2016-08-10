@@ -1,5 +1,6 @@
 package hiveql
 
+import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.hive.HiveContext
 import org.apache.spark.{SparkConf, SparkContext}
 
@@ -17,11 +18,14 @@ class DiscountSalesUDF extends org.apache.hadoop.hive.ql.exec.UDF {
 object SimpleUDF {
 
   def main (args: Array[String]) {
-    val conf = new SparkConf().setAppName("HiveQL").setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val hiveContext = new HiveContext(sc)
+    val spark =
+      SparkSession.builder()
+        .appName("HiveQL-SimpleUDF")
+        .master("local[4]")
+        .enableHiveSupport()
+        .getOrCreate()
 
-    import hiveContext.implicits._
+    import spark.implicits._
 
     // create an RDD of tuples with some data
     val custs = Seq(
@@ -31,19 +35,19 @@ object SimpleUDF {
       (4, "Widgets R Us", 410500.00, 0.0, "CA"),
       (5, "Ye Olde Widgete", 500.00, 0.0, "MA")
     )
-    val customerRows = sc.parallelize(custs, 4)
+    val customerRows = spark.sparkContext.parallelize(custs, 4)
     val customerDF = customerRows.toDF("id", "name", "sales", "discount", "state")
 
     // register as a temporary table
     customerDF.printSchema()
-    customerDF.registerTempTable("customers")
+    customerDF.createOrReplaceTempView("customers")
 
     // register the UDF with the HiveContext, by referring to the class we defined above --
     // skip the 'TEMPORARY' if you want it to be persisted in the Hive metastore
-    hiveContext.sql("CREATE TEMPORARY FUNCTION discounted_sales AS 'hiveql.DiscountSalesUDF'")
+    spark.sql("CREATE TEMPORARY FUNCTION discounted_sales AS 'hiveql.DiscountSalesUDF'")
 
     // now use it in a query
-    val data1 = hiveContext.sql("SELECT id, discounted_sales(sales, discount) AS sales FROM customers")
+    val data1 = spark.sql("SELECT id, discounted_sales(sales, discount) AS sales FROM customers")
     data1.printSchema()
     data1.foreach(r => println(r))
 

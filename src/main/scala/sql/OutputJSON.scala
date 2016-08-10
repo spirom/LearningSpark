@@ -1,10 +1,9 @@
 package sql
 
 import org.apache.spark.rdd.RDD
-import org.apache.spark.sql.DataFrame
-import org.apache.spark.sql.Row
+import org.apache.spark.sql.{DataFrame, Row, SparkSession}
 import org.apache.spark.sql.types._
-import org.apache.spark.{SparkContext, SparkConf}
+import org.apache.spark.{SparkConf, SparkContext}
 
 
 //
@@ -55,16 +54,18 @@ object OutputJSON {
   }
 
   def main (args: Array[String]) {
-    val conf = new SparkConf().setAppName("OutputJSON").setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val sqlContext = new org.apache.spark.sql.SQLContext(sc)
+    val spark =
+      SparkSession.builder()
+        .appName("SQL-OutputJSON")
+        .master("local[4]")
+        .getOrCreate()
 
     // easy enough to query flat JSON
-    val people = sqlContext.read.json("src/main/resources/data/flat.json")
+    val people = spark.read.json("src/main/resources/data/flat.json")
     val strings =  formatDataFrame(people.schema, people)
     strings.foreach(println)
 
-    val peopleAddr = sqlContext.read.json("src/main/resources/data/notFlat.json")
+    val peopleAddr = spark.read.json("src/main/resources/data/notFlat.json")
     val nestedStrings = formatDataFrame(peopleAddr.schema, peopleAddr)
     nestedStrings.foreach(println)
   }

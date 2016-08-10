@@ -161,7 +161,7 @@ object UDT {
     points.printSchema()
     points.show()
 
-    points.registerTempTable("points")
+    points.createOrReplaceTempView("points")
 
     // Define a UDF to get access to attributes of a point in a query
     sqlContext.udf.register("myMagnitude", (p: MyPoint3D) => p.magnitude)
@@ -194,7 +194,7 @@ object UDT {
     lines.printSchema()
     lines.show()
 
-    lines.registerTempTable("lines")
+    lines.createOrReplaceTempView("lines")
 
     // Define a UDF to get access to attributes of a point in a query
     sqlContext.udf.register("myLength", (l: MyLine3D) => l.length)
