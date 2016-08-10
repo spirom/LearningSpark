@@ -2,7 +2,7 @@ package experiments
 
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.functions._
-import org.apache.spark.sql.{Column, SQLContext}
+import org.apache.spark.sql.{Column, SQLContext, SparkSession}
 import org.apache.spark.{SparkConf, SparkContext}
 
 //
@@ -12,23 +12,25 @@ object ChooseWithinGroups {
   case class Cust(id: Integer, name: String, sales: Double, discount: Double, state: String)
 
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("DataFrame-GroupingAndAggregation").setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val sqlContext = new SQLContext(sc)
+    val spark =
+      SparkSession.builder()
+        .appName("Experiments")
+        .master("local[4]")
+        .getOrCreate()
 
-    import sqlContext.implicits._
+    import spark.implicits._
 
     val people = Seq(
       (5,"Bob","Jones","Canada",23),
       (7,"Fred","Smith","Canada",18),
       (5,"Robert","Andrews","USA",32)
     )
-    val peopleRows = sc.parallelize(people, 4)
+    val peopleRows = spark.sparkContext.parallelize(people, 4)
 
     val peopleDF = peopleRows.toDF("id", "first", "last", "country", "age")
 
     // this is the default, but just ion case ...
-    sqlContext.setConf("spark.sql.retainGroupColumns", "true")
+    spark.conf.set("spark.sql.retainGroupColumns", "true")
 
     // the renaming here shouldn't be necessary but if I
     // don't do it I seem to expose a Spark SQL bug

@@ -56,7 +56,7 @@ class CustomReceiver
   // wait for it to stop -- arguably a timeout is appropriate here
   def onStop(): Unit = {
     println("*** stopping custom receiver")
-    sync.promiseToTerminate.complete(Success())
+    sync.promiseToTerminate.complete(Success(()))
     Await.result(sync.futureStopping, 1 second)
     println("*** stopped custom receiver")
   }
@@ -79,7 +79,7 @@ class CustomReceiver
         }
       }
     }
-    sync.promiseToStop.complete(Success())
+    sync.promiseToStop.complete(Success(()))
     println("*** custom receiver loop exited")
   }
 

@@ -1,6 +1,6 @@
 package experiments
 
-import org.apache.spark.sql.{Row, SQLContext}
+import org.apache.spark.sql.{Row, SQLContext, SparkSession}
 import org.apache.spark.{SparkConf, SparkContext}
 
 import scala.collection.mutable.ArrayBuffer
@@ -67,28 +67,30 @@ object SemiStructuredUtilUDF {
   }
 
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("UDF").setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val sqlContext = new SQLContext(sc)
+    val spark =
+      SparkSession.builder()
+        .appName("Experiments")
+        .master("local[4]")
+        .getOrCreate()
 
-    val transactions = sqlContext.read.json("src/main/resources/data/mixed.json")
+    val transactions = spark.read.json("src/main/resources/data/mixed.json")
     transactions.printSchema()
     transactions.createOrReplaceTempView("transactions")
 
 
-    sqlContext.udf.register("struct", struct _)
+    spark.udf.register("struct", struct _)
 
 
 
     val all =
-      sqlContext.sql("SELECT a, id, struct(address) FROM transactions")
+      spark.sql("SELECT a, id, struct(address) FROM transactions")
     all.foreach(r => println(r))
 
-    sqlContext.udf.register("isAtomic", isAtomic _)
-    sqlContext.udf.register("arrayLength", arrayLength _)
+    spark.udf.register("isAtomic", isAtomic _)
+    spark.udf.register("arrayLength", arrayLength _)
 
     val lotsOfOrders =
-      sqlContext.sql("SELECT id FROM transactions WHERE arrayLength(orders) > 2")
+      spark.sql("SELECT id FROM transactions WHERE arrayLength(orders) > 2")
     //lotsOfOrders.foreach(println)
   }
 

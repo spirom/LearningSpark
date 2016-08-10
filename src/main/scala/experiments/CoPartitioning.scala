@@ -1,6 +1,6 @@
 package experiments
 
-import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql.{SQLContext, SparkSession}
 import org.apache.spark.{HashPartitioner, SparkConf, SparkContext}
 
 object CoPartitioning {
@@ -10,11 +10,13 @@ object CoPartitioning {
   case class Order(id: Integer, custid: Integer, sku: String, quantity: Integer)
 
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("DataFrame-Basic").setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val sqlContext = new SQLContext(sc)
+    val spark =
+      SparkSession.builder()
+        .appName("Experiments")
+        .master("local[4]")
+        .getOrCreate()
 
-    import sqlContext.implicits._
+    import spark.implicits._
 
     val custs = Seq(
       Customer(1, "Widget Co", "AZ"),
@@ -33,12 +35,12 @@ object CoPartitioning {
       Order(1006, 5, "A003", 100)
     )
 
-    val cc = sc.parallelize(custs, 4)
+    val cc = spark.sparkContext.parallelize(custs, 4)
     cc.toDF().createOrReplaceTempView("custs1")
 
-    sc.parallelize(orders, 2).toDF().createOrReplaceTempView("orders1")
+    spark.sparkContext.parallelize(orders, 2).toDF().createOrReplaceTempView("orders1")
 
-    val res1 = sqlContext.sql("SELECT * FROM custs1 INNER JOIN orders1 ON custs1.id = orders1.custid")
+    val res1 = spark.sql("SELECT * FROM custs1 INNER JOIN orders1 ON custs1.id = orders1.custid")
 
     res1.explain()
 
