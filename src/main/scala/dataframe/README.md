@@ -43,3 +43,4 @@ the specifically SQL oriented aspects are covered in the **sql** directory, whic
 | UDF.scala             | How to use user-defined functions (UDFs) in queries. Note that the use of UDFs in SQL queries is covered seperately in the **sql** directory. |
 | UDT.scala             | User defined types from a DataFrame perspective -- depends on understanding UDF.scala |
 | UDAF.scala            | A simple User Defined Aggregation Function as introduced in Spark 1.5.0 |
+| DatasetConversion.scala | Explore interoperability between DataFrame and Dataset  -- note that Dataset is convered more detail in [dataset](../dataset/README.md) |
