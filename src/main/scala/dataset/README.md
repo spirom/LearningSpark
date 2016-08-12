@@ -4,7 +4,7 @@ The Dataset was introduced in Spark 1.6.0 but has really come to fruition in Spa
 provides a strongly typed, and largely statically typed query/transformation interface.
 
 Note that interoperability with DataFrame is very important -- see
-[datafreme/DatasetConversion.scala](../datafreme/DatasetConversion.scala) for
+[dataframe/DatasetConversion.scala](../dataframe/DatasetConversion.scala) for
 details.
 
 
