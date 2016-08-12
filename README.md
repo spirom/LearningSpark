@@ -31,12 +31,9 @@ The examples can be found under src/main/scala. The best way to use them is to s
 |         | Ex5_Partitions        | Explicit control of partitioning for performance and scalability. |
 |         | Ex6_Accumulators | How to use Spark accumulators to efficiently gather the results of distributed computations. |
 | [hiveql](src/main/scala/hiveql)  |  | Using HiveQL features in a HiveContext. See the local README.md in that directory for details. |
-| special | CustomPartitioner | How to take control of the partitioning of an RDD. |
-| special | HashJoin         | How to use the well known Hash Join algorithm to join two RDDs where one is small enough to entirely fit in the memory of each partition. See also [this question on StackOverflow](http://stackoverflow.com/questions/26238794/spark-join-exponentially-slow) |
-| special | PairRDD | How to operate on RDDs in which the underlying elements are pairs. |
+| [special](src/main/scala/special) |  | Special/adbanced RDD examples -- see the local README.md in that directory for details. |
 | [dataset](src/main/scala/dataset) |  | A range of Dataset examples (queryable collection that is statically typed) -- see the local README.md in that directory for details. |
 | [dataframe](src/main/scala/dataframe) |  | A range of DataFrame examples (queryable collection that is dynamically -- and weakly -- typed)-- see the local README.md in that directory for details. |
-| experiments | | Experimental examples that may or may not lead to anything interesting. |
 | [sql](src/main/scala/sql) | | A range of SQL examples -- see the local README.md in that directory for details.  |
 | [streaming](src/main/scala/streaming) | | Streaming examples -- see the local README.md in that directory for details.  |
 | [graphx](src/main/scala/graphx) | | A range of GraphX examples -- see the local README.md in that directory for details. |
