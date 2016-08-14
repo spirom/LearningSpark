@@ -15,7 +15,7 @@ object DatasetConversion {
   def main(args: Array[String]) {
     val spark =
       SparkSession.builder()
-        .appName("DataFrame-Basic")
+        .appName("DataFrame-DatasetConversion")
         .master("local[4]")
         .getOrCreate()
 

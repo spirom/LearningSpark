@@ -37,16 +37,16 @@ There are a number of things it's important to realize I'm *not* promising to do
 
 ## Scala Examples
 
-The examples can be found under src/main/scala. The best way to use them is to start by reading the code and its comments. Then, since each file contains an object definition with a main method, run it and consider the output. Relevant blog posts and StackOverflow answers are listed below. 
+The examples can be found under src/main/scala. The best way to use them is to start by reading the code and its comments. Then, since each file contains an object definition with a main method, run it and consider the output. Relevant blog posts and StackOverflow answers are listed in the various package README.md files.
 
-| Package | File                  | What's Illustrated    |
-|---------|-----------------------|-----------------------|
-|         | Ex1_SimpleRDD         | How to execute your first, very simple, Spark Job. See also [An easy way to start learning Spark](http://www.river-of-bytes.com/2014/11/an-easy-way-to-start-learning-spark.html).
-|         | Ex2_Computations      | How RDDs work in more complex computations. See also [Spark computations](http://www.river-of-bytes.com/2014/11/spark-computations.html). |
-|         | Ex3_CombiningRDDs     | Operations on multiple RDDs |
-|         | Ex4_MoreOperationsOnRDDs | More complex operations on individual RDDs |
-|         | Ex5_Partitions        | Explicit control of partitioning for performance and scalability. |
-|         | Ex6_Accumulators | How to use Spark accumulators to efficiently gather the results of distributed computations. |
+| Package or File                  | What's Illustrated    |
+|---------------------------------|-----------------------|
+|          Ex1_SimpleRDD         | How to execute your first, very simple, Spark Job. See also [An easy way to start learning Spark](http://www.river-of-bytes.com/2014/11/an-easy-way-to-start-learning-spark.html).
+|          Ex2_Computations      | How RDDs work in more complex computations. See also [Spark computations](http://www.river-of-bytes.com/2014/11/spark-computations.html). |
+|          Ex3_CombiningRDDs     | Operations on multiple RDDs |
+|          Ex4_MoreOperationsOnRDDs | More complex operations on individual RDDs |
+|          Ex5_Partitions        | Explicit control of partitioning for performance and scalability. |
+|          Ex6_Accumulators | How to use Spark accumulators to efficiently gather the results of distributed computations. |
 | [hiveql](src/main/scala/hiveql)  |  | Using HiveQL features in a HiveContext. See the local README.md in that directory for details. |
 | [special](src/main/scala/special) |  | Special/adbanced RDD examples -- see the local README.md in that directory for details. |
 | [dataset](src/main/scala/dataset) |  | A range of Dataset examples (queryable collection that is statically typed) -- see the local README.md in that directory for details. |
