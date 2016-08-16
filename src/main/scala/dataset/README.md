@@ -23,4 +23,4 @@ details.
 
 | File                  | What's Illustrated    |
 |-----------------------|-----------------------|
-| ComplexSchema.scala   | Creating a Dataset with various forms of complex schema (nesting, arrays, maps, nullability), based on case classes |
+| ComplexType.scala   | Creating a Dataset with various forms of complex schema (nesting, arrays, maps, nullability), based on case classes |

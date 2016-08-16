@@ -4,8 +4,8 @@ import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
 
 //
-// Create Datasets of complex type using nested case classes, arrays and Option,
-// and query them. This example shows a lot of the power of the Dataset
+// Create Datasets of complex type using nested case classes, arrays, maps and
+// Option, and query them. This example shows a lot of the power of the Dataset
 // concept, since the expression of these complex types in terms of case
 // classes seems tso natural.
 //
