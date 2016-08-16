@@ -1,8 +1,7 @@
 package dataframe
 
 import org.apache.spark.sql.functions._
-import org.apache.spark.sql.{Column, SQLContext, SparkSession}
-import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.sql.{Column, SparkSession}
 
 //
 // Shows various forms of grouping and aggregation.

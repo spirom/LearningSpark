@@ -2,9 +2,8 @@ package dataframe
 
 import java.sql.{Date, Timestamp}
 
-import org.apache.spark.sql.{Row, SQLContext, SparkSession}
+import org.apache.spark.sql.{Row, SparkSession}
 import org.apache.spark.sql.types._
-import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.functions._
 
 //

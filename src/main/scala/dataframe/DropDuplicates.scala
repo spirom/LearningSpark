@@ -1,7 +1,6 @@
 package dataframe
 
-import org.apache.spark.sql.{SQLContext, SparkSession}
-import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.sql.SparkSession
 
 object DropDuplicates {
   def main(args: Array[String]) {

@@ -1,8 +1,7 @@
 package dataframe
 
-import org.apache.spark.sql.{Row, SQLContext, SparkSession}
+import org.apache.spark.sql.{Row, SparkSession}
 import org.apache.spark.sql.types._
-import org.apache.spark.{SparkConf, SparkContext}
 
 //
 // Here we create a DataFrame from an RDD[Row] and a synthetic schema.

@@ -3,7 +3,6 @@ package dataframe
 import org.apache.spark.sql._
 import org.apache.spark.sql.expressions.{MutableAggregationBuffer, UserDefinedAggregateFunction}
 import org.apache.spark.sql.types._
-import org.apache.spark.{SparkConf, SparkContext}
 
 //
 // An example of the experimental User Defined Aggregation Function mechanism

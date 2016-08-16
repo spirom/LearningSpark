@@ -1,12 +1,11 @@
 package dataframe
 
-import org.apache.spark.sql.{Row, SQLContext, SparkSession}
+import org.apache.spark.sql.{Row, SparkSession}
 
 import scala.collection.mutable
 
 // needed for registering UDFs
 import org.apache.spark.sql.functions.udf
-import org.apache.spark.{SparkContext, SparkConf}
 import org.apache.spark.sql.functions.lit
 import org.apache.spark.sql.functions.array
 import org.apache.spark.sql.functions.struct
