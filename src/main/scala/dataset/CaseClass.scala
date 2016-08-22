@@ -35,7 +35,7 @@ object CaseClass {
     println("*** filter by one column and fetch another")
     numberDS.where($"i" > 2).select($"english", $"french").show()
 
-    println("*** could have used SparekSession.createDataset() instead")
+    println("*** could have used SparkSession.createDataset() instead")
     val anotherDS = spark.createDataset(numbers)
 
     println("*** case class Dataset types")
