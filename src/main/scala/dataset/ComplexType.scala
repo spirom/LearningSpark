@@ -7,7 +7,7 @@ import org.apache.spark.sql.functions._
 // Create Datasets of complex type using nested case classes, arrays, maps and
 // Option, and query them. This example shows a lot of the power of the Dataset
 // concept, since the expression of these complex types in terms of case
-// classes seems tso natural.
+// classes seems so natural.
 //
 object ComplexType {
 
@@ -39,8 +39,8 @@ object ComplexType {
 
     val segments = Seq(
       Segment(Point(1.0, 2.0), Point(3.0, 4.0)),
-      Segment(Point(8.0, 2.0), Point(3.0, 4.0)),
-      Segment(Point(11.0, 2.0), Point(3.0, 4.0)))
+      Segment(Point(8.0, 2.0), Point(3.0, 14.0)),
+      Segment(Point(11.0, 2.0), Point(3.0, 24.0)))
     val segmentsDS = segments.toDS()
 
     segmentsDS.printSchema();
