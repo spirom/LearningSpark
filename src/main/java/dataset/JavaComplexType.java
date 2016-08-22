@@ -7,16 +7,17 @@ import org.apache.spark.sql.SparkSession;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.apache.spark.sql.functions.col;
 import static org.apache.spark.sql.functions.size;
 
 
 //
-// Create a Spark Dataset from an array of JavaBean instances.
-// The inferred schema has convenient column names and it can
-// be queried conveniently.
+// Examples of querying against more complex schema inferred from Java beans.
+// Includes JavaBean nesting, arrays and maps.
 //
 public class JavaComplexType {
 
@@ -99,6 +100,27 @@ public class JavaComplexType {
         public void setPoints(Point[] points) { this.points = points; }
     }
 
+    //
+    // A JavaBean for Example 3
+    //
+    public static class NamedPoints implements Serializable {
+        private String name;
+        private Map<String, Point> points;
+
+        public NamedPoints(String name, Map<String, Point> points) {
+            this.name = name;
+            this.points = points;
+        }
+
+        public String getName() { return name; }
+
+        public void setName(String name) { this.name = name; }
+
+        public Map<String, Point> getPoints() { return points; }
+
+        public void setPoints(Map<String, Point> points) { this.points = points; }
+    }
+
     public static void main(String[] args) {
         SparkSession spark = SparkSession
             .builder()
@@ -112,22 +134,13 @@ public class JavaComplexType {
 
         System.out.println("*** Example 1: nested Java beans");
 
-        //
-        // The Java API requires you to explicitly instantiate an encoder for
-        // any JavaBean you want to use for schema inference
-        //
         Encoder<Segment> segmentEncoder = Encoders.bean(Segment.class);
-        //
-        // Create a container of the JavaBean instances
-        //
+
         List<Segment> data = Arrays.asList(
             new Segment(new Point(1.0, 2.0), new Point(3.0, 4.0)),
             new Segment(new Point(8.0, 2.0), new Point(3.0, 14.0)),
             new Segment(new Point(11.0, 2.0), new Point(3.0, 24.0)));
-        //
-        // Use the encoder and the container of JavaBean instances to create a
-        // Dataset
-        //
+
         Dataset<Segment> ds = spark.createDataset(data, segmentEncoder);
 
         System.out.println("*** here is the schema inferred from the bean");
@@ -168,6 +181,51 @@ public class JavaComplexType {
         linesDS
             .where(col("points").getItem(2).getField("y").gt(7.0))
             .select(col("name"), size(col("points")).as("count")).show();
+
+        //
+        // Example 3: maps
+        //
+
+        if (false) {
+
+            //
+            // In Spark 2.0 this throws
+            // java.lang.UnsupportedOperationException: map type is not supported currently
+            // See https://issues.apache.org/jira/browse/SPARK-16706 -- and
+            // notice it has been marked Fixed for Spark 2.1.0.
+            //
+
+            System.out.println("*** Example 3: maps");
+
+            Encoder<NamedPoints> namedPointsEncoder = Encoders.bean(NamedPoints.class);
+            HashMap<String, Point> points1 = new HashMap<>();
+            points1.put("p1", new Point(0.0, 0.0));
+            HashMap<String, Point> points2 = new HashMap<>();
+            points2.put("p1", new Point(0.0, 0.0));
+            points2.put("p2", new Point(2.0, 6.0));
+            points2.put("p3", new Point(10.0, 100.0));
+            List<NamedPoints> namedPoints = Arrays.asList(
+                    new NamedPoints("a", points1),
+                    new NamedPoints("b", points2)
+            );
+
+            Dataset<NamedPoints> namedPointsDS =
+                    spark.createDataset(namedPoints, namedPointsEncoder);
+
+            System.out.println("*** here is the schema inferred from the bean");
+            namedPointsDS.printSchema();
+
+            System.out.println("*** here is the data");
+            namedPointsDS.show();
+
+            System.out.println("*** filter and select using map lookup");
+            namedPointsDS
+                    .where(size(col("points")).gt(1))
+                    .select(col("name"),
+                            size(col("points")).as("count"),
+                            col("points").getItem("p1")).show();
+
+        }
 
         spark.stop();
     }
