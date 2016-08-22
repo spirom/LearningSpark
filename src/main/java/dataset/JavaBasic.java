@@ -12,6 +12,10 @@ import static org.apache.spark.sql.functions.col;
 import java.util.Arrays;
 import java.util.List;
 
+//
+// Create a Spark Dataset from an array of tuples. The inferred schema doesn't
+// have convenient column names but it can still be queried conveniently.
+//
 public class JavaBasic {
     public static void main(String[] args) {
         SparkSession spark = SparkSession
