@@ -1,0 +1,174 @@
+package dataset;
+
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Encoder;
+import org.apache.spark.sql.Encoders;
+import org.apache.spark.sql.SparkSession;
+
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.apache.spark.sql.functions.col;
+import static org.apache.spark.sql.functions.size;
+
+
+//
+// Create a Spark Dataset from an array of JavaBean instances.
+// The inferred schema has convenient column names and it can
+// be queried conveniently.
+//
+public class JavaComplexType {
+
+    //
+    // A JavaBean for allt he examples
+    //
+    public static class Point implements Serializable {
+        private double x;
+        private double y;
+
+        public Point(double x, double y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        public double getX() {
+            return x;
+        }
+
+        public void setX(double x) {
+            this.x = x;
+        }
+
+        public double getY() {
+            return y;
+        }
+
+        public void setY(double y) {
+            this.y = y;
+        }
+    }
+
+    //
+    // A JavaBean for Example 1
+    //
+    public static class Segment implements Serializable {
+        private Point from;
+        private Point to;
+
+        public Segment(Point from,  Point to) {
+            this.to = to;
+            this.from = from;
+        }
+
+        public Point getFrom() {
+            return from;
+        }
+
+        public void setFrom(Point from) {
+            this.from = from;
+        }
+
+        public Point getTo() {
+            return to;
+        }
+
+        public void setTo(Point to) {
+            this.to = to;
+        }
+    }
+
+    //
+    // A JavaBean for Example 2
+    //
+    public static class Line implements Serializable {
+        private String name;
+        private Point[] points;
+
+        public Line(String name, Point[] points) {
+            this.name = name;
+            this.points = points;
+        }
+
+        public String getName() { return name; }
+
+        public void setName(String name) { this.name = name; }
+
+        public Point[] getPoints() { return points; }
+
+        public void setPoints(Point[] points) { this.points = points; }
+    }
+
+    public static void main(String[] args) {
+        SparkSession spark = SparkSession
+            .builder()
+            .appName("Dataset-Jave-ComplexType")
+            .master("local[4]")
+            .getOrCreate();
+
+        //
+        // Example 1: nested Java beans
+        //
+
+        System.out.println("*** Example 1: nested Java beans");
+
+        //
+        // The Java API requires you to explicitly instantiate an encoder for
+        // any JavaBean you want to use for schema inference
+        //
+        Encoder<Segment> segmentEncoder = Encoders.bean(Segment.class);
+        //
+        // Create a container of the JavaBean instances
+        //
+        List<Segment> data = Arrays.asList(
+            new Segment(new Point(1.0, 2.0), new Point(3.0, 4.0)),
+            new Segment(new Point(8.0, 2.0), new Point(3.0, 14.0)),
+            new Segment(new Point(11.0, 2.0), new Point(3.0, 24.0)));
+        //
+        // Use the encoder and the container of JavaBean instances to create a
+        // Dataset
+        //
+        Dataset<Segment> ds = spark.createDataset(data, segmentEncoder);
+
+        System.out.println("*** here is the schema inferred from the bean");
+        ds.printSchema();
+
+        System.out.println("*** here is the data");
+        ds.show();
+
+        // Use the convenient bean-inferred column names to query
+        System.out.println("*** filter by one column and fetch others");
+        ds.where(col("from").getField("x").gt(7.0)).select(col("to")).show();
+
+        //
+        // Example 2: arrays
+        //
+
+        System.out.println("*** Example 2: arrays");
+
+        Encoder<Line> lineEncoder = Encoders.bean(Line.class);
+        List<Line> lines = Arrays.asList(
+            new Line("a", new Point[]{new Point(0.0, 0.0), new Point(2.0, 4.0)}),
+            new Line("b", new Point[]{new Point(-1.0, 0.0)}),
+            new Line("c", new Point[]
+                    {new Point(0.0, 0.0), new Point(2.0, 6.0), new Point(10.0, 100.0)})
+        );
+
+        Dataset<Line> linesDS = spark.createDataset(lines, lineEncoder);
+
+        System.out.println("*** here is the schema inferred from the bean");
+        linesDS.printSchema();
+
+        System.out.println("*** here is the data");
+        linesDS.show();
+
+        // notice here you can filter by the second element of the array, which
+        // doesn't even exist in one of the rows
+        System.out.println("*** filter by an array element");
+        linesDS
+            .where(col("points").getItem(2).getField("y").gt(7.0))
+            .select(col("name"), size(col("points")).as("count")).show();
+
+        spark.stop();
+    }
+}
