@@ -21,22 +21,22 @@ object CaseClass {
 
     import spark.implicits._
 
-    val tuples = Seq(
+    val numbers = Seq(
       Number(1, "one", "un"),
       Number(2, "two", "deux"),
       Number(3, "three", "trois"))
-    val tupleDS = tuples.toDS()
+    val numberDS = numbers.toDS()
 
     println("*** case class Dataset types")
-    tupleDS.dtypes.foreach(println(_))
+    numberDS.dtypes.foreach(println(_))
 
     // Since we used a case class we can query using the field names
     // as column names
     println("*** filter by one column and fetch another")
-    tupleDS.where($"i" > 2).select($"english", $"french").show()
+    numberDS.where($"i" > 2).select($"english", $"french").show()
 
     println("*** could have used SparekSession.createDataset() instead")
-    val anotherDS = spark.createDataset(tuples)
+    val anotherDS = spark.createDataset(numbers)
 
     println("*** case class Dataset types")
     anotherDS.dtypes.foreach(println(_))
