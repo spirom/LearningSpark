@@ -33,6 +33,7 @@ There are a number of things it's important to realize I'm *not* promising to do
 | Package | What's Illustrated    |
 |---------|-----------------------|
 | [dataset](src/main/java/dataset) | A range of Dataset examples (queryable collection that is statically typed) -- see the local README.md in that directory for details. |
+| [dataframe](src/main/java/dataframe) | A range of DataFrame/Dataset<Row> examples (queryable collection that is dynamically typed) -- see the local README.md in that directory for details. |
 
 
 ## Scala Examples
