@@ -14,14 +14,14 @@ It is intended to accompany a number of posts on the blog
 ## Dependencies
 
 The project was created with IntelliJ Idea 14 Community Edition,
-JDK 1.8, Scala 2.11.2 and Spark 2.0.0 on Ubuntu Linux.
+JDK 1.7, Scala 2.11.2 and Spark 2.0.0 on Ubuntu Linux.
 
 Versions of these examples for other configurations (older versions of Scala and Spark) can be found in various branches.
 
 ## Java Examples
 
 These are much less developed than the Scala examples below.
-Note that they use Java 8 and Spark 2.0.0 only -- if you go back to the before_spark2.0.0 branch
+Note that they use Java 7 and Spark 2.0.0 only -- if you go back to the before_spark2.0.0 branch
 you won't find any Java examples at all. I'm adding these partly out of curiosity (because I like Java
 almost as much as Scala) and partly because of a realization that lots of Spark programmers use Java.
 There are a number of things it's important to realize I'm *not* promising to do:
