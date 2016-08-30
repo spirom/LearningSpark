@@ -20,7 +20,7 @@ public class JavaBasic {
     public static void main(String[] args) {
         SparkSession spark = SparkSession
             .builder()
-            .appName("Dataset-Jave-Basic")
+            .appName("Dataset-Java-Basic")
             .master("local[4]")
             .getOrCreate();
 

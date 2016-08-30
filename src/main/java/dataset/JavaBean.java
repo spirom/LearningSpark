@@ -62,7 +62,7 @@ public class JavaBean {
     public static void main(String[] args) {
         SparkSession spark = SparkSession
             .builder()
-            .appName("Dataset-Jave-Bean")
+            .appName("Dataset-Java-Bean")
             .master("local[4]")
             .getOrCreate();
 

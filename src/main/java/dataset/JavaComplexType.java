@@ -22,7 +22,7 @@ import static org.apache.spark.sql.functions.size;
 public class JavaComplexType {
 
     //
-    // A JavaBean for allt he examples
+    // A JavaBean for all the examples
     //
     public static class Point implements Serializable {
         private double x;
@@ -124,7 +124,7 @@ public class JavaComplexType {
     public static void main(String[] args) {
         SparkSession spark = SparkSession
             .builder()
-            .appName("Dataset-Jave-ComplexType")
+            .appName("Dataset-Java-ComplexType")
             .master("local[4]")
             .getOrCreate();
 
