@@ -72,7 +72,7 @@ public class JavaBean {
         //
         Encoder<Number> numberEncoder = Encoders.bean(Number.class);
         //
-        // Create a contaienr of the JavaBean instances
+        // Create a container of the JavaBean instances
         //
         List<Number> data = Arrays.asList(
                 new Number(1, "one", "un"),

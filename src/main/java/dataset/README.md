@@ -11,4 +11,4 @@
 
 | File                  | What's Illustrated    |
 |-----------------------|-----------------------|
-| JavaComplexType.scala   | Creating a Dataset with various forms of complex schema (nesting, arrays, maps), based on JavaBean classes |
+| JavaComplexType.java   | Creating a Dataset with various forms of complex schema (nesting, arrays, maps), based on JavaBean classes |
