@@ -8,6 +8,7 @@ import scala.collection.mutable
 
 //
 // A utility for streaming data through an in-memory queue
+// See https://issues.apache.org/jira/browse/SPARK-17397
 //
 class QueueMaker(sc: SparkContext, ssc:StreamingContext) {
 
