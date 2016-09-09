@@ -16,3 +16,9 @@
 | --------- | ------------------ |
 | [CustomReceiver.scala](CustomReceiver.scala) | Implement a very simple but well behaved custom Receiver. |
 | [Monitoring.scala](Monitoring.scala) | Extend StreamListener to monitor the number of records passing through a stream. |
+
+## Streaming with Apache Kafka
+
+For a new, separate GitHub project that provides self-contained examples of using
+Spark Streaming with Kafka, please look
+[here](https://github.com/spirom/spark-streaming-with-kafka).
