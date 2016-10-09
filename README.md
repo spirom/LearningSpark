@@ -30,6 +30,10 @@ There are a number of things it's important to realize I'm *not* promising to do
 * Keep working on the Java examples
 * Add Python and R as well (this is _really_ unlikely)
 
+If you are using Java 8 or later, you may be interested in the new
+[learning-spark-with-java](https://github.com/spirom/learning-spark-with-java)
+project based completely on Java 8 and Maven.
+
 | Package | What's Illustrated    |
 |---------|-----------------------|
 | [rdd](src/main/java/rdd) | The JavaRDD: core Spark data structure -- see the local README.md in that directory for details. |
