@@ -70,10 +70,10 @@ public class JavaBasic {
         // let's see the elements
         System.out.println("*** Print each element of the transformed RDD");
         System.out.println("*** (they may not even be in the same order)");
-        numbersRDD.foreach(
-            new VoidFunction<Integer>() {
-                public void call(Integer i) {
-                    System.out.println(i);
+        transformedRDD.foreach(
+            new VoidFunction<Double>() {
+                public void call(Double d) {
+                    System.out.println(d);
                 }
             }
         );
