@@ -8,7 +8,7 @@ import org.apache.spark.SparkContext._
 
 import scala.collection.{mutable, Iterator}
 
-// Partition a pair RDD with an integer key witht he given
+// Partition a pair RDD with an integer key with the given
 // partition count
 class KeyPartitioner(np: Int) extends Partitioner {
   def numPartitions = np
