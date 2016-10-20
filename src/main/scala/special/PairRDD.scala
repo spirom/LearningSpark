@@ -24,7 +24,7 @@ class KeyPartitioner(np: Int) extends Partitioner {
 object PairRDD {
   def analyze[T](r: RDD[T]) : Unit = {
     val partitions = r.glom()
-    println(partitions.count() + " parititons")
+    println(partitions.count() + " partitions")
 
     // use zipWithIndex() to see the index of each partition
     // we need to loop sequentially so we can see them in order: use collect()
@@ -75,7 +75,7 @@ object PairRDD {
     // another "out of the box" approach to the reduction is to use
     // "aggregateByKey", which guarantees that all of the partitions
     // can be reduced separately AND IN PARALLEL, and then the partial
-    // results can be combined combined -- essentially this relaxes
+    // results can be combined -- essentially this relaxes
     // the strict condition imposed on "reduceByKey" that the supplied
     // function must be associative
     val reducedRDD2 = pairsRDD.aggregateByKey(Int.MaxValue)(Math.min(_,_), Math.min(_,_))
