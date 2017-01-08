@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="SBT: org.apache.commons:commons-crypto:1.0.0:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.commons/commons-crypto/jars/commons-crypto-1.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.commons/commons-crypto/srcs/commons-crypto-1.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,7 +1,7 @@
 package sql
 
 import org.apache.spark.sql.catalyst.InternalRow
-import org.apache.spark.sql.catalyst.expressions.GenericMutableRow
+//import org.apache.spark.sql.catalyst.expressions.GenericMutableRow
 import org.apache.spark.sql.catalyst.util.{GenericArrayData, ArrayData}
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.{SparkContext, SparkConf}

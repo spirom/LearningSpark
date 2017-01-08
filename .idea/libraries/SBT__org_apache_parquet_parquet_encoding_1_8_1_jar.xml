@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="SBT: org.apache.parquet:parquet-encoding:1.8.1:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.parquet/parquet-encoding/jars/parquet-encoding-1.8.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.parquet/parquet-encoding/srcs/parquet-encoding-1.8.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
