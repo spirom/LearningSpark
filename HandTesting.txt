@@ -41,19 +41,19 @@ special.Range                                    2017-03-17 PASS
 sql.Basic                                        2017-03-17 PASS
 sql.CaseClassSchemaProblem                       2017-03-17 PASS (i.e.: fails as expected)
 sql.ComplexTypes                                 2017-03-17 PASS
-sql.CustomRelationProvider                       2017-03-17 PASS (note: run time deprecation)
+sql.CustomRelationProvider                       2017-03-17 PASS
 sql.DateTime                                     2017-03-17 PASS
 sql.ExternalNonRectangular                       2017-03-17 PASS (note: run time deprecation)
 sql.JSON                                         2017-03-17 PASS
 sql.JSONSchemaInference                          2017-03-17 PASS
-sql.JSONTypes                                    2017-03-17 PASS (note: multiple main classes)
+sql.JSONTypes                                    2017-03-17 PASS
 sql.MixedJSONQuery                               2017-03-17 PASS
 sql.OutputJSON                                   2017-03-17 PASS
 sql.RelationProviderFilterPushdown               2017-03-17 PASS
 sql.SchemaConversion                             2017-03-17 PASS
 sql.Types                                        2017-03-17 PASS
 sql.UDAF                                         2017-03-17 PASS
-sql.UDAF2                                        2017-03-17 PASS (note: multiple main classes)
+sql.UDAF2                                        2017-03-17 PASS
 sql.UDAF_Multi                                   2017-03-17 PASS
 sql.UDF                                          2017-03-17 PASS
 sql.UDT                                          (Not supported in Spark 2.0.0 and beyond)

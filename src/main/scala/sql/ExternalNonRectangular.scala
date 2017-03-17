@@ -170,7 +170,7 @@ object ExternalNonRectangular {
     // (could register several of these with different parameter values)
     spark.sql(
       s"""
-        |CREATE TEMPORARY TABLE dataTable
+        |CREATE TEMPORARY VIEW dataTable
         |USING sql.CustomPFRP2
         |OPTIONS (partitions '9', rows '50')
       """.stripMargin)

@@ -63,7 +63,7 @@ object CustomRelationProvider {
     // Note: as of Spark 1.4.0 option names can contain periods or underscores
     spark.sql(
       s"""
-        |CREATE TEMPORARY TABLE dataTable
+        |CREATE TEMPORARY VIEW dataTable
         |USING sql.CustomRP
         |OPTIONS (partitions '9', rows '50')
       """.stripMargin)
