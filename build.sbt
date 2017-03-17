@@ -18,3 +18,5 @@ libraryDependencies += "org.apache.spark" %% "spark-graphx" % "2.1.0"
 
 // needed to make the hiveql examples run at least on Linux
 javaOptions in run += "-XX:MaxPermSize=128M"
+
+// note: tested with -java-home pointing to a JDK 1.7

@@ -21,6 +21,7 @@ project/plugins/project/
 .scala_dependencies
 .worksheet
 .idea/workspace.xml
+.idea/.name
 
 # Hive
 metastore_db/*
