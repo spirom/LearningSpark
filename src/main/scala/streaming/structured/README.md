@@ -18,7 +18,7 @@ where the newly received records with each batch are dumped tot he console.</p>
 </tr>
 
 <tr>
-<td><a href="Basic.scala">Basic.scala</a></td>
+<td><a href="BasicAggregation.scala">BasicAggregation.scala</a></td>
 <td>
 <p>Introduced the idea of one streaming DataFrame aggregating another.
 With every batch, this time the entire updated aggregation is dumped to the
