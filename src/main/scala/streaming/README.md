@@ -17,6 +17,10 @@
 | [CustomReceiver.scala](CustomReceiver.scala) | Implement a very simple but well behaved custom Receiver. |
 | [Monitoring.scala](Monitoring.scala) | Extend StreamListener to monitor the number of records passing through a stream. |
 
+## Structured Streaming
+
+For examples of structured streaming as introduced in Spark 2.0, see the [structured](structured) directory.
+
 ## Streaming with Apache Kafka
 
 For a new, separate GitHub project that provides self-contained examples of using
