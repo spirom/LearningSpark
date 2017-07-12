@@ -100,7 +100,7 @@ object CustomStreaming {
 
     // register for data
     stream.foreachRDD(r => {
-      println(r.count())
+      println(s"Items: ${r.count()} Partitions: ${r.partitions.size}")
     })
 
     println("*** starting streaming")
