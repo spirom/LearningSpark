@@ -4,6 +4,8 @@
     <option name="deprecationWarnings" value="true" />
     <profile name="SBT 1" modules="learningspark" />
     <profile name="SBT 2" modules="learningspark2">
+      <option name="deprecationWarnings" value="true" />
+      <option name="uncheckedWarnings" value="true" />
       <parameters>
         <parameter value="-target:jvm-1.8" />
       </parameters>

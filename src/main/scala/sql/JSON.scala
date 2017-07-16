@@ -38,7 +38,7 @@ object JSON {
     // manipulations (example below is simplistic) and then turn it into a Schema RDD
     val lines = spark.read.textFile("src/main/resources/data/notFlatBadFieldName.json")
     val linesFixed = lines.map(s => s.replaceAllLiterally("$", ""))
-    val peopleAddrFixed = spark.read.json(linesFixed.rdd)
+    val peopleAddrFixed = spark.read.json(linesFixed)
     peopleAddrFixed.printSchema()
     peopleAddrFixed.createOrReplaceTempView("peopleAddrFixed")
     val inPAFixed = spark.sql("SELECT firstName, lastName FROM peopleAddrFixed WHERE address.state = 'PA'")

@@ -33,7 +33,10 @@ object JSONTypes {
     "{\"date\":\"1969-12-31\", \"ts\": \"1969-12-31 17:00:01.0\"}"
     ), 4)
 
-    val json1 = spark.read.json(text)
+    // needed for toDS() calls on RDDs below
+    import spark.implicits._
+
+    val json1 = spark.read.json(text.toDS())
 
     json1.printSchema()
 
@@ -52,7 +55,7 @@ object JSONTypes {
       "{\"key\":false}"
     ), 4)
 
-    val jsonConflict = spark.read.json(textConflict)
+    val jsonConflict = spark.read.json(textConflict.toDS())
 
     jsonConflict.printSchema()
 
