@@ -106,28 +106,22 @@ object CustomStreaming {
     println("*** starting streaming")
     ssc.start()
 
-    println("*** starting termination monitor")
-
-    new Thread("Streaming Termination Monitor") {
+    new Thread("Delayed Termination") {
       override def run() {
-        try {
-          ssc.awaitTermination()
-        } catch {
-          case e: Exception => {
-            println("*** streaming exception caught in monitor thread")
-            e.printStackTrace()
-          }
-        }
-        println("*** streaming terminated")
+        Thread.sleep(15000)
+        println("*** stopping streaming")
+        ssc.stop()
       }
     }.start()
 
-    println("*** started termination monitor")
-
-    Thread.sleep(10000)
-
-    println("*** stopping streaming")
-    ssc.stop()
+    try {
+      ssc.awaitTermination()
+      println("*** streaming terminated")
+    } catch {
+      case e: Exception => {
+        println("*** streaming exception caught in monitor thread")
+      }
+    }
 
     // wait a bit longer for the call to awaitTermination() to return
     Thread.sleep(5000)

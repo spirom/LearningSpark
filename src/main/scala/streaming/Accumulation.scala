@@ -3,6 +3,13 @@ package streaming
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.{SparkContext, SparkConf}
 
+//
+// This shows a rather simple minded approach to accumulating the data
+// coming from a stream each time a batch is processed. Instead of using a Spark
+// Accumulator it uses a global variable. This can be useful technique in
+// special situations but it's usually not a good idea and rarely the most
+// efficient approach.
+//
 object Accumulation {
   def main (args: Array[String]) {
     val conf = new SparkConf().setAppName("Accumulation").setMaster("local[4]")
@@ -15,13 +22,29 @@ object Accumulation {
     val stream = qm.inputStream
     stream.foreachRDD(r => {
       acc = acc ++ r
-      println(acc.count)
-      println(r.count())
+      println("Count in accumulator: " + acc.count)
+      println("Batch size: " + r.count())
     })
     ssc.start()
-    qm.populateQueue()
-    while (true) {
-      Thread.sleep(100)
+
+    new Thread("Delayed Termination") {
+      override def run() {
+        qm.populateQueue()
+        Thread.sleep(15000)
+        println("*** stopping streaming")
+        ssc.stop()
+      }
+    }.start()
+
+    try {
+      ssc.awaitTermination()
+      println("*** streaming terminated")
+    } catch {
+      case e: Exception => {
+        println("*** streaming exception caught in monitor thread")
+      }
     }
+
+    println("*** done")
   }
 }

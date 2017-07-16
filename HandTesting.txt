@@ -61,13 +61,13 @@ sql.UDAF                                         2017-07-16 PASS
 sql.UDAF2                                        2017-07-16 PASS
 sql.UDAF_Multi                                   2017-07-16 PASS
 sql.UDF                                          2017-07-16 PASS
-streaming.Accumulation                           2017-07-16 PASS (add termination)
-streaming.CustomStreaming                        2017-07-16 PASS (improve termination)
+streaming.Accumulation                           2017-07-16 PASS
+streaming.CustomStreaming                        2017-07-16 PASS
 streaming.ExceptionPropagation                   2017-07-16 PASS
 streaming.FileBasedStreaming                     2017-07-16 PASS
 streaming.FullMonitoring                         2017-07-16 PASS
 streaming.Monitoring                             2017-07-16 PASS
 streaming.QueueBasedStreaming                    2017-07-16 PASS
-streaming.Windowing                              2017-07-16 PASS (Scary warnings) (add termination)
+streaming.Windowing                              2017-07-16 PASS (Scary warnings)
 streaming.structured.Basic                       2017-07-17 PASS
 streaming.structured.BasicAggregation            2017-07-17 PASS

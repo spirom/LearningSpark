@@ -27,11 +27,22 @@ object Windowing {
     // start streaming
     ssc.start()
 
-    // start producing data
-    qm.populateQueue()
+    new Thread("Delayed Termination") {
+      override def run() {
+        qm.populateQueue()
+        Thread.sleep(20000)
+        println("*** stopping streaming")
+        ssc.stop()
+      }
+    }.start()
 
-    while (true) {
-      Thread.sleep(100)
+    try {
+      ssc.awaitTermination()
+      println("*** streaming terminated")
+    } catch {
+      case e: Exception => {
+        println("*** streaming exception caught in monitor thread")
+      }
     }
   }
 }
