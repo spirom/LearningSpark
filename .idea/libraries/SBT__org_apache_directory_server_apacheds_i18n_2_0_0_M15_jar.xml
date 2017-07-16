@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="SBT: org.apache.directory.server:apacheds-i18n:2.0.0-M15:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.directory.server/apacheds-i18n/bundles/apacheds-i18n-2.0.0-M15.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.directory.server/apacheds-i18n/srcs/apacheds-i18n-2.0.0-M15-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="SBT: org.apache.hadoop:hadoop-annotations:2.6.5:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.hadoop/hadoop-annotations/jars/hadoop-annotations-2.6.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.hadoop/hadoop-annotations/srcs/hadoop-annotations-2.6.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="SBT: org.codehaus.jettison:jettison:1.1:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.codehaus.jettison/jettison/bundles/jettison-1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.codehaus.jettison/jettison/srcs/jettison-1.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

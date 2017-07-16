@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="SBT: org.htrace:htrace-core:3.0.4:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.htrace/htrace-core/jars/htrace-core-3.0.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.htrace/htrace-core/srcs/htrace-core-3.0.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

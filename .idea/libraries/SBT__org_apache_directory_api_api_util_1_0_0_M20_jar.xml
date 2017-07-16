@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="SBT: org.apache.directory.api:api-util:1.0.0-M20:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.directory.api/api-util/bundles/api-util-1.0.0-M20.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.directory.api/api-util/srcs/api-util-1.0.0-M20-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

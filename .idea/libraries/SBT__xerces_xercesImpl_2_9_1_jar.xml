@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SBT: xerces:xercesImpl:2.9.1:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/xerces/xercesImpl/jars/xercesImpl-2.9.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

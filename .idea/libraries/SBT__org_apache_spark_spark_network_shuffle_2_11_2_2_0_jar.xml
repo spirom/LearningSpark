@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="SBT: org.apache.spark:spark-network-shuffle_2.11:2.2.0:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.spark/spark-network-shuffle_2.11/jars/spark-network-shuffle_2.11-2.2.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.spark/spark-network-shuffle_2.11/srcs/spark-network-shuffle_2.11-2.2.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
