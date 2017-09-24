@@ -24,3 +24,4 @@ details.
 | File                  | What's Illustrated    |
 |-----------------------|-----------------------|
 | ComplexType.scala   | Creating a Dataset with various forms of complex schema (nesting, arrays, maps, nullability), based on case classes |
+| PartitionBy.scala | Using partitionBy() when writing a DataSet to organize the output into a directory hierarchy. |
