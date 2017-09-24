@@ -16,7 +16,7 @@ object Basic {
 
     import spark.implicits._
 
-    // Create a tiny Dataset of itnegers
+    // Create a tiny Dataset of integers
     val s = Seq(10, 11, 12, 13, 14, 15)
     val ds = s.toDS()
 
