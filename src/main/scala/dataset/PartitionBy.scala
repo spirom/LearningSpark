@@ -42,41 +42,6 @@ object PartitionBy {
   case class Transaction(id: Long, year: Int, month: Int, day: Int,
                          quantity: Long, price: Double)
 
-  /**
-    * Clean up the output from the last run
-    */
-  private def deleteRecursively(file: File): Unit = {
-    if (file.isDirectory)
-      file.listFiles.foreach(deleteRecursively)
-    if (file.exists && !file.delete)
-      throw new Exception(s"Unable to delete ${file.getAbsolutePath}")
-  }
-
-  /**
-    * Count the number of generated files witht he given suffix
-    */
-  private def countRecursively(file: File, suffix:String): Int = {
-    if (file.isDirectory) {
-      val counts = file.listFiles.map(f => countRecursively(f, suffix))
-      counts.toList.sum
-    } else {
-      if (file.getName.endsWith(suffix)) 1 else 0
-    }
-  }
-
-  /**
-    * Print the directory hierarchy
-    */
-  private def printRecursively(file: File, indent: Int = 0) : Unit = {
-    0.to(indent).foreach(i => print("  "))
-    if (file.isDirectory) {
-      println("Directory: " + file.getName)
-      file.listFiles.foreach(f => printRecursively(f, indent + 1))
-    } else {
-      println("File: " + file.getName)
-    }
-  }
-
   def main(args: Array[String]) {
 
     // output goes here
@@ -90,7 +55,7 @@ object PartitionBy {
         .config("spark.default.parallelism", 12)
         .getOrCreate()
 
-    deleteRecursively(new File(exampleRoot))
+    utils.PartitionedTableHierarchy.deleteRecursively(new File(exampleRoot))
 
     import spark.implicits._
 
@@ -148,9 +113,9 @@ object PartitionBy {
       .csv(simpleRoot)
 
     println("*** Simple output file count: " +
-      countRecursively(new File(simpleRoot), ".csv"))
+      utils.PartitionedTableHierarchy.countRecursively(new File(simpleRoot), ".csv"))
 
-    printRecursively(new File(simpleRoot))
+    utils.PartitionedTableHierarchy. printRecursively(new File(simpleRoot))
 
 
     //
@@ -171,9 +136,9 @@ object PartitionBy {
       .csv(partitionedRoot)
 
     println("*** Date partitioned output file count: " +
-      countRecursively(new File(partitionedRoot), ".csv"))
+      utils.PartitionedTableHierarchy.countRecursively(new File(partitionedRoot), ".csv"))
 
-    printRecursively(new File(partitionedRoot))
+    utils.PartitionedTableHierarchy.printRecursively(new File(partitionedRoot))
 
     //
     // Now we'll repartition the DataSet before writing it out. You have some
@@ -192,9 +157,9 @@ object PartitionBy {
       .csv(repartitionedRoot)
 
     println("*** Date repartitioned output file count: " +
-      countRecursively(new File(repartitionedRoot), ".csv"))
+      utils.PartitionedTableHierarchy.countRecursively(new File(repartitionedRoot), ".csv"))
 
-    printRecursively(new File(repartitionedRoot))
+    utils.PartitionedTableHierarchy.printRecursively(new File(repartitionedRoot))
 
     //
     // Now we'll read the data back from the hierarchy of CSV files. Notice
