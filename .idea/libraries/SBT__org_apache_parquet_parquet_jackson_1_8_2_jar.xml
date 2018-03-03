@@ -4,8 +4,6 @@
       <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.parquet/parquet-jackson/jars/parquet-jackson-1.8.2.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.parquet/parquet-jackson/srcs/parquet-jackson-1.8.2-sources.jar!/" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>

@@ -1,73 +1,77 @@
-Ex1_SimpleRDD                                    2017-07-16 PASS
-Ex2_Computations                                 2017-07-16 PASS (With expected exceptions)
-Ex3_CombiningRDDs                                2017-07-16 PASS (With expected exceptions)
-Ex4_MoreOperationsOnRDDs                         2017-07-16 PASS
-Ex5_Partitions                                   2017-07-16 PASS
-Ex6_Accumulators                                 2017-07-16 PASS
-Ex9_Scraps                                       2017-07-16 PASS
-dataframe.Basic                                  2017-07-16 PASS
-dataframe.ComplexSchema                          2017-07-16 PASS
-dataframe.DatasetConversion                      2017-07-16 PASS
-dataframe.DateTime                               2017-07-16 PASS
-dataframe.DropColumns                            2017-07-16 PASS
-dataframe.DropDuplicates                         2017-07-16 PASS
-dataframe.FromRowsAndSchema                      2017-07-16 PASS
-dataframe.GroupingAndAggregation                 2017-07-16 PASS
-dataframe.JavaDatasetConversion                  2017-07-16 PASS
-dataframe.JavaFromRowsAndSchema                  2017-07-16 PASS
-dataframe.Range                                  2017-07-16 PASS
-dataframe.Select                                 2017-07-16 PASS
-dataframe.SimpleCreation                         2017-07-16 PASS
-dataframe.Transform                              2017-07-16 PASS
-dataframe.UDAF                                   2017-07-16 PASS
-dataframe.UDF                                    2017-07-16 PASS
-dataset.Basic                                    2017-07-16 PASS
-dataset.CaseClass                                2017-07-16 PASS
-dataset.ComplexType                              2017-07-16 PASS
-dataset.JavaBasic                                2017-07-16 PASS
-dataset.JavaBean                                 2017-07-16 PASS
-dataset.JavaComplexType                          2017-07-16 PASS
+Ex1_SimpleRDD                                    2018-03-03 PASS
+Ex2_Computations                                 2018-03-03 PASS (With expected exceptions)
+Ex3_CombiningRDDs                                2018-03-03 PASS (With expected exceptions)
+Ex4_MoreOperationsOnRDDs                         2018-03-03 PASS
+Ex5_Partitions                                   2018-03-03 PASS
+Ex6_Accumulators                                 2018-03-03 PASS
+Ex9_Scraps                                       2018-03-03 PASS
+dataframe.Basic                                  2018-03-03 PASS
+dataframe.ComplexSchema                          2018-03-03 PASS
+dataframe.DatasetConversion                      2018-03-03 PASS
+dataframe.DateTime                               2018-03-03 PASS
+dataframe.DropColumns                            2018-03-03 PASS
+dataframe.DropDuplicates                         2018-03-03 PASS
+dataframe.FromRowsAndSchema                      2018-03-03 PASS
+dataframe.GroupingAndAggregation                 2018-03-03 PASS
+dataframe.JavaDatasetConversion                  2018-03-03 PASS
+dataframe.JavaFromRowsAndSchema                  2018-03-03 PASS
+dataframe.Range                                  2018-03-03 PASS
+dataframe.Select                                 2018-03-03 PASS
+dataframe.SimpleCreation                         2018-03-03 PASS
+dataframe.Transform                              2018-03-03 PASS
+dataframe.UDAF                                   2018-03-03 PASS
+dataframe.UDF                                    2018-03-03 PASS
+dataset.Basic                                    2018-03-03 PASS
+dataset.CaseClass                                2018-03-03 PASS
+dataset.ComplexType                              2018-03-03 PASS
+dataset.PartitionBy                              2018-03-03 PASS
+dataset.JavaBasic                                2018-03-03 PASS
+dataset.JavaBean                                 2018-03-03 PASS
+dataset.JavaComplexType                          2018-03-03 PASS
 
 
 
 
 
-graphx.SecondDegreeNeighbors                     2017-07-16 PASS
-hiveql.LateralViewExplode                        2017-07-16 PASS*
-hiveql.SimpleUDAF                                2017-07-16 PASS*
-hiveql.SimpleUDF                                 2017-07-16 PASS*
-pairs.chooseWithinGroups                         2017-07-16 PASS
-rdd.JavaBasic                                    2017-07-16 PASS
-special.CustomPartitioner                        2017-07-16 PASS
-special.HashJoin                                 2017-07-16 PASS
-special.PairRDD                                  2017-07-16 PASS
-special.Range                                    2017-07-16 PASS
-sql.Basic                                        2017-07-16 PASS
-sql.CaseClassSchemaProblem                       2017-07-16 PASS (i.e.: fails as expected)
-sql.ComplexTypes                                 2017-07-16 PASS
-sql.CaseWhenThen                                 2017-07-16 PASS
-sql.CustomRelationProvider                       2017-07-16 PASS
-sql.DateTime                                     2017-07-16 PASS
-sql.ExternalNonRectangular                       2017-07-16 FAIL (runtime crash)
-sql.JSON                                         2017-07-16 PASS
-sql.JSONSchemaInference                          2017-07-16 PASS
-sql.JSONTypes                                    2017-07-16 PASS
-sql.MixedJSONQuery                               2017-07-16 PASS
-sql.OutputJSON                                   2017-07-16 PASS
-sql.RelationProviderFilterPushdown               2017-07-16 PASS
-sql.SchemaConversion                             2017-07-16 PASS
-sql.Types                                        2017-07-16 PASS
-sql.UDAF                                         2017-07-16 PASS
-sql.UDAF2                                        2017-07-16 PASS
-sql.UDAF_Multi                                   2017-07-16 PASS
-sql.UDF                                          2017-07-16 PASS
-streaming.Accumulation                           2017-07-16 PASS
-streaming.CustomStreaming                        2017-07-16 PASS
-streaming.ExceptionPropagation                   2017-07-16 PASS
-streaming.FileBasedStreaming                     2017-07-16 PASS
-streaming.FullMonitoring                         2017-07-16 PASS
-streaming.Monitoring                             2017-07-16 PASS
-streaming.QueueBasedStreaming                    2017-07-16 PASS
-streaming.Windowing                              2017-07-16 PASS (Scary warnings)
-streaming.structured.Basic                       2017-07-17 PASS
-streaming.structured.BasicAggregation            2017-07-17 PASS
+graphx.SecondDegreeNeighbors                     2018-03-03 PASS
+hiveql.LateralViewExplode                        2018-03-03 PASS*
+hiveql.PartitionedTable                          2018-03-03 *** ODD WARNINGS ***
+hiveql.SimpleUDAF                                2018-03-03 PASS*
+hiveql.SimpleUDF                                 2018-03-03 PASS*
+pairs.chooseWithinGroups                         2018-03-03 PASS
+rdd.JavaBasic                                    2018-03-03 PASS
+special.CustomPartitioner                        2018-03-03 PASS
+special.HashJoin                                 2018-03-03 PASS
+special.PairRDD                                  2018-03-03 PASS
+special.Range                                    2018-03-03 PASS
+sql.Basic                                        2018-03-03 PASS
+sql.CaseClassSchemaProblem                       2018-03-03 PASS (i.e.: fails as expected)
+sql.ComplexTypes                                 2018-03-03 PASS
+sql.CaseWhenThen                                 2018-03-03 PASS
+sql.CustomRelationProvider                       2018-03-03 PASS
+sql.DateTime                                     2018-03-03 PASS
+sql.ExternalNonRectangular                       2018-03-03 FAIL (runtime crash)
+sql.JSON                                         2018-03-03 PASS
+sql.JSONSchemaInference                          2018-03-03 PASS
+sql.JSONTypes                                    2018-03-03 PASS
+sql.MixedJSONQuery                               2018-03-03 PASS
+sql.OutputJSON                                   2018-03-03 PASS
+sql.PartitionedTable                             2018-03-03 PASS
+sql.RelationProviderFilterPushdown               2018-03-03 PASS
+sql.SchemaConversion                             2018-03-03 PASS
+sql.Types                                        2018-03-03 PASS
+sql.UDAF                                         2018-03-03 PASS
+sql.UDAF2                                        2018-03-03 PASS
+sql.UDAF_Multi                                   2018-03-03 PASS
+sql.UDF                                          2018-03-03 PASS
+streaming.structured.Basic                       2018-03-03 PASS
+streaming.structured.BasicAggregation            2018-03-03 PASS
+streaming.Accumulation                           2018-03-03 PASS
+streaming.CustomStreaming                        2018-03-03 PASS
+streaming.ExceptionPropagation                   2018-03-03 PASS
+streaming.FileBasedStreaming                     2018-03-03 PASS
+streaming.FullMonitoring                         2018-03-03 PASS
+streaming.Monitoring                             2018-03-03 PASS
+streaming.QueueBasedStreaming                    2018-03-03 PASS
+streaming.Windowing                              2018-03-03 PASS (Scary warnings)
+

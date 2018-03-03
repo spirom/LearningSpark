@@ -4,8 +4,6 @@
       <root url="jar://$USER_HOME$/.ivy2/cache/org.iq80.snappy/snappy/jars/snappy-0.2.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$USER_HOME$/.ivy2/cache/org.iq80.snappy/snappy/srcs/snappy-0.2-sources.jar!/" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>

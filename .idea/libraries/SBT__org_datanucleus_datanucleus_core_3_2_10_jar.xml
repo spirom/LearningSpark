@@ -4,8 +4,6 @@
       <root url="jar://$USER_HOME$/.ivy2/cache/org.datanucleus/datanucleus-core/jars/datanucleus-core-3.2.10.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$USER_HOME$/.ivy2/cache/org.datanucleus/datanucleus-core/srcs/datanucleus-core-3.2.10-sources.jar!/" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>

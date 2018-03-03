@@ -4,8 +4,6 @@
       <root url="jar://$USER_HOME$/.ivy2/cache/com.google.code.gson/gson/jars/gson-2.2.4.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$USER_HOME$/.ivy2/cache/com.google.code.gson/gson/srcs/gson-2.2.4-sources.jar!/" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>

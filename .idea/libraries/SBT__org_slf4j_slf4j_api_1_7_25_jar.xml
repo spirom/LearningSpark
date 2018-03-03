@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SBT: org.slf4j:slf4j-api:1.7.25:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.slf4j/slf4j-api/jars/slf4j-api-1.7.25.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

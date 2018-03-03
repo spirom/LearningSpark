@@ -4,8 +4,6 @@
       <root url="jar://$USER_HOME$/.ivy2/cache/com.esotericsoftware/kryo-shaded/bundles/kryo-shaded-3.0.3.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$USER_HOME$/.ivy2/cache/com.esotericsoftware/kryo-shaded/srcs/kryo-shaded-3.0.3-sources.jar!/" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>

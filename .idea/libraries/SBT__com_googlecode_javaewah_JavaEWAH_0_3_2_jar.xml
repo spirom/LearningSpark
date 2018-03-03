@@ -4,8 +4,6 @@
       <root url="jar://$USER_HOME$/.ivy2/cache/com.googlecode.javaewah/JavaEWAH/jars/JavaEWAH-0.3.2.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$USER_HOME$/.ivy2/cache/com.googlecode.javaewah/JavaEWAH/srcs/JavaEWAH-0.3.2-sources.jar!/" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>

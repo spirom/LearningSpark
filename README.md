@@ -14,7 +14,7 @@ It is intended to accompany a number of posts on the blog
 ## Dependencies
 
 The project was created with IntelliJ Idea 14 Community Edition,
-currently using JDK 1.8, Scala 2.11.8 and Spark 2.2.0 on Ubuntu Linux.
+currently using JDK 1.8, Scala 2.11.12 and Spark 2.3.0 on Ubuntu Linux.
 
 Versions of these examples for other configurations (older versions of Scala and Spark) can be
 found in various branches.
