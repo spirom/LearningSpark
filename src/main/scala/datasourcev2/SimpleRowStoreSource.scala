@@ -7,7 +7,7 @@ import org.apache.spark.sql.sources.v2.reader.{DataReader, DataReaderFactory, Da
 import org.apache.spark.sql.types.StructType
 
 
-import java.util.{List => JList, Optional, ArrayList}
+import java.util.{List => JList, Optional}
 
 import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 
@@ -56,7 +56,7 @@ class SimpleRowStoreSource extends DataSourceV2 with ReadSupport with WriteSuppo
     val rowBuffer = new ListBuffer[Row]()
 
     override def createWriterFactory(): DataWriterFactory[Row] = {
-      val factory = new SimpleRowStoreWriterFactory(rowBuffer)
+      val factory = new SimpleRowStoreWriterFactory()
       factory
     }
 
@@ -107,21 +107,19 @@ class SimpleRowStoreReaderFactory(start: Int, end: Int, data: ArrayBuffer[Row])
   override def close(): Unit = {}
 }
 
-class SimpleRowStoreWriterFactory(rowBuffer: ListBuffer[Row])
-  extends DataWriterFactory[Row] {
+class SimpleRowStoreWriterFactory extends DataWriterFactory[Row] {
 
   override def createDataWriter(partitionId: Int,
                                 attemptNumber: Int): DataWriter[Row] = {
-    new SimpleRowStoreWriter(rowBuffer)
+    new SimpleRowStoreWriter()
   }
 }
 
 /**
  * THe writer maintains a local buffer of uncommitted records, which are
  * returned to the driver on a commit. THis buffer is cleared on a commit or abort.
- * @param rowBuffer
  */
-class SimpleRowStoreWriter(rowBuffer: ListBuffer[Row]) extends DataWriter[Row] {
+class SimpleRowStoreWriter extends DataWriter[Row] {
 
   private val uncommitted = new ListBuffer[Row]()
 
