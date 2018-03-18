@@ -8,4 +8,4 @@ This is an exploration of the **_experimental_** data source V2 API introduced i
 
 | File                  | What's Illustrated    |
 |-----------------------|-----------------------|
-| SimpleRowStoreSource | Simplest possible row-oriented data source with read and write support. |
+| [SimpleRowStoreSource.scala](SimpleRowStoreSource.scala) | Simplest possible row-oriented data source with read and write support. |
