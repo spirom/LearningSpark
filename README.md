@@ -63,7 +63,7 @@ The examples can be found under src/main/scala. The best way to use them is to s
 | [dataset](src/main/scala/dataset) | A range of Dataset examples (queryable collection that is statically typed) -- see the local README.md in that directory for details. |
 | [dataframe](src/main/scala/dataframe) | A range of DataFrame examples (queryable collection that is dynamically -- and weakly -- typed)-- see the local README.md in that directory for details. |
 | [sql](src/main/scala/sql) | A range of SQL examples -- see the local README.md in that directory for details.  |
-| [datasourcev2](src/main/scala/datasourcev2) | New experimental data source API as of Spark 2.3.0 -- see the local README.md in that directory for details. |
+| datasourcev2 | New experimental data source API as of Spark 2.3.0 -- removed in favor of the new repository [https://github.com/spirom/spark-data-sources](https://github.com/spirom/spark-data-sources), which explores the new API in some detail.**. |
 | [streaming](src/main/scala/streaming) | Streaming examples -- see the local README.md in that directory for details.  |
 | [streaming/structured](src/main/scala/streaming/structured) | Structured streaming examples (Spark 2.0) -- see the local README.md in that directory for details.  |
 | [graphx](src/main/scala/graphx) | A range of GraphX examples -- see the local README.md in that directory for details. |
