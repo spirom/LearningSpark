@@ -15,15 +15,32 @@ import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 
 /**
  * A very simple simulation of a database -- a mutable object on the driver.
- * THis is a rather extreme over-simplification to keep the complexity of the
+ * This is a rather extreme over-simplification to keep the complexity of the
  * example under control.
  */
 object GlobalData {
-  val data = new ArrayBuffer[Row]
+  private val data = new ArrayBuffer[Row]
   println("*** creating the initial data")
   for (i <- 0 to 9) {
     data += Row(i, -i)
   }
+
+  def nonEmpty = data.nonEmpty
+
+  def rowCount = data.size
+
+  // for writing
+  def clear() : Unit = {
+    data.clear()
+  }
+
+  // for writing
+  def add(rowsToAdd: ListBuffer[Row]) : Unit = {
+    data ++= rowsToAdd
+  }
+
+  // for reading
+  def rowSnapshot : ArrayBuffer[Row] = data.clone()
 }
 
 /**
@@ -45,10 +62,10 @@ class SimpleRowStoreSource extends DataSourceV2 with ReadSupport with WriteSuppo
      * @return
      */
     override def createDataReaderFactories(): JList[DataReaderFactory[Row]] = {
-      println(s"*** creating data reader with ${GlobalData.data.size} rows")
-      val middle = GlobalData.data.size / 2
-      java.util.Arrays.asList(new SimpleRowStoreReaderFactory(0, middle, GlobalData.data),
-        new SimpleRowStoreReaderFactory(middle, GlobalData.data.size, GlobalData.data))
+      println(s"*** creating data reader with ${GlobalData.rowCount} rows")
+      val middle = GlobalData.rowCount / 2
+      java.util.Arrays.asList(new SimpleRowStoreReaderFactory(0, middle, GlobalData.rowSnapshot),
+        new SimpleRowStoreReaderFactory(middle, GlobalData.rowCount, GlobalData.rowSnapshot))
     }
   }
 
@@ -66,8 +83,8 @@ class SimpleRowStoreSource extends DataSourceV2 with ReadSupport with WriteSuppo
         println(s"*** job level partial commit of ${partialCommit.rows.size} rows")
         rowBuffer ++= partialCommit.rows
       })
-      GlobalData.data ++= rowBuffer
-      println(s"*** job level commit of ${GlobalData.data.size} rows")
+      GlobalData.add(rowBuffer)
+      println(s"*** job level commit of ${GlobalData.rowCount} rows")
 
     }
 
@@ -85,6 +102,19 @@ class SimpleRowStoreSource extends DataSourceV2 with ReadSupport with WriteSuppo
                              schema: StructType,
                              mode: SaveMode,
                              options: DataSourceOptions): Optional[DataSourceWriter] = {
+    if (mode == SaveMode.ErrorIfExists) {
+      if (GlobalData.nonEmpty) {
+        throw new RuntimeException("data already exists")
+      }
+    }
+    if (mode == SaveMode.Ignore) {
+      if (GlobalData.nonEmpty) {
+        return Optional.empty()
+      }
+    }
+    if (mode == SaveMode.Overwrite) {
+      GlobalData.clear()
+    }
     Optional.of(new Writer)
   }
 }
@@ -156,21 +186,73 @@ object SimpleRowStoreSource {
         .master("local[4]")
         .getOrCreate()
 
+    //
+    // Set up the data source: it has data by default so see what it is
+    //
     val source = "datasourcev2.SimpleRowStoreSource"
-
     val df = spark.read.format(source).load()
-
+    println("*** Initial contents of data source")
     df.printSchema()
-
     df.show()
 
-    df.write.format(source).mode("overwrite").save()
+    //
+    // Set up another data frame to write to the above data source in
+    // various values of SaveMode
+    //
+    val rowsToWrite = Seq(
+      Row(100, -100),
+      Row(200, -200),
+      Row(300, -300),
+      Row(400, -400)
+    )
+    val rowsToWriteRDD = spark.sparkContext.parallelize(rowsToWrite, 4)
+    val dfToWrite = spark.createDataFrame(rowsToWriteRDD, df.schema)
 
+    //
+    // SaveMode.ErrorIfExists
+    //
+    try {
+      dfToWrite.write.format(source).mode(SaveMode.ErrorIfExists).save()
+      println("*** Write should have failed, but didn't!")
+    } catch  {
+      case re: RuntimeException => {
+        println(s"*** Threw RuntimeException as expected: ${re.getMessage}")
+      }
+      case e: Exception => {
+        println(s"*** Threw unexpected exception: ${e.getMessage}")
+      }
+    }
+    val df1 = spark.read.format(source).load()
+    println("*** SaveMode.ErrorIfExists: exception and no change")
+    df1.printSchema()
+    df1.show()
+
+    //
+    // SaveMode.Append
+    //
+    dfToWrite.write.format(source).mode(SaveMode.Append).save()
     val df2 = spark.read.format(source).load()
-
+    println("*** SaveMode.Append: rows are added")
     df2.printSchema()
-
     df2.show()
+
+    //
+    // SaveMode.Overwrite
+    //
+    dfToWrite.write.format(source).mode(SaveMode.Overwrite).save()
+    val df3 = spark.read.format(source).load()
+    println("*** SaveMode.Overwrite: old rows are replaced")
+    df3.printSchema()
+    df3.show()
+
+    //
+    // SaveMode.Ignore
+    //
+    dfToWrite.write.format(source).mode(SaveMode.Ignore).save()
+    val df4 = spark.read.format(source).load()
+    println("*** SaveMode.Ignore: no change")
+    df4.printSchema()
+    df4.show()
 
     spark.stop()
 

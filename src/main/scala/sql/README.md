@@ -37,6 +37,10 @@ DataFrame API and especially it's query language.
 
 ## External Data Sources
 
+**Note: The following examples use the original external data source API. For the new V2 API introduced in
+Spark 2.3.0, see [https://github.com/spirom/spark-data-sources](https://github.com/spirom/spark-data-sources),
+which explores the new API in some detail.**
+
 | File                  | What's Illustrated    |
 |-----------------------|-----------------------|
 | CustomRelationProvider | How to use the external data source provider for simple integration with an external database engine. See the blog post [External Data Sources in Spark 1.2.0](http://www.river-of-bytes.com/2014/12/external-data-sources-in-spark-120.html).|
