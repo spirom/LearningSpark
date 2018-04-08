@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sbt: com.fasterxml.jackson.module:jackson-module-scala_2.11:2.6.7.1:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.fasterxml.jackson.module/jackson-module-scala_2.11/bundles/jackson-module-scala_2.11-2.6.7.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.fasterxml.jackson.module/jackson-module-scala_2.11/srcs/jackson-module-scala_2.11-2.6.7.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

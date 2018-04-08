@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sbt: com.twitter:chill_2.11:0.8.4:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.twitter/chill_2.11/jars/chill_2.11-0.8.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.twitter/chill_2.11/srcs/chill_2.11-0.8.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

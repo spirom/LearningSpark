@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sbt: org.glassfish.hk2:hk2-utils:2.4.0-b34:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.glassfish.hk2/hk2-utils/jars/hk2-utils-2.4.0-b34.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.glassfish.hk2/hk2-utils/srcs/hk2-utils-2.4.0-b34-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

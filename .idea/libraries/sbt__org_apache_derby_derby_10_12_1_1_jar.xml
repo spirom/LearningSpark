@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="sbt: org.apache.derby:derby:10.12.1.1:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.derby/derby/jars/derby-10.12.1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

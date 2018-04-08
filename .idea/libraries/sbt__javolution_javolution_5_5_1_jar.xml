@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sbt: javolution:javolution:5.5.1:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/javolution/javolution/bundles/javolution-5.5.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/javolution/javolution/srcs/javolution-5.5.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

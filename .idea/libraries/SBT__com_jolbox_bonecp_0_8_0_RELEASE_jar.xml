@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="SBT: com.jolbox:bonecp:0.8.0.RELEASE:jar">
-    <CLASSES>
-      <root url="jar://$USER_HOME$/.ivy2/cache/com.jolbox/bonecp/bundles/bonecp-0.8.0.RELEASE.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

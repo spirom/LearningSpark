@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sbt: javax.servlet:javax.servlet-api:3.1.0:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/javax.servlet/javax.servlet-api/jars/javax.servlet-api-3.1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/javax.servlet/javax.servlet-api/srcs/javax.servlet-api-3.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sbt: org.scala-lang:scalap:2.11.12:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.scala-lang/scalap/jars/scalap-2.11.12.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.scala-lang/scalap/srcs/scalap-2.11.12-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

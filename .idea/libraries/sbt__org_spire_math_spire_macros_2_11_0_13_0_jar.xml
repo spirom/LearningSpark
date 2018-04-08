@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sbt: org.spire-math:spire-macros_2.11:0.13.0:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.spire-math/spire-macros_2.11/jars/spire-macros_2.11-0.13.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.spire-math/spire-macros_2.11/srcs/spire-macros_2.11-0.13.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

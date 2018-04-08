@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="sbt: org.apache.orc:orc-core:1.4.1:nohive:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.orc/orc-core/jars/orc-core-1.4.1-nohive.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

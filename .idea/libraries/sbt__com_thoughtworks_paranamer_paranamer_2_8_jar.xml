@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sbt: com.thoughtworks.paranamer:paranamer:2.8:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.thoughtworks.paranamer/paranamer/bundles/paranamer-2.8.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.thoughtworks.paranamer/paranamer/srcs/paranamer-2.8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

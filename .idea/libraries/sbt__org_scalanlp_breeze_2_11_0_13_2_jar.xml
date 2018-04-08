@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sbt: org.scalanlp:breeze_2.11:0.13.2:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.scalanlp/breeze_2.11/jars/breeze_2.11-0.13.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.scalanlp/breeze_2.11/srcs/breeze_2.11-0.13.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

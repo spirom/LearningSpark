@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sbt: org.bouncycastle:bcprov-jdk15on:1.52:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.bouncycastle/bcprov-jdk15on/jars/bcprov-jdk15on-1.52.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.bouncycastle/bcprov-jdk15on/srcs/bcprov-jdk15on-1.52-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

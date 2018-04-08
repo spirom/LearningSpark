@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sbt: io.airlift:aircompressor:0.8:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/io.airlift/aircompressor/jars/aircompressor-0.8.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/io.airlift/aircompressor/srcs/aircompressor-0.8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

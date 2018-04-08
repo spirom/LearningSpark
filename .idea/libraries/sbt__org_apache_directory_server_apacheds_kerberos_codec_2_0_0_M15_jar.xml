@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sbt: org.apache.directory.server:apacheds-kerberos-codec:2.0.0-M15:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.directory.server/apacheds-kerberos-codec/bundles/apacheds-kerberos-codec-2.0.0-M15.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.directory.server/apacheds-kerberos-codec/srcs/apacheds-kerberos-codec-2.0.0-M15-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
