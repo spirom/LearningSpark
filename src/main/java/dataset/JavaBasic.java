@@ -42,7 +42,7 @@ public class JavaBasic {
             }
         });
 
-        ds.show();
+        ds2.show();
 
         List<Tuple3<Integer, String, String>> tuples =
             Arrays.asList(
